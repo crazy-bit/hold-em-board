@@ -1,0 +1,9 @@
+{
+  "name": "finishMatch",
+  "version": "1.0.0",
+  "description": "结束赛程",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

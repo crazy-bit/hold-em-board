@@ -1,0 +1,48 @@
+<!-- pages/member/detail/detail.wxml -->
+<view class="container">
+  <!-- 成员信息头部 -->
+  <view class="member-header card">
+    <view class="flex-between">
+      <view>
+        <text class="member-name">{{memberInfo.nickName}}</text>
+        <text class="meta-text">参与 {{scores.length}} 期赛程</text>
+      </view>
+      <view class="total-wrap">
+        <text class="total-label">总积分</text>
+        <text class="total-points {{totalPoints >= 0 ? 'positive' : 'negative'}}">
+          {{totalPoints >= 0 ? '+' : ''}}{{totalPoints}}
+        </text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 历史赛程积分 -->
+  <text class="section-title">历史赛程记录</text>
+
+  <view class="empty-state" wx:if="{{scores.length === 0}}">
+    <text style="font-size:60rpx;">📊</text>
+    <text style="margin-top:16rpx;">暂无赛程记录</text>
+  </view>
+
+  <view
+    class="score-card card"
+    wx:for="{{scores}}"
+    wx:key="_id"
+  >
+    <view class="flex-between">
+      <view>
+        <text class="match-title">{{item.matchTitle || '赛程'}}</text>
+        <text class="match-date">{{item.matchDateStr}}</text>
+      </view>
+      <view style="text-align:right;">
+        <text class="score-points {{item.points >= 0 ? 'positive' : 'negative'}}" wx:if="{{item.points !== null}}">
+          {{item.points >= 0 ? '+' : ''}}{{item.points}}
+        </text>
+        <text class="score-points unfilled" wx:else>未结算</text>
+        <view class="chips-detail">
+          <text>{{item.initialChips}} → {{item.finalChips !== null ? item.finalChips : '?'}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

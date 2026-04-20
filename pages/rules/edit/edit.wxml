@@ -1,0 +1,77 @@
+<!-- pages/rules/edit/edit.wxml -->
+<view class="container">
+  <text class="page-title">积分规则配置</text>
+
+  <!-- 额外加成是否计入总积分 -->
+  <view class="card">
+    <view class="flex-between">
+      <view>
+        <text class="rule-label">额外加成计入总积分</text>
+        <text class="rule-desc">开启后，额外加成将加入本期积分计算</text>
+      </view>
+      <switch
+        checked="{{bonusCountsToTotal}}"
+        bindchange="onBonusToggle"
+        color="#e94560"
+      />
+    </view>
+  </view>
+
+  <!-- 筹码规则列表 -->
+  <view class="card">
+    <view class="flex-between" style="margin-bottom:24rpx;">
+      <text class="section-title" style="margin-bottom:0;">初始筹码规则</text>
+      <view class="add-btn" bindtap="addRule">+ 添加名次</view>
+    </view>
+
+    <!-- 规则说明 -->
+    <text class="rule-tip">名次=0 为默认规则（未上榜成员适用）</text>
+
+    <!-- 规则行 -->
+    <view class="rule-row" wx:for="{{chipRules}}" wx:key="index">
+      <view class="flex-between rule-header">
+        <text class="rank-label">
+          {{item.rank === 0 ? '默认（未上榜）' : '第 ' + item.rank + ' 名'}}
+        </text>
+        <view class="del-btn" bindtap="deleteRule" data-index="{{index}}" wx:if="{{item.rank !== 0}}">
+          删除
+        </view>
+      </view>
+      <view class="flex-row rule-inputs">
+        <view class="input-group">
+          <text class="input-label">初始筹码</text>
+          <input
+            class="input-field rule-input"
+            type="number"
+            value="{{item.initialChips}}"
+            bindinput="onChipsInput"
+            data-index="{{index}}"
+            data-field="initialChips"
+          />
+        </view>
+        <view class="input-group">
+          <text class="input-label">额外加成</text>
+          <input
+            class="input-field rule-input"
+            type="number"
+            value="{{item.bonus}}"
+            bindinput="onChipsInput"
+            data-index="{{index}}"
+            data-field="bonus"
+          />
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <button
+    class="btn-primary"
+    style="margin-top:48rpx;"
+    bindtap="saveRules"
+    disabled="{{saving}}"
+  >
+    {{saving ? '保存中...' : '保存规则'}}
+  </button>
+
+  <text class="save-tip">规则变更仅影响后续创建的赛程，不影响历史赛程</text>
+</view>

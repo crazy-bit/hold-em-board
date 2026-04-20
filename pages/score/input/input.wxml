@@ -1,0 +1,44 @@
+<!-- pages/score/input/input.wxml -->
+<view class="container">
+  <text class="page-title">填写结算筹码</text>
+
+  <!-- 当前信息 -->
+  <view class="card info-card">
+    <view class="info-row flex-between">
+      <text class="info-label">初始筹码</text>
+      <text class="info-value">{{score.initialChips}}</text>
+    </view>
+    <view class="divider"></view>
+    <view class="info-row flex-between">
+      <text class="info-label">额外加成</text>
+      <text class="info-value bonus">+{{score.bonus || 0}}</text>
+    </view>
+  </view>
+
+  <!-- 输入区 -->
+  <view class="card">
+    <text class="section-title">结算筹码</text>
+    <input
+      class="input-field chips-input"
+      type="number"
+      placeholder="输入你的结算筹码"
+      value="{{finalChips}}"
+      bindinput="onChipsInput"
+    />
+    <view class="preview-points" wx:if="{{finalChips !== ''}}">
+      <text class="preview-label">预计本期积分：</text>
+      <text class="preview-value {{previewPoints >= 0 ? 'positive' : 'negative'}}">
+        {{previewPoints >= 0 ? '+' : ''}}{{previewPoints}}
+      </text>
+    </view>
+  </view>
+
+  <button
+    class="btn-primary"
+    style="margin-top:48rpx;"
+    bindtap="saveScore"
+    disabled="{{saving || finalChips === ''}}"
+  >
+    {{saving ? '保存中...' : '保存'}}
+  </button>
+</view>

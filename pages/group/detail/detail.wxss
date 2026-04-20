@@ -1,0 +1,124 @@
+/* pages/group/detail/detail.wxss */
+.group-header {
+  margin-bottom: 24rpx;
+}
+
+.group-name {
+  font-size: 38rpx;
+  font-weight: 700;
+  color: #1a1a2e;
+  display: block;
+  margin-bottom: 8rpx;
+}
+
+.invite-code {
+  font-size: 24rpx;
+  color: #999;
+  display: block;
+}
+
+.action-btn {
+  padding: 12rpx 24rpx;
+  border-radius: 24rpx;
+  background: #f0f0f0;
+  font-size: 26rpx;
+  color: #555;
+}
+
+.action-btn-primary {
+  background: #e94560;
+  color: #fff;
+}
+
+.meta-text {
+  font-size: 24rpx;
+  color: #999;
+}
+
+/* Tab */
+.tab-bar {
+  display: flex;
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 8rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.06);
+}
+
+.tab-item {
+  flex: 1;
+  text-align: center;
+  padding: 20rpx 0;
+  font-size: 28rpx;
+  color: #999;
+  border-radius: 12rpx;
+  transition: all 0.2s;
+}
+
+.tab-active {
+  background: #e94560;
+  color: #fff;
+  font-weight: 600;
+}
+
+/* 赛程卡片 */
+.match-card {
+  cursor: pointer;
+}
+
+.match-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #1a1a2e;
+  display: block;
+  margin-bottom: 8rpx;
+}
+
+.match-date {
+  font-size: 24rpx;
+  color: #999;
+  display: block;
+}
+
+.arrow {
+  font-size: 40rpx;
+  color: #ccc;
+}
+
+/* 排行榜 */
+.rank-card {
+  cursor: pointer;
+}
+
+.rank-num {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #999;
+  min-width: 48rpx;
+  text-align: center;
+}
+
+.rank-top {
+  color: #e94560;
+}
+
+.member-name {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #1a1a2e;
+  display: block;
+  margin-bottom: 4rpx;
+}
+
+.total-points {
+  font-size: 36rpx;
+  font-weight: 700;
+}
+
+.points-positive {
+  color: #4caf50;
+}
+
+.points-negative {
+  color: #f44336;
+}

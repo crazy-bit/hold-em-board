@@ -1,0 +1,58 @@
+/* pages/score/input/input.wxss */
+.info-card {
+  background: #f8f9ff;
+  border: 1rpx solid #e8eaf6;
+}
+
+.info-row {
+  padding: 8rpx 0;
+}
+
+.info-label {
+  font-size: 28rpx;
+  color: #666;
+}
+
+.info-value {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #1a1a2e;
+}
+
+.bonus {
+  color: #ff9800;
+}
+
+.chips-input {
+  font-size: 48rpx;
+  font-weight: 700;
+  text-align: center;
+  padding: 32rpx;
+  margin-top: 16rpx;
+}
+
+.preview-points {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20rpx;
+  gap: 12rpx;
+}
+
+.preview-label {
+  font-size: 26rpx;
+  color: #999;
+}
+
+.preview-value {
+  font-size: 36rpx;
+  font-weight: 700;
+}
+
+.positive {
+  color: #4caf50;
+}
+
+.negative {
+  color: #f44336;
+}

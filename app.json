@@ -1,0 +1,40 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/login/login",
+    "pages/group/list/list",
+    "pages/group/create/create",
+    "pages/group/detail/detail",
+    "pages/match/detail/detail",
+    "pages/match/create/create",
+    "pages/score/input/input",
+    "pages/rules/edit/edit",
+    "pages/member/detail/detail"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#1a1a2e",
+    "navigationBarTitleText": "德州记分板",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#f5f5f5"
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#e94560",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/group/list/list",
+        "text": "记分组"
+      },
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      }
+    ]
+  },
+  "cloud": true,
+  "sitemapLocation": "sitemap.json",
+  "style": "v2"
+}

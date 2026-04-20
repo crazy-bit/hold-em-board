@@ -1,0 +1,78 @@
+/* pages/member/detail/detail.wxss */
+.member-header {
+  margin-bottom: 32rpx;
+}
+
+.member-name {
+  font-size: 38rpx;
+  font-weight: 700;
+  color: #1a1a2e;
+  display: block;
+  margin-bottom: 8rpx;
+}
+
+.meta-text {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.total-wrap {
+  text-align: right;
+}
+
+.total-label {
+  display: block;
+  font-size: 24rpx;
+  color: #999;
+  margin-bottom: 4rpx;
+}
+
+.total-points {
+  font-size: 48rpx;
+  font-weight: 700;
+}
+
+.positive {
+  color: #4caf50;
+}
+
+.negative {
+  color: #f44336;
+}
+
+.score-card {
+  margin-bottom: 16rpx;
+}
+
+.match-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #1a1a2e;
+  display: block;
+  margin-bottom: 6rpx;
+}
+
+.match-date {
+  font-size: 24rpx;
+  color: #999;
+  display: block;
+}
+
+.score-points {
+  font-size: 36rpx;
+  font-weight: 700;
+  display: block;
+  text-align: right;
+  margin-bottom: 4rpx;
+}
+
+.unfilled {
+  color: #bbb;
+  font-size: 26rpx;
+}
+
+.chips-detail {
+  font-size: 22rpx;
+  color: #bbb;
+  text-align: right;
+}

@@ -1,0 +1,86 @@
+/* pages/rules/edit/edit.wxss */
+.rule-label {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #1a1a2e;
+  display: block;
+  margin-bottom: 6rpx;
+}
+
+.rule-desc {
+  font-size: 24rpx;
+  color: #999;
+  display: block;
+}
+
+.rule-tip {
+  display: block;
+  font-size: 24rpx;
+  color: #999;
+  margin-bottom: 24rpx;
+  background: #f8f8f8;
+  padding: 16rpx;
+  border-radius: 8rpx;
+}
+
+.add-btn {
+  padding: 10rpx 24rpx;
+  background: #e94560;
+  color: #fff;
+  border-radius: 24rpx;
+  font-size: 26rpx;
+}
+
+.rule-row {
+  border: 1rpx solid #f0f0f0;
+  border-radius: 12rpx;
+  padding: 24rpx;
+  margin-bottom: 16rpx;
+}
+
+.rule-header {
+  margin-bottom: 16rpx;
+}
+
+.rank-label {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.del-btn {
+  font-size: 24rpx;
+  color: #f44336;
+  padding: 6rpx 16rpx;
+  border: 1rpx solid #f44336;
+  border-radius: 16rpx;
+}
+
+.rule-inputs {
+  gap: 24rpx;
+}
+
+.input-group {
+  flex: 1;
+}
+
+.input-label {
+  display: block;
+  font-size: 24rpx;
+  color: #999;
+  margin-bottom: 8rpx;
+}
+
+.rule-input {
+  padding: 16rpx 20rpx;
+  font-size: 28rpx;
+  text-align: center;
+}
+
+.save-tip {
+  display: block;
+  text-align: center;
+  font-size: 24rpx;
+  color: #bbb;
+  margin-top: 24rpx;
+}

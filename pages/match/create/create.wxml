@@ -1,0 +1,30 @@
+<!-- pages/match/create/create.wxml -->
+<view class="container">
+  <text class="page-title">创建赛程</text>
+
+  <view class="card">
+    <text class="section-title">赛程标题（可选）</text>
+    <input
+      class="input-field"
+      placeholder="例如：第12期，留空则自动编号"
+      value="{{title}}"
+      bindinput="onTitleInput"
+      maxlength="20"
+    />
+  </view>
+
+  <view class="card info-card">
+    <text class="section-title">初始筹码分配预览</text>
+    <text class="info-tip">将根据当前总积分排名自动分配初始筹码和额外加成</text>
+  </view>
+
+  <view style="margin-top:48rpx;">
+    <button
+      class="btn-primary"
+      bindtap="createMatch"
+      disabled="{{creating}}"
+    >
+      {{creating ? '创建中...' : '创建赛程'}}
+    </button>
+  </view>
+</view>

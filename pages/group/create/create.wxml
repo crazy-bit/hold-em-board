@@ -1,0 +1,26 @@
+<!-- pages/group/create/create.wxml -->
+<view class="container">
+  <text class="page-title">创建记分组</text>
+
+  <view class="card">
+    <text class="section-title">记分组名称</text>
+    <input
+      class="input-field"
+      placeholder="例如：周五德州局"
+      value="{{groupName}}"
+      bindinput="onNameInput"
+      maxlength="20"
+    />
+    <text class="char-count">{{groupName.length}}/20</text>
+  </view>
+
+  <view style="margin-top:48rpx;">
+    <button
+      class="btn-primary"
+      bindtap="createGroup"
+      disabled="{{creating || !groupName.trim()}}"
+    >
+      {{creating ? '创建中...' : '创建记分组'}}
+    </button>
+  </view>
+</view>

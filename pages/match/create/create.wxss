@@ -1,0 +1,12 @@
+/* pages/match/create/create.wxss */
+.info-card {
+  background: #fff8e1;
+  border: 1rpx solid #ffe082;
+}
+
+.info-tip {
+  font-size: 26rpx;
+  color: #f57c00;
+  display: block;
+  margin-top: 8rpx;
+}

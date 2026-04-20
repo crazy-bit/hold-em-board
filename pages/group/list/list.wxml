@@ -1,0 +1,74 @@
+<!-- pages/group/list/list.wxml -->
+<view class="container">
+  <!-- 顶部标题栏 -->
+  <view class="header flex-between">
+    <text class="page-title" style="margin-bottom:0;">我的记分组</text>
+    <view class="flex-row" style="gap:24rpx;">
+      <view class="icon-btn" bindtap="goJoinGroup">
+        <text>加入</text>
+      </view>
+      <view class="icon-btn icon-btn-primary" bindtap="goCreateGroup">
+        <text>+ 创建</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 加载中 -->
+  <view class="loading-wrap" wx:if="{{loading}}">
+    <text>加载中...</text>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:elif="{{groups.length === 0}}">
+    <text style="font-size:80rpx;">🃏</text>
+    <text style="margin-top:24rpx;">还没有加入任何记分组</text>
+    <text style="font-size:24rpx;margin-top:12rpx;color:#ccc;">点击右上角创建或加入</text>
+  </view>
+
+  <!-- 记分组列表 -->
+  <view wx:else>
+    <view
+      class="group-card card"
+      wx:for="{{groups}}"
+      wx:key="_id"
+      bindtap="goGroupDetail"
+      data-id="{{item._id}}"
+    >
+      <view class="flex-between">
+        <view>
+          <text class="group-name">{{item.name}}</text>
+          <view class="flex-row" style="margin-top:12rpx;gap:16rpx;">
+            <text class="meta-text">{{item.memberCount || 0}} 人</text>
+            <text class="meta-text">·</text>
+            <text class="meta-text">{{item.matchCount || 0}} 期赛程</text>
+          </view>
+        </view>
+        <view class="flex-row" style="gap:12rpx;">
+          <view class="tag tag-admin" wx:if="{{item.isAdmin}}">管理员</view>
+          <text class="arrow">›</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 加入组弹窗 -->
+<view class="modal-mask" wx:if="{{showJoinModal}}" bindtap="closeJoinModal">
+  <view class="modal-card" catchtap="">
+    <text class="modal-title">加入记分组</text>
+    <input
+      class="input-field"
+      placeholder="输入6位邀请码"
+      value="{{inviteCode}}"
+      bindinput="onInviteCodeInput"
+      maxlength="6"
+      style="text-transform:uppercase;letter-spacing:8rpx;text-align:center;font-size:36rpx;"
+    />
+    <view style="margin-top:32rpx;display:flex;gap:24rpx;">
+      <button class="btn-secondary" style="flex:1;" bindtap="closeJoinModal">取消</button>
+      <button class="btn-primary" style="flex:1;" bindtap="confirmJoin" disabled="{{joining}}">
+        {{joining ? '加入中...' : '确认加入'}}
+      </button>
+    </view>
+  </view>
+</view>

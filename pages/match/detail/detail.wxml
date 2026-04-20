@@ -1,0 +1,83 @@
+<!-- pages/match/detail/detail.wxml -->
+<view class="container">
+  <!-- 赛程头部信息 -->
+  <view class="match-header card">
+    <view class="flex-between">
+      <view>
+        <text class="match-title">{{match.title || '赛程详情'}}</text>
+        <text class="match-date">{{match.createdAtStr}}</text>
+      </view>
+      <view class="tag {{match.status === 'active' ? 'tag-active' : match.status === 'finished' ? 'tag-finished' : 'tag-cancelled'}}">
+        {{match.status === 'active' ? '进行中' : match.status === 'finished' ? '已结束' : '已作废'}}
+      </view>
+    </view>
+  </view>
+
+  <!-- 管理员操作区（仅进行中赛程） -->
+  <view wx:if="{{isAdmin && match.status === 'active'}}" class="admin-actions">
+    <button class="btn-primary" bindtap="finishMatch">结束赛程</button>
+    <button class="btn-danger" style="margin-top:16rpx;" bindtap="cancelMatch">销毁赛程（作废）</button>
+  </view>
+
+  <!-- 分数列表 -->
+  <view class="scores-section">
+    <text class="section-title">成员分数</text>
+
+    <!-- 表头 -->
+    <view class="score-header flex-row">
+      <text class="col-name">成员</text>
+      <text class="col-chips">初始筹码</text>
+      <text class="col-chips">额外加成</text>
+      <text class="col-chips">结算筹码</text>
+      <text class="col-points">本期积分</text>
+    </view>
+
+    <!-- 分数行 -->
+    <view
+      class="score-row card"
+      wx:for="{{scores}}"
+      wx:key="userId"
+      bindtap="goInputScore"
+      data-userid="{{item.userId}}"
+      data-scoreid="{{item._id}}"
+    >
+      <view class="flex-between">
+        <view class="col-name-wrap">
+          <text class="member-name">{{item.nickName}}</text>
+          <text class="self-tag" wx:if="{{item.isSelf}}">我</text>
+        </view>
+        <text class="col-chips-val">{{item.initialChips}}</text>
+        <text class="col-chips-val bonus">+{{item.bonus || 0}}</text>
+        <text class="col-chips-val {{item.finalChips !== null ? '' : 'unfilled'}}">
+          {{item.finalChips !== null ? item.finalChips : '待填写'}}
+        </text>
+        <text class="col-points-val {{item.points >= 0 ? 'positive' : 'negative'}}" wx:if="{{item.points !== null}}">
+          {{item.points >= 0 ? '+' : ''}}{{item.points}}
+        </text>
+        <text class="col-points-val unfilled" wx:else>-</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 未填写提示 -->
+  <view class="unfilled-tip" wx:if="{{unfilledCount > 0 && match.status === 'active'}}">
+    <text>还有 {{unfilledCount}} 人未填写结算筹码</text>
+  </view>
+</view>
+
+<!-- 结束赛程确认弹窗 -->
+<view class="modal-mask" wx:if="{{showFinishModal}}" bindtap="closeFinishModal">
+  <view class="modal-card" catchtap="">
+    <text class="modal-title">确认结束赛程？</text>
+    <view wx:if="{{unfilledMembers.length > 0}}" class="unfilled-warning">
+      <text>以下成员未填写结算筹码，将以 0 计算：</text>
+      <text wx:for="{{unfilledMembers}}" wx:key="*this" class="unfilled-name">{{item}}</text>
+    </view>
+    <view style="margin-top:32rpx;display:flex;gap:24rpx;">
+      <button class="btn-secondary" style="flex:1;" bindtap="closeFinishModal">取消</button>
+      <button class="btn-primary" style="flex:1;" bindtap="confirmFinish" disabled="{{finishing}}">
+        {{finishing ? '结束中...' : '确认结束'}}
+      </button>
+    </view>
+  </view>
+</view>

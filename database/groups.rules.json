@@ -1,0 +1,4 @@
+{
+  "read": "auth.openid != null",
+  "write": "doc.adminId == auth.openid"
+}

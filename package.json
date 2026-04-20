@@ -1,0 +1,37 @@
+{
+  "name": "hold-em-board",
+  "version": "1.0.0",
+  "description": "德州扑克记分板小程序",
+  "scripts": {
+    "test": "jest",
+    "test:unit": "jest --testPathPattern=__tests__/unit",
+    "test:e2e": "jest --testPathPattern=__tests__/e2e --runInBand",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "postinstall": "node patch-automator.js",
+    "auto:start": "\"D:/微信web开发者工具/cli.bat\" auto --project . --auto-port 9420"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "miniprogram-automator": "^0.12.1"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testMatch": [
+      "**/__tests__/**/*.test.js"
+    ],
+    "modulePathIgnorePatterns": [
+      "<rootDir>/cloudfunctions/"
+    ],
+    "collectCoverageFrom": [
+      "utils/**/*.js",
+      "cloudfunctions/**/index.js",
+      "!**/node_modules/**"
+    ],
+    "coverageReporters": [
+      "text",
+      "lcov"
+    ],
+    "testTimeout": 60000
+  }
+}
