@@ -80,7 +80,7 @@ TEST_GROUP_ID=<组ID> TEST_SCORE_ID=<分数ID> TEST_MATCH_ID=<赛程ID> npm run 
 
 | 错误信息 | 原因 | 解决方案 |
 |---------|------|---------|
-| `Wechat web devTools not found` | cliPath 错误 | 检查 `__tests__/e2e/setup.js` 中 `CLI_PATH` |
+| `Wechat web devTools not found` | cliPath 错误 | 检查 `tests/e2e/setup.js` 中 `CLI_PATH` |
 | `Failed connecting to ws://127.0.0.1:9420` | 自动化进程未启动 | 运行 `npm run auto:start` |
 | `can not navigateTo a tabbar page` | 用 `navigateTo` 访问 tabbar 页 | 改用 `switchTab` |
 | `timeout waiting for automator response` | 页面加载超时或未登录 | 检查开发者工具是否已登录 |
@@ -91,7 +91,7 @@ TEST_GROUP_ID=<组ID> TEST_SCORE_ID=<分数ID> TEST_MATCH_ID=<赛程ID> npm run 
 ## 5. 测试文件位置
 
 ```
-__tests__/
+tests/
 ├── unit/
 │   ├── utils.test.js          # utils/util.js 单元测试（25个用例）
 │   └── cloudfunctions.test.js # 云函数逻辑测试（17个用例）

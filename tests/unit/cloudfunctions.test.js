@@ -1,5 +1,5 @@
 /**
- * __tests__/unit/cloudfunctions/finishMatch.test.js
+ * tests/unit/cloudfunctions.test.js
  * finishMatch 云函数单元测试
  * 重点测试：积分计算逻辑、权限校验、未填写检测
  */
