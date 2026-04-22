@@ -19,3 +19,6 @@ nul
 # 测试日志
 *.log
 tests/e2e/.e2e-state.json
+
+# GitHub 仓库分析临时目录
+.github-analyze/
