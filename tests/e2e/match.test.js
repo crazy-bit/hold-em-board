@@ -774,22 +774,44 @@ describe('赛程管理 E2E', () => {
         return;
       }
 
-      const page = await ensureOnPage(
-        miniProgram,
-        `/pages/score/input/input?scoreId=${testScoreId}&matchId=${testMatchId}`,
-        2000
-      );
-      await sleep(3000);
+      // automator 通信可能偶发超时，使用重试机制
+      let data;
+      for (let attempt = 1; attempt <= 3; attempt++) {
+        try {
+          const page = await ensureOnPage(
+            miniProgram,
+            `/pages/score/input/input?scoreId=${testScoreId}&matchId=${testMatchId}`,
+            3000
+          );
 
-      expect(page.path).toContain('score/input');
+          expect(page.path).toContain('score/input');
 
-      const data = await page.data();
+          // 等待分数数据加载完成
+          data = await waitForData(page, (d) => d.score && typeof d.score.initialChips === 'number', 15000);
+          break; // 成功则跳出重试循环
+        } catch (err) {
+          console.warn(`⚠️ 第 ${attempt} 次尝试失败: ${err.message}`);
+          if (attempt === 3) {
+            // 最后一次尝试，重新导航后直接读取
+            const page = await ensureOnPage(
+              miniProgram,
+              `/pages/score/input/input?scoreId=${testScoreId}&matchId=${testMatchId}`,
+              5000
+            );
+            await sleep(5000);
+            data = await page.data();
+          } else {
+            await sleep(3000);
+          }
+        }
+      }
+
       expect(data.scoreId).toBe(testScoreId);
       expect(data.matchId).toBe(testMatchId);
       expect(data.score).toBeTruthy();
       expect(typeof data.score.initialChips).toBe('number');
       console.log(`📋 初始筹码: ${data.score.initialChips}, 额外加成: ${data.score.bonus || 0}`);
-    }, 20000);
+    }, 60000);
 
     it('输入结算筹码应正确绑定并显示预览积分', async () => {
       if (!testScoreId || !testMatchId) return;

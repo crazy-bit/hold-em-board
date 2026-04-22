@@ -206,6 +206,115 @@ async function removeMockMembers(miniProgram, groupId, userIds) {
   }
 }
 
+/**
+ * 调用 initDB 云函数初始化数据库
+ * 通过 miniProgram.evaluate 在小程序端调用云函数
+ * @param {MiniProgram} miniProgram 小程序实例
+ * @param {object} [options] 选项
+ * @param {string} [options.action='init'] 操作类型：'createCollections' | 'seed' | 'init'
+ * @param {object} [options.seedData] 种子数据，按集合名分组，如 { users: [...], groups: [...] }
+ * @returns {Promise<object>} 云函数返回结果
+ */
+async function callInitDB(miniProgram, options = {}) {
+  const action = options.action || 'init';
+  const seedData = options.seedData || null;
+
+  console.log(`🗄️ 调用 initDB 云函数 (action=${action})...`);
+  const result = await miniProgram.evaluate(
+    (act, seed) => {
+      return new Promise((resolve) => {
+        const params = { action: act };
+        if (seed) params.seedData = seed;
+        wx.cloud.callFunction({
+          name: 'initDB',
+          data: params,
+          success: (res) => resolve(res.result),
+          fail: (err) => resolve({ code: -1, message: err.errMsg || String(err) }),
+        });
+      });
+    },
+    action,
+    seedData
+  );
+
+  if (result && result.code === 0) {
+    console.log(`✅ initDB 成功: ${result.message}`);
+  } else {
+    console.warn(`⚠️ initDB 失败:`, result);
+  }
+  return result;
+}
+
+/**
+ * 调用 clearDB 云函数清空数据库
+ * 通过 miniProgram.evaluate 在小程序端调用云函数
+ * @param {MiniProgram} miniProgram 小程序实例
+ * @param {object} [options] 选项
+ * @param {string} [options.action='clearAll'] 操作类型：'clearAll' | 'clearCollections' | 'clearByFilter'
+ * @param {string[]} [options.collections] 要清空的集合列表（action 为 clearCollections/clearByFilter 时使用）
+ * @param {object} [options.filter] 过滤条件（action 为 clearByFilter 时使用）
+ * @returns {Promise<object>} 云函数返回结果
+ */
+async function callClearDB(miniProgram, options = {}) {
+  const action = options.action || 'clearAll';
+  const collections = options.collections || null;
+  const filter = options.filter || null;
+
+  console.log(`🧹 调用 clearDB 云函数 (action=${action})...`);
+  const result = await miniProgram.evaluate(
+    (act, cols, flt) => {
+      return new Promise((resolve) => {
+        const params = { action: act };
+        if (cols) params.collections = cols;
+        if (flt) params.filter = flt;
+        wx.cloud.callFunction({
+          name: 'clearDB',
+          data: params,
+          success: (res) => resolve(res.result),
+          fail: (err) => resolve({ code: -1, message: err.errMsg || String(err) }),
+        });
+      });
+    },
+    action,
+    collections,
+    filter
+  );
+
+  if (result && result.code === 0) {
+    console.log(`✅ clearDB 成功: ${result.message}`);
+    if (result.results) {
+      result.results.forEach((r) => {
+        console.log(`   - ${r.collection}: 删除 ${r.removed} 条`);
+      });
+    }
+  } else {
+    console.warn(`⚠️ clearDB 失败:`, result);
+  }
+  return result;
+}
+
+/**
+ * 测试前完整重置：清空所有数据 → 重新创建集合 → 插入种子数据
+ * 一站式调用，适合在 beforeAll 中使用
+ * @param {MiniProgram} miniProgram 小程序实例
+ * @param {object} [seedData] 可选的种子数据
+ * @returns {Promise<{clearResult: object, initResult: object}>}
+ */
+async function resetDBForTest(miniProgram, seedData) {
+  console.log('🔄 重置测试数据库...');
+
+  // 第一步：清空所有数据
+  const clearResult = await callClearDB(miniProgram, { action: 'clearAll' });
+
+  // 第二步：初始化集合 + 插入种子数据
+  const initOptions = { action: 'init' };
+  if (seedData) initOptions.seedData = seedData;
+  const initResult = await callInitDB(miniProgram, initOptions);
+
+  console.log('✅ 数据库重置完成');
+  return { clearResult, initResult };
+}
+
 module.exports = {
   sleep,
   waitForElement,
@@ -217,4 +326,7 @@ module.exports = {
   waitForConsoleMessage,
   addMockMembers,
   removeMockMembers,
+  callInitDB,
+  callClearDB,
+  resetDBForTest,
 };

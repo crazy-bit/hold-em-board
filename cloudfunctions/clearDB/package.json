@@ -1,0 +1,9 @@
+{
+  "name": "clearDB",
+  "version": "1.0.0",
+  "description": "清空数据库集合数据（用于自动化测试）",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "latest"
+  }
+}

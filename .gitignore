@@ -15,3 +15,7 @@ nul
 
 # VS Code
 .vscode/
+
+# 测试日志
+*.log
+tests/e2e/.e2e-state.json

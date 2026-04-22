@@ -1,0 +1,9 @@
+{
+  "name": "getMyGroups",
+  "version": "1.0.0",
+  "description": "获取当前用户的记分组列表（含成员数和赛程数）",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}
