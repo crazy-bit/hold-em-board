@@ -24,22 +24,26 @@ lines.filter(l=>l.includes('[ERROR]')).forEach(l=>console.log(l));
 
 ### 提交规范
 
-**代码修改后，调用 `modify-evaluator` subagent 进行评估，由其决定是否提交：**
+**代码修改后，调用 `modify-evaluator` subagent 进行评估和验证：**
 
-`modify-evaluator` 会评估本次修改是否构成完整功能，若评估通过则自动调用 `maintaince-app` skill 完成提交。
+`modify-evaluator` 会自动完成以下流程：
+1. **评估修改范围** — 通过 `git diff` 分析变更文件
+2. **确定测试策略** — 根据修改范围→测试映射表，定向选择需要执行的单元测试和 E2E 测试
+3. **执行测试验证** — 调用 `verify` skill 执行对应测试（支持全量/定向/跳过三种策略）
+4. **提交到仓库** — 测试通过后调用 `maintaince-app` skill 完成 commit + rebase + push
 
 **完整的任务完成流程：**
 
 ```
 完成代码修改
     ↓
-「验证」→ verify skill（编译 + build:experts + 单元测试 + E2E）
-    ↓
-→ modify-evaluator subagent（评估修改完整性，决定是否提交）
-    ↓（若评估通过）
-→ maintaince-app skill（commit + rebase + push）
+→ modify-evaluator subagent
+    ├── Step 1: git diff 评估修改范围
+    ├── Step 2: 映射到对应的单元测试 + E2E 测试
+    ├── Step 3: 调用 verify skill 执行定向测试
+    └── Step 4: 测试通过 → 调用 maintaince-app skill（commit + rebase + push）
 ```
 
-> **AI 辅助开发注意**：验证通过后，AI 应主动触发 `modify-evaluator` subagent 进行评估，由 subagent 判断是否达到提交标准。
+> **AI 辅助开发注意**：代码修改完成后，AI 应主动触发 `modify-evaluator` subagent，由其自动完成评估→测试→提交的完整流程。测试失败时不会提交，而是报告失败原因。
 
 ---
