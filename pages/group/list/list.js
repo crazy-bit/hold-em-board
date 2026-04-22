@@ -18,10 +18,13 @@ Page({
   },
 
   onShow() {
+    // 防止重复触发
+    if (this._loading) return;
     this.checkLoginAndLoad();
   },
 
   async checkLoginAndLoad() {
+    this._loading = true;
     if (!app.globalData.openId) {
       // 未登录，先尝试静默登录
       try {
@@ -34,15 +37,18 @@ Page({
             avatarUrl: res.result.avatarUrl,
           };
         } else {
+          this._loading = false;
           wx.redirectTo({ url: '/pages/login/login' });
           return;
         }
       } catch (e) {
+        this._loading = false;
         wx.redirectTo({ url: '/pages/login/login' });
         return;
       }
     }
-    this.loadGroups();
+    await this.loadGroups();
+    this._loading = false;
   },
 
   async loadGroups() {
@@ -71,19 +77,20 @@ Page({
         .where({ _id: db.command.in(groupIds) })
         .get();
 
-      // 查询每个组的成员数和赛程数
-      const groups = await Promise.all(groupsData.map(async (g) => {
+      // 查询每个组的成员数和赛程数（串行避免并发请求过多导致卡死）
+      const groups = [];
+      for (const g of groupsData) {
         const [memberRes, matchRes] = await Promise.all([
           db.collection('group_members').where({ groupId: g._id }).count(),
           db.collection('matches').where({ groupId: g._id }).count(),
         ]);
-        return {
+        groups.push({
           ...g,
           memberCount: memberRes.total,
           matchCount: matchRes.total,
           isAdmin: g.adminId === openId,
-        };
-      }));
+        });
+      }
 
       // 按加入时间排序
       groups.sort((a, b) => {
@@ -97,6 +104,8 @@ Page({
       console.error('loadGroups error:', err);
       this.setData({ loading: false });
       wx.showToast({ title: '加载失败', icon: 'error' });
+    } finally {
+      this._loading = false;
     }
   },
 

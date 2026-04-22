@@ -20,42 +20,101 @@ Page({
   },
 
   onShow() {
-    if (this.data.groupId) {
+    if (this.data.groupId && !this._loading) {
       this.loadData();
     }
   },
 
   async loadData() {
+    if (this._loading) return;
+    this._loading = true;
     const { groupId } = this.data;
     const openId = app.globalData.openId;
     const db = wx.cloud.database();
 
     try {
-      // 并行加载组信息、成员、赛程
-      const [groupRes, membersRes, matchesRes] = await Promise.all([
-        db.collection('groups').doc(groupId).get(),
+      // 先尝试直接查询数据库
+      let group, members = [], matches = [], isAdmin = false;
+
+      try {
+        const groupRes = await db.collection('groups').doc(groupId).get();
+        group = groupRes.data;
+      } catch (docErr) {
+        // doc().get() 失败，尝试用 where 查询（绕过 doc 的权限限制）
+        console.warn('loadData: doc().get() 失败，尝试 where 查询', docErr.errCode || docErr.message);
+        try {
+          const { data } = await db.collection('groups').where({ _id: groupId }).get();
+          if (data && data.length > 0) {
+            group = data[0];
+          }
+        } catch (whereErr) {
+          console.warn('loadData: where 查询也失败', whereErr.errCode || whereErr.message);
+        }
+
+        // 如果仍然失败，尝试通过云函数获取
+        if (!group) {
+          try {
+            const res = await wx.cloud.callFunction({
+              name: 'getGroupDetail',
+              data: { groupId },
+            });
+            if (res.result && res.result.code === 0) {
+              const result = res.result;
+              const fmtMatches = (result.matches || []).map((m, i) => ({
+                ...m,
+                index: (result.matches || []).length - i,
+                createdAtStr: formatDate(m.createdAt),
+              }));
+              this.setData({
+                group: result.group,
+                members: result.members || [],
+                matches: fmtMatches,
+                isAdmin: result.isAdmin || false,
+                leaderboard: result.leaderboard || [],
+                loading: false,
+              });
+              return;
+            }
+          } catch (cfErr) {
+            // 云函数也不可用（可能未部署），最终失败
+            console.error('loadData: 所有查询方式均失败');
+          }
+
+          this.setData({ loading: false });
+          wx.showToast({ title: '加载失败', icon: 'error' });
+          return;
+        }
+      }
+
+      // 查询成员和赛程（使用 allSettled 容错）
+      const [membersResult, matchesResult] = await Promise.allSettled([
         db.collection('group_members').where({ groupId }).orderBy('joinedAt', 'asc').get(),
         db.collection('matches').where({ groupId }).orderBy('createdAt', 'desc').get(),
       ]);
 
-      const group = groupRes.data;
-      const members = membersRes.data;
-      const matches = matchesRes.data.map((m, i) => ({
-        ...m,
-        index: matchesRes.data.length - i,
-        createdAtStr: formatDate(m.createdAt),
-      }));
+      if (membersResult.status === 'fulfilled') {
+        members = membersResult.value.data;
+      }
+      if (matchesResult.status === 'fulfilled') {
+        matches = matchesResult.value.data.map((m, i) => ({
+          ...m,
+          index: matchesResult.value.data.length - i,
+          createdAtStr: formatDate(m.createdAt),
+        }));
+      }
 
-      const isAdmin = group.adminId === openId;
-
+      isAdmin = group.adminId === openId;
       this.setData({ group, members, matches, isAdmin, loading: false });
 
       // 计算总积分榜
       this.calcLeaderboard(members, matches, group);
     } catch (err) {
-      console.error('loadData error:', err);
+      const errInfo = err.errCode ? `errCode: ${err.errCode}, errMsg: ${err.errMsg}` : (err.message || JSON.stringify(err));
+      console.error('loadData error:', errInfo);
       this.setData({ loading: false });
       wx.showToast({ title: '加载失败', icon: 'error' });
+    } finally {
+      this._loading = false;
     }
   },
 
@@ -74,32 +133,34 @@ Page({
       return;
     }
 
-    // 查询所有已完成赛程的分数
-    const matchIds = finishedMatches.map(m => m._id);
-    const { data: scores } = await db.collection('scores')
-      .where({ matchId: db.command.in(matchIds) })
-      .get();
+    try {
+      const matchIds = finishedMatches.map(m => m._id);
+      const { data: scores } = await db.collection('scores')
+        .where({ matchId: db.command.in(matchIds) })
+        .get();
 
-    // 按用户汇总积分
-    const pointsMap = {};
-    const countMap = {};
-    scores.forEach(s => {
-      if (!pointsMap[s.userId]) {
-        pointsMap[s.userId] = 0;
-        countMap[s.userId] = 0;
-      }
-      pointsMap[s.userId] += s.points || 0;
-      countMap[s.userId]++;
-    });
+      const pointsMap = {};
+      const countMap = {};
+      scores.forEach(s => {
+        if (!pointsMap[s.userId]) {
+          pointsMap[s.userId] = 0;
+          countMap[s.userId] = 0;
+        }
+        pointsMap[s.userId] += s.points || 0;
+        countMap[s.userId]++;
+      });
 
-    const leaderboard = members.map(m => ({
-      userId: m.userId,
-      nickName: m.nickName,
-      totalPoints: pointsMap[m.userId] || 0,
-      matchCount: countMap[m.userId] || 0,
-    })).sort((a, b) => b.totalPoints - a.totalPoints);
+      const leaderboard = members.map(m => ({
+        userId: m.userId,
+        nickName: m.nickName,
+        totalPoints: pointsMap[m.userId] || 0,
+        matchCount: countMap[m.userId] || 0,
+      })).sort((a, b) => b.totalPoints - a.totalPoints);
 
-    this.setData({ leaderboard });
+      this.setData({ leaderboard });
+    } catch (err) {
+      console.warn('calcLeaderboard error:', err.message || err);
+    }
   },
 
   switchTab(e) {

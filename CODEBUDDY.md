@@ -1,5 +1,25 @@
 ## 项目概述
 
+### 遇到报错的处理规范
+
+**E2E 测试或小程序运行报错时，必须先读取开发者工具日志再排查：**
+
+```bash
+node -e "
+const fs=require('fs');
+const logDir='C:/Users/hugoqin/AppData/Local/微信开发者工具/User Data/270d7310f77e162f7f0cb30ab692180c/WeappLog/logs';
+const files=fs.readdirSync(logDir).sort();
+const latest=files[files.length-1];
+console.log('最新日志:', latest);
+const lines=fs.readFileSync(logDir+'/'+latest,'utf8').split('\n');
+lines.filter(l=>l.includes('[ERROR]')).forEach(l=>console.log(l));
+"
+```
+
+> 详细日志分析方法见 `.codebuddy/skills/verify/SKILL.md` 第 5 节。
+
+---
+
 ### 验证流程
 
 ### 提交规范

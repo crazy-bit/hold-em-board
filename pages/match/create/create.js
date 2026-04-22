@@ -32,9 +32,11 @@ Page({
           });
         }, 800);
       } else {
+        console.error('createMatch 返回错误:', res.result.msg || '未知错误');
         wx.showToast({ title: res.result.msg || '创建失败', icon: 'error' });
       }
     } catch (err) {
+      console.error('createMatch 调用失败:', err.errCode || '', err.errMsg || err.message || JSON.stringify(err));
       wx.showToast({ title: '创建失败，请重试', icon: 'error' });
     } finally {
       this.setData({ creating: false });

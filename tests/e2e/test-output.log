@@ -1,0 +1,2181 @@
+
+🔌 正在连接开发者工具自动化服务...
+✅ 已连接到 ws://127.0.0.1:9420
+🔑 正在执行登录流程...
+✅ 已处于登录状态，跳过登录
+📝 状态已写入 I:\ai\hold-em-board\tests\e2e\.e2e-state.json
+  console.log
+    [小程序 ERROR] loadData error:,[object Object]
+
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+
+  console.log
+    [小程序 ERROR] loadData error:,[object Object]
+
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+
+  console.log
+    [小程序 ERROR] loadData error:,[object Object]
+
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+
+  console.log
+    [小程序 ERROR] loadData error:,[object Object]
+
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+
+  console.log
+    📋 总日志: 1 条, 错误日志: 1 条
+
+      at Object.log (tests/e2e/group.test.js:249:15)
+
+  console.log
+      ❌ [error] loadData error:,[object Object]
+
+      at log (tests/e2e/group.test.js:256:19)
+          at Array.forEach (<anonymous>)
+
+  console.log
+    [小程序 ERROR] loadData error:,[object Object]
+
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+
+  console.log
+    ✅ 创建成功, groupId: 6cef3e0f69e767a000008cfa1eeb2ad7
+
+      at Object.log (tests/e2e/group.test.js:293:17)
+
+  console.warn
+    ⚠️ 未能跳转到详情页: expect(received).toBe(expected) // Object.is equality
+    
+    Expected: 0
+    Received: 1
+
+    [0m [90m 318 |[39m       } [36mcatch[39m (navErr) {
+     [90m 319 |[39m         [90m// 跳转超时，可能创建失败或跳转到了其他页面[39m
+    [31m[1m>[22m[39m[90m 320 |[39m         console[33m.[39mwarn([32m`⚠️ 未能跳转到详情页: ${navErr.message}`[39m)[33m;[39m
+     [90m     |[39m                 [31m[1m^[22m[39m
+     [90m 321 |[39m         dumpConsoleLogs()[33m;[39m
+     [90m 322 |[39m
+     [90m 323 |[39m         [90m// 验证错误被正确处理（也允许已跳转到 detail 但 waitForNavigation 超时的情况）[39m[0m
+
+      at Object.warn (tests/e2e/group.test.js:320:17)
+
+  console.log
+    
+    📋 小程序 Console 日志（共 1 条）:
+
+      at log (tests/e2e/setup.js:107:11)
+
+  console.log
+      [1] 20:03:45 [ERROR] loadData error:,[object Object]
+
+      at log (tests/e2e/setup.js:110:13)
+          at Array.forEach (<anonymous>)
+
+  console.log
+    ✅ 实际已在详情页, groupId: 6cef3e0f69e767a000008cfa1eeb2ad7
+
+      at Object.log (tests/e2e/group.test.js:333:19)
+
+  console.log
+    [小程序 ERROR] loadData error:,[object Object]
+
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+
+  console.log
+    [小程序 ERROR] loadData error:,[object Object]
+
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+
+FAIL tests/e2e/group.test.js (151.265 s)
+  记分组功能 E2E
+    创建记分组
+      √ 应能进入创建页面 (8296 ms)
+      √ 组名为空时按钮应禁用 (4967 ms)
+      √ 输入组名后数据绑定正确 (5481 ms)
+      √ 输入组名后按钮应启用 (5451 ms)
+      √ 字符计数应正确显示 (5483 ms)
+      √ 点击创建后 creating 状态应变为 true (5827 ms)
+      × 提交后应跳转到记分组详情页或捕获到错误日志（需已登录） (17231 ms)
+      √ 创建失败时不应有未捕获异常 (11329 ms)
+      √ 创建失败时 creating 状态应恢复为 false (13358 ms)
+      √ 云函数调用失败时应显示错误提示（通过 console 验证） (11458 ms)
+    创建成功后详情页验证
+      √ 创建记分组并验证详情页数据 (16508 ms)
+      √ 详情页应正确显示邀请码 (8985 ms)
+      √ 详情页应正确显示管理员状态 (15029 ms)
+    记分组列表页
+      √ 应能进入列表页（或被重定向到登录页） (5922 ms)
+      √ 列表页数据结构正常 (5968 ms)
+      √ 列表页加载不应有未捕获错误 (8983 ms)
+
+  ● 记分组功能 E2E › 创建记分组 › 提交后应跳转到记分组详情页或捕获到错误日志（需已登录）
+
+    Element '.input-field' not found within 10000ms
+
+    [0m [90m 28 |[39m     [36mawait[39m sleep(interval)[33m;[39m
+     [90m 29 |[39m   }
+    [31m[1m>[22m[39m[90m 30 |[39m   [36mthrow[39m [36mnew[39m [33mError[39m([32m`Element '${selector}' not found within ${timeout}ms`[39m)[33m;[39m
+     [90m    |[39m         [31m[1m^[22m[39m
+     [90m 31 |[39m }
+     [90m 32 |[39m
+     [90m 33 |[39m [90m/**[39m[0m
+
+      at waitForElement (tests/e2e/helpers.js:30:9)
+      at Object.<anonymous> (tests/e2e/group.test.js:121:7)
+
+Test Suites: 1 failed, 1 total
+Tests:       1 failed, 15 passed, 16 total
+Snapshots:   0 total
+Time:        151.329 s
+Ran all test suites matching /group.test/i.
+
+🧹 已清理 E2E 状态文件
+Jest did not exit one second after the test run has completed.
+
+'This usually means that there are asynchronous operations that weren't stopped in your tests. Consider running Jest with `--detectOpenHandles` to troubleshoot this issue.
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] loadData error:,[object Object]".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] loadData error:,[object Object]".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] loadData error:,[object Object]".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] loadData error:,[object Object]".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] loadData error:,[object Object]".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] loadData error:,[object Object]".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] loadData error:,[object Object]".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] loadData error:,[object Object]".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] loadData error:,[object Object]".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] loadData: 获取组信息失败,-1,document.get:fail cannot find document with _id 47b36e7169e769c600008a9518fbe3dc, please make sure that the document exists and you have the corresponding access permission".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] loadData: 获取组信息失败,-1,document.get:fail cannot find document with _id f48d78ad69e769d500006bc521f06842, please make sure that the document exists and you have the corresponding access permission".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] loadData: 获取组信息失败,-1,document.get:fail cannot find document with _id d96c0edd69e769e20000667977d154e5, please make sure that the document exists and you have the corresponding access permission".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] loadData: 获取组信息失败,-1,document.get:fail cannot find document with _id 6cef3e0f69e769ed00008ec762c9c690, please make sure that the document exists and you have the corresponding access permission".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] loadData: 获取组信息失败,-1,document.get:fail cannot find document with _id 809624d069e769fb0000656e3dfd538e, please make sure that the document exists and you have the corresponding access permission".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] loadData: 获取组信息失败,-1,document.get:fail cannot find document with _id 6cef3e0f69e76a0600008edf242b8340, please make sure that the document exists and you have the corresponding access permission".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] loadData: 获取组信息失败,-1,document.get:fail cannot find document with _id 6cef3e0f69e76a0600008edf242b8340, please make sure that the document exists and you have the corresponding access permission".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] loadData: 获取组信息失败,-1,document.get:fail cannot find document with _id 6cef3e0f69e76a0600008edf242b8340, please make sure that the document exists and you have the corresponding access permission".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] loadData: 获取组信息失败,-1,document.get:fail cannot find document with _id f084f1ab69e76b7700008c3351dd0166, please make sure that the document exists and you have the corresponding access permission".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] loadData: 获取组信息失败,-1,document.get:fail cannot find document with _id ff91a85669e76b8600006a7b17766876, please make sure that the document exists and you have the corresponding access permission".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] loadData: 获取组信息失败,-1,document.get:fail cannot find document with _id 47b36e7169e76b9400008c8e2e572b97, please make sure that the document exists and you have the corresponding access permission".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] loadData: 获取组信息失败,-1,document.get:fail cannot find document with _id 47b36e7169e76ba000008c9e453f428f, please make sure that the document exists and you have the corresponding access permission".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] loadData: 获取组信息失败,-1,document.get:fail cannot find document with _id b96a957a69e76bad000066f20c348a32, please make sure that the document exists and you have the corresponding access permission".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] loadData: 获取组信息失败,-1,document.get:fail cannot find document with _id f084f1ab69e76bb800008c8a20a57836, please make sure that the document exists and you have the corresponding access permission".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] loadData: 获取组信息失败,-1,document.get:fail cannot find document with _id f084f1ab69e76bb800008c8a20a57836, please make sure that the document exists and you have the corresponding access permission".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] loadData: 获取组信息失败,-1,document.get:fail cannot find document with _id f084f1ab69e76bb800008c8a20a57836, please make sure that the document exists and you have the corresponding access permission".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] loadData: 获取组信息失败,-1,document.get:fail cannot find document with _id ea1ad54b69e76be300006d302e19e3d7, please make sure that the document exists and you have the corresponding access permission".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] loadData: 获取组信息失败,-1,document.get:fail cannot find document with _id 809624d069e76e390000697d15da9238, please make sure that the document exists and you have the corresponding access permission".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] loadData: 获取组信息失败,-1,document.get:fail cannot find document with _id 1692ca5a69e76e47000094f36781f60f, please make sure that the document exists and you have the corresponding access permission".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] loadData: 获取组信息失败,-1,document.get:fail cannot find document with _id 4cfe648869e76e56000094c47d5b1e37, please make sure that the document exists and you have the corresponding access permission".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] loadData: 获取组信息失败,-1,document.get:fail cannot find document with _id 47b36e7169e76e6100008f62715ef6bc, please make sure that the document exists and you have the corresponding access permission".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] loadData: 获取组信息失败,-1,document.get:fail cannot find document with _id 18d770ae69e76e6e00006c072bf4de39, please make sure that the document exists and you have the corresponding access permission".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] loadData: 获取组信息失败,-1,document.get:fail cannot find document with _id f48d78ad69e76e7a000070707838e4f2, please make sure that the document exists and you have the corresponding access permission".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] loadData: 获取组信息失败,-1,document.get:fail cannot find document with _id f48d78ad69e76e7a000070707838e4f2, please make sure that the document exists and you have the corresponding access permission".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] loadData: 获取组信息失败,-1,document.get:fail cannot find document with _id f48d78ad69e76e7a000070707838e4f2, please make sure that the document exists and you have the corresponding access permission".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] loadData: 获取组信息失败,-1,document.get:fail cannot find document with _id b96a957a69e76ea4000069ae06ac8ece, please make sure that the document exists and you have the corresponding access permission".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] loadData error:,errCode: -1, errMsg: cloud.callFunction:fail Error: errCode: -501000  | errMsg: FunctionName parameter could not be found. 更多错误信息请访问：https://docs.cloudbase.net/error-code/basic/FUNCTION_NOT_FOUND (callId: 1776775127854-0.5878629095275272) (trace: 20:38:47 start->20:38:48 system error (Error: errCode: -501000  | errMsg: FunctionName parameter could not be found. 更多错误信息请访问：https://docs.cloudbase.net/error-code/basic/FUNCTION_NOT_FOUND), abort)".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] loadData error:,errCode: -1, errMsg: cloud.callFunction:fail Error: errCode: -501000  | errMsg: FunctionName parameter could not be found. 更多错误信息请访问：https://docs.cloudbase.net/error-code/basic/FUNCTION_NOT_FOUND (callId: 1776775142732-0.3322220375622891) (trace: 20:39:2 start->20:39:3 system error (Error: errCode: -501000  | errMsg: FunctionName parameter could not be found. 更多错误信息请访问：https://docs.cloudbase.net/error-code/basic/FUNCTION_NOT_FOUND), abort)".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] loadData error:,errCode: -1, errMsg: cloud.callFunction:fail Error: errCode: -501000  | errMsg: FunctionName parameter could not be found. 更多错误信息请访问：https://docs.cloudbase.net/error-code/basic/FUNCTION_NOT_FOUND (callId: 1776775157307-0.06275577574289226) (trace: 20:39:17 start->20:39:17 system error (Error: errCode: -501000  | errMsg: FunctionName parameter could not be found. 更多错误信息请访问：https://docs.cloudbase.net/error-code/basic/FUNCTION_NOT_FOUND), abort)".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] loadData error:,errCode: -1, errMsg: cloud.callFunction:fail Error: errCode: -501000  | errMsg: FunctionName parameter could not be found. 更多错误信息请访问：https://docs.cloudbase.net/error-code/basic/FUNCTION_NOT_FOUND (callId: 1776775168463-0.5004617270948648) (trace: 20:39:28 start->20:39:28 system error (Error: errCode: -501000  | errMsg: FunctionName parameter could not be found. 更多错误信息请访问：https://docs.cloudbase.net/error-code/basic/FUNCTION_NOT_FOUND), abort)".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] loadData error:,errCode: -1, errMsg: cloud.callFunction:fail Error: errCode: -501000  | errMsg: FunctionName parameter could not be found. 更多错误信息请访问：https://docs.cloudbase.net/error-code/basic/FUNCTION_NOT_FOUND (callId: 1776775181855-0.67277241743759) (trace: 20:39:41 start->20:39:42 system error (Error: errCode: -501000  | errMsg: FunctionName parameter could not be found. 更多错误信息请访问：https://docs.cloudbase.net/error-code/basic/FUNCTION_NOT_FOUND), abort)".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] loadData error:,errCode: -1, errMsg: cloud.callFunction:fail Error: errCode: -501000  | errMsg: FunctionName parameter could not be found. 更多错误信息请访问：https://docs.cloudbase.net/error-code/basic/FUNCTION_NOT_FOUND (callId: 1776775193192-0.4510035858357866) (trace: 20:39:53 start->20:39:53 system error (Error: errCode: -501000  | errMsg: FunctionName parameter could not be found. 更多错误信息请访问：https://docs.cloudbase.net/error-code/basic/FUNCTION_NOT_FOUND), abort)".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] loadData error:,errCode: -1, errMsg: cloud.callFunction:fail Error: errCode: -501000  | errMsg: FunctionName parameter could not be found. 更多错误信息请访问：https://docs.cloudbase.net/error-code/basic/FUNCTION_NOT_FOUND (callId: 1776775202052-0.47697230706941074) (trace: 20:40:2 start->20:40:2 system error (Error: errCode: -501000  | errMsg: FunctionName parameter could not be found. 更多错误信息请访问：https://docs.cloudbase.net/error-code/basic/FUNCTION_NOT_FOUND), abort)".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] loadData error:,errCode: -1, errMsg: cloud.callFunction:fail Error: errCode: -501000  | errMsg: FunctionName parameter could not be found. 更多错误信息请访问：https://docs.cloudbase.net/error-code/basic/FUNCTION_NOT_FOUND (callId: 1776775211041-0.5427767838059476) (trace: 20:40:11 start->20:40:11 system error (Error: errCode: -501000  | errMsg: FunctionName parameter could not be found. 更多错误信息请访问：https://docs.cloudbase.net/error-code/basic/FUNCTION_NOT_FOUND), abort)".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] loadData error:,errCode: -1, errMsg: cloud.callFunction:fail Error: errCode: -501000  | errMsg: FunctionName parameter could not be found. 更多错误信息请访问：https://docs.cloudbase.net/error-code/basic/FUNCTION_NOT_FOUND (callId: 1776775234954-0.6741660747380656) (trace: 20:40:34 start->20:40:35 system error (Error: errCode: -501000  | errMsg: FunctionName parameter could not be found. 更多错误信息请访问：https://docs.cloudbase.net/error-code/basic/FUNCTION_NOT_FOUND), abort)".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 WARN] loadData: doc().get() 失败，尝试 where 查询,-1".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] loadData: 所有查询方式均失败".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 WARN] loadData: doc().get() 失败，尝试 where 查询,-1".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] loadData: 所有查询方式均失败".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 WARN] loadData: doc().get() 失败，尝试 where 查询,-1".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] loadData: 所有查询方式均失败".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 WARN] loadData: doc().get() 失败，尝试 where 查询,-1".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] loadData: 所有查询方式均失败".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 WARN] loadData: doc().get() 失败，尝试 where 查询,-1".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] loadData: 所有查询方式均失败".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 WARN] loadData: doc().get() 失败，尝试 where 查询,-1".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] loadData: 所有查询方式均失败".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 WARN] loadData: doc().get() 失败，尝试 where 查询,-1".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] loadData: 所有查询方式均失败".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 WARN] loadData: doc().get() 失败，尝试 where 查询,-1".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] loadData: 所有查询方式均失败".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 WARN] loadData: doc().get() 失败，尝试 where 查询,-1".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] loadData: 所有查询方式均失败".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] createMatch 调用失败:,-1,cloud.callFunction:fail Error: errCode: -501000  | errMsg: FunctionName parameter could not be found. 更多错误信息请访问：https://docs.cloudbase.net/error-code/basic/FUNCTION_NOT_FOUND (callId: 1776824638102-0.7793396150338812) (trace: 10:23:58 start->10:23:58 system error (Error: errCode: -501000  | errMsg: FunctionName parameter could not be found. 更多错误信息请访问：https://docs.cloudbase.net/error-code/basic/FUNCTION_NOT_FOUND), abort)".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] createMatch 调用失败:,-1,cloud.callFunction:fail Error: errCode: -501000  | errMsg: FunctionName parameter could not be found. 更多错误信息请访问：https://docs.cloudbase.net/error-code/basic/FUNCTION_NOT_FOUND (callId: 1776824652268-0.39687052952394586) (trace: 10:24:12 start->10:24:12 system error (Error: errCode: -501000  | errMsg: FunctionName parameter could not be found. 更多错误信息请访问：https://docs.cloudbase.net/error-code/basic/FUNCTION_NOT_FOUND), abort)".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] createMatch 调用失败:,-1,cloud.callFunction:fail Error: errCode: -501000  | errMsg: FunctionName parameter could not be found. 更多错误信息请访问：https://docs.cloudbase.net/error-code/basic/FUNCTION_NOT_FOUND (callId: 1776824666481-0.028534384093954257) (trace: 10:24:26 start->10:24:26 system error (Error: errCode: -501000  | errMsg: FunctionName parameter could not be found. 更多错误信息请访问：https://docs.cloudbase.net/error-code/basic/FUNCTION_NOT_FOUND), abort)".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] createMatch 调用失败:,-1,cloud.callFunction:fail Error: errCode: -501000  | errMsg: FunctionName parameter could not be found. 更多错误信息请访问：https://docs.cloudbase.net/error-code/basic/FUNCTION_NOT_FOUND (callId: 1776824680702-0.6896459722234074) (trace: 10:24:40 start->10:24:41 system error (Error: errCode: -501000  | errMsg: FunctionName parameter could not be found. 更多错误信息请访问：https://docs.cloudbase.net/error-code/basic/FUNCTION_NOT_FOUND), abort)".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] finishMatch 调用失败:,-1,cloud.callFunction:fail Error: errCode: -501000  | errMsg: FunctionName parameter could not be found. 更多错误信息请访问：https://docs.cloudbase.net/error-code/basic/FUNCTION_NOT_FOUND (callId: 1776825372825-0.002039674098725186) (trace: 10:36:12 start->10:36:13 system error (Error: errCode: -501000  | errMsg: FunctionName parameter could not be found. 更多错误信息请访问：https://docs.cloudbase.net/error-code/basic/FUNCTION_NOT_FOUND), abort)".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] finishMatch 调用失败:,-1,cloud.callFunction:fail Error: errCode: -501000  | errMsg: FunctionName parameter could not be found. 更多错误信息请访问：https://docs.cloudbase.net/error-code/basic/FUNCTION_NOT_FOUND (callId: 1776825397226-0.7037440166672229) (trace: 10:36:37 start->10:36:37 system error (Error: errCode: -501000  | errMsg: FunctionName parameter could not be found. 更多错误信息请访问：https://docs.cloudbase.net/error-code/basic/FUNCTION_NOT_FOUND), abort)".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] finishMatch 调用失败:,-1,cloud.callFunction:fail Error: errCode: -501000  | errMsg: FunctionName parameter could not be found. 更多错误信息请访问：https://docs.cloudbase.net/error-code/basic/FUNCTION_NOT_FOUND (callId: 1776825421562-0.8973068103019051) (trace: 10:37:1 start->10:37:1 system error (Error: errCode: -501000  | errMsg: FunctionName parameter could not be found. 更多错误信息请访问：https://docs.cloudbase.net/error-code/basic/FUNCTION_NOT_FOUND), abort)".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] finishMatch 调用失败:,-1,cloud.callFunction:fail Error: errCode: -501000  | errMsg: FunctionName parameter could not be found. 更多错误信息请访问：https://docs.cloudbase.net/error-code/basic/FUNCTION_NOT_FOUND (callId: 1776825445885-0.5726250987796184) (trace: 10:37:25 start->10:37:26 system error (Error: errCode: -501000  | errMsg: FunctionName parameter could not be found. 更多错误信息请访问：https://docs.cloudbase.net/error-code/basic/FUNCTION_NOT_FOUND), abort)".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] createMatch 调用失败:,-1,cloud.callFunction:fail Error: errCode: -501000  | errMsg: FunctionName parameter could not be found. 更多错误信息请访问：https://docs.cloudbase.net/error-code/basic/FUNCTION_NOT_FOUND (callId: 1776824680702-0.6896459722234074) (trace: 10:24:40 start->10:24:41 system error (Error: errCode: -501000  | errMsg: FunctionName parameter could not be found. 更多错误信息请访问：https://docs.cloudbase.net/error-code/basic/FUNCTION_NOT_FOUND), abort)".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] finishMatch 调用失败:,-1,cloud.callFunction:fail Error: errCode: -501000  | errMsg: FunctionName parameter could not be found. 更多错误信息请访问：https://docs.cloudbase.net/error-code/basic/FUNCTION_NOT_FOUND (callId: 1776825372825-0.002039674098725186) (trace: 10:36:12 start->10:36:13 system error (Error: errCode: -501000  | errMsg: FunctionName parameter could not be found. 更多错误信息请访问：https://docs.cloudbase.net/error-code/basic/FUNCTION_NOT_FOUND), abort)".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] finishMatch 调用失败:,-1,cloud.callFunction:fail Error: errCode: -501000  | errMsg: FunctionName parameter could not be found. 更多错误信息请访问：https://docs.cloudbase.net/error-code/basic/FUNCTION_NOT_FOUND (callId: 1776825397226-0.7037440166672229) (trace: 10:36:37 start->10:36:37 system error (Error: errCode: -501000  | errMsg: FunctionName parameter could not be found. 更多错误信息请访问：https://docs.cloudbase.net/error-code/basic/FUNCTION_NOT_FOUND), abort)".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] finishMatch 调用失败:,-1,cloud.callFunction:fail Error: errCode: -501000  | errMsg: FunctionName parameter could not be found. 更多错误信息请访问：https://docs.cloudbase.net/error-code/basic/FUNCTION_NOT_FOUND (callId: 1776825421562-0.8973068103019051) (trace: 10:37:1 start->10:37:1 system error (Error: errCode: -501000  | errMsg: FunctionName parameter could not be found. 更多错误信息请访问：https://docs.cloudbase.net/error-code/basic/FUNCTION_NOT_FOUND), abort)".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] finishMatch 调用失败:,-1,cloud.callFunction:fail Error: errCode: -501000  | errMsg: FunctionName parameter could not be found. 更多错误信息请访问：https://docs.cloudbase.net/error-code/basic/FUNCTION_NOT_FOUND (callId: 1776825445885-0.5726250987796184) (trace: 10:37:25 start->10:37:26 system error (Error: errCode: -501000  | errMsg: FunctionName parameter could not be found. 更多错误信息请访问：https://docs.cloudbase.net/error-code/basic/FUNCTION_NOT_FOUND), abort)".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+  at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] createMatch 调用失败:,-1,cloud.callFunction:fail Error: errCode: -501000  | errMsg: FunctionName parameter could not be found. 更多错误信息请访问：https://docs.cloudbase.net/error-code/basic/FUNCTION_NOT_FOUND (callId: 1776824666481-0.028534384093954257) (trace: 10:24:26 start->10:24:26 system error (Error: errCode: -501000  | errMsg: FunctionName parameter could not be found. 更多错误信息请访问：https://docs.cloudbase.net/error-code/basic/FUNCTION_NOT_FOUND), abort)".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] createMatch 调用失败:,-1,cloud.callFunction:fail Error: errCode: -501000  | errMsg: FunctionName parameter could not be found. 更多错误信息请访问：https://docs.cloudbase.net/error-code/basic/FUNCTION_NOT_FOUND (callId: 1776824680702-0.6896459722234074) (trace: 10:24:40 start->10:24:41 system error (Error: errCode: -501000  | errMsg: FunctionName parameter could not be found. 更多错误信息请访问：https://docs.cloudbase.net/error-code/basic/FUNCTION_NOT_FOUND), abort)".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] finishMatch 调用失败:,-1,cloud.callFunction:fail Error: errCode: -501000  | errMsg: FunctionName parameter could not be found. 更多错误信息请访问：https://docs.cloudbase.net/error-code/basic/FUNCTION_NOT_FOUND (callId: 1776825372825-0.002039674098725186) (trace: 10:36:12 start->10:36:13 system error (Error: errCode: -501000  | errMsg: FunctionName parameter could not be found. 更多错误信息请访问：https://docs.cloudbase.net/error-code/basic/FUNCTION_NOT_FOUND), abort)".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] finishMatch 调用失败:,-1,cloud.callFunction:fail Error: errCode: -501000  | errMsg: FunctionName parameter could not be found. 更多错误信息请访问：https://docs.cloudbase.net/error-code/basic/FUNCTION_NOT_FOUND (callId: 1776825397226-0.7037440166672229) (trace: 10:36:37 start->10:36:37 system error (Error: errCode: -501000  | errMsg: FunctionName parameter could not be found. 更多错误信息请访问：https://docs.cloudbase.net/error-code/basic/FUNCTION_NOT_FOUND), abort)".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] finishMatch 调用失败:,-1,cloud.callFunction:fail Error: errCode: -501000  | errMsg: FunctionName parameter could not be found. 更多错误信息请访问：https://docs.cloudbase.net/error-code/basic/FUNCTION_NOT_FOUND (callId: 1776825421562-0.8973068103019051) (trace: 10:37:1 start->10:37:1 system error (Error: errCode: -501000  | errMsg: FunctionName parameter could not be found. 更多错误信息请访问：https://docs.cloudbase.net/error-code/basic/FUNCTION_NOT_FOUND), abort)".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+
+
+  ●  Cannot log after tests are done. Did you forget to wait for something async in your test?
+    Attempted to log "[小程序 ERROR] finishMatch 调用失败:,-1,cloud.callFunction:fail Error: errCode: -501000  | errMsg: FunctionName parameter could not be found. 更多错误信息请访问：https://docs.cloudbase.net/error-code/basic/FUNCTION_NOT_FOUND (callId: 1776825445885-0.5726250987796184) (trace: 10:37:25 start->10:37:26 system error (Error: errCode: -501000  | errMsg: FunctionName parameter could not be found. 更多错误信息请访问：https://docs.cloudbase.net/error-code/basic/FUNCTION_NOT_FOUND), abort)".
+
+    [0m [90m 57 |[39m     [90m// 同时输出到 Node 控制台，方便实时查看[39m
+     [90m 58 |[39m     [36mconst[39m prefix [33m=[39m [32m`[小程序 ${entry.type.toUpperCase()}]`[39m[33m;[39m
+    [31m[1m>[22m[39m[90m 59 |[39m     console[33m.[39mlog([32m`${prefix} ${entry.text}`[39m)[33m;[39m
+     [90m    |[39m             [31m[1m^[22m[39m
+     [90m 60 |[39m   })[33m;[39m
+     [90m 61 |[39m
+     [90m 62 |[39m   [36mreturn[39m miniProgram[33m;[39m[0m
+
+      at console.log (node_modules/@jest/console/build/CustomConsole.js:141:10)
+      at MiniProgram.log (tests/e2e/setup.js:59:13)
+      at Connection.MiniProgram.onLogAdded (node_modules/miniprogram-automator/out/MiniProgram.js:1:859)
+      at Transport.Connection.onMessage (node_modules/miniprogram-automator/out/Connection.js:1:997)
+      at WebSocket.<anonymous> (node_modules/miniprogram-automator/out/Transport.js:1:322)
+      at WebSocket.onMessage (node_modules/ws/lib/event-target.js:120:16)
+      at Receiver.receiverOnMessage (node_modules/ws/lib/websocket.js:789:20)
+      at Receiver.dataMessage (node_modules/ws/lib/receiver.js:422:14)
+      at Receiver.getData (node_modules/ws/lib/receiver.js:352:17)
+      at Receiver.startLoop (node_modules/ws/lib/receiver.js:138:22)
+      at Receiver._write (node_modules/ws/lib/receiver.js:74:10)
+      at Socket.socketOnData (node_modules/ws/lib/websocket.js:864:35)
+

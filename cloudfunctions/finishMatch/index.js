@@ -1,7 +1,7 @@
 // cloudfunctions/finishMatch/index.js
 const cloud = require('wx-server-sdk');
 
-cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV });
+cloud.init({ env: 'cloud1-d1goy6u8nf336912a' });
 
 const db = cloud.database();
 

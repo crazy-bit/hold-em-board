@@ -18,7 +18,7 @@
     <button
       class="btn-primary"
       bindtap="createGroup"
-      disabled="{{creating || !groupName.trim()}}"
+      disabled="{{creating || !groupName}}"
     >
       {{creating ? '创建中...' : '创建记分组'}}
     </button>

@@ -21,12 +21,14 @@ Page({
   },
 
   onShow() {
-    if (this.data.matchId) {
+    if (this.data.matchId && !this._loading) {
       this.loadData();
     }
   },
 
   async loadData() {
+    if (this._loading) return;
+    this._loading = true;
     const { matchId, groupId } = this.data;
     const openId = app.globalData.openId;
     const db = wx.cloud.database();
@@ -56,6 +58,8 @@ Page({
     } catch (err) {
       console.error('loadData error:', err);
       wx.showToast({ title: '加载失败', icon: 'error' });
+    } finally {
+      this._loading = false;
     }
   },
 
@@ -105,9 +109,11 @@ Page({
         wx.showToast({ title: '赛程已结束', icon: 'success' });
         this.loadData();
       } else {
+        console.error('finishMatch 返回错误:', res.result.msg || '未知错误');
         wx.showToast({ title: res.result.msg || '操作失败', icon: 'error' });
       }
     } catch (err) {
+      console.error('finishMatch 调用失败:', err.errCode || '', err.errMsg || err.message || JSON.stringify(err));
       wx.showToast({ title: '操作失败，请重试', icon: 'error' });
     } finally {
       this.setData({ finishing: false });

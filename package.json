@@ -5,11 +5,11 @@
   "scripts": {
     "test": "jest",
     "test:unit": "jest --testPathPattern=tests/unit",
-    "test:e2e": "jest --testPathPattern=tests/e2e --runInBand",
+    "test:e2e": "jest --config jest.config.e2e.js --runInBand",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "postinstall": "node patch-automator.js",
-    "auto:start": "\"D:/微信web开发者工具/cli.bat\" auto --project . --auto-port 9420"
+    "auto:start": "node start-auto.js"
   },
   "devDependencies": {
     "jest": "^29.7.0",

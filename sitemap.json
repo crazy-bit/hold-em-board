@@ -2,5 +2,11 @@
   "desc": "关于本项目小程序使用说明",
   "setting": {
     "urlCheck": false
-  }
+  },
+  "rules": [
+    {
+      "action": "allow",
+      "page": "*"
+    }
+  ]
 }

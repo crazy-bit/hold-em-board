@@ -1,7 +1,7 @@
 // cloudfunctions/login/index.js
 const cloud = require('wx-server-sdk');
 
-cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV });
+cloud.init({ env: 'cloud1-d1goy6u8nf336912a' });
 
 const db = cloud.database();
 
@@ -18,23 +18,36 @@ exports.main = async (event, context) => {
   }
 
   try {
-    // 查询用户是否已存在
     const usersCol = db.collection('users');
-    const { data: users } = await usersCol.where({ _id: openId }).get();
+    let existingUser = null;
 
-    if (users.length === 0) {
+    // 查询用户是否已存在（集合不存在时也能容错）
+    try {
+      const { data: users } = await usersCol.where({ _id: openId }).get();
+      existingUser = users && users.length > 0 ? users[0] : null;
+    } catch (queryErr) {
+      // 集合不存在或查询失败，视为新用户
+      console.warn('query users failed, treat as new user:', queryErr.message);
+    }
+
+    if (!existingUser) {
       // 首次登录，创建用户记录
-      await usersCol.add({
-        data: {
-          _id: openId,
-          nickName: event.nickName || '德州玩家',
-          avatarUrl: event.avatarUrl || '',
-          createdAt: db.serverDate(),
-        },
-      });
-    } else {
+      try {
+        await usersCol.add({
+          data: {
+            _id: openId,
+            nickName: event.nickName || '德州玩家',
+            avatarUrl: event.avatarUrl || '',
+            createdAt: db.serverDate(),
+          },
+        });
+      } catch (addErr) {
+        // 并发情况下可能已被创建，忽略重复插入错误
+        console.warn('add user failed (may already exist):', addErr.message);
+      }
+    } else if (event.nickName) {
       // 更新昵称和头像
-      if (event.nickName) {
+      try {
         await usersCol.doc(openId).update({
           data: {
             nickName: event.nickName,
@@ -42,14 +55,16 @@ exports.main = async (event, context) => {
             updatedAt: db.serverDate(),
           },
         });
+      } catch (updateErr) {
+        console.warn('update user failed:', updateErr.message);
       }
     }
 
     return {
       code: 0,
       openId,
-      nickName: event.nickName || (users[0] && users[0].nickName) || '德州玩家',
-      avatarUrl: event.avatarUrl || (users[0] && users[0].avatarUrl) || '',
+      nickName: event.nickName || (existingUser && existingUser.nickName) || '德州玩家',
+      avatarUrl: event.avatarUrl || (existingUser && existingUser.avatarUrl) || '',
     };
   } catch (err) {
     console.error('login error:', err);

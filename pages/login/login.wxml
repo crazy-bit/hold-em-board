@@ -10,8 +10,7 @@
     <text class="login-tip">登录后即可创建或加入记分组</text>
     <button
       class="btn-login"
-      open-type="getUserInfo"
-      bindgetuserinfo="onGetUserInfo"
+      bindtap="onLoginTap"
       wx:if="{{!loading}}"
     >
       微信一键登录
