@@ -71,7 +71,6 @@
   color: #1a1a2e;
   line-height: 64rpx;
 }
-}
 
 .rank-none {
   color: #ccc;
