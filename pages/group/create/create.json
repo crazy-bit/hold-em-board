@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "创建记分组",
+  "navigationBarTitleText": "创建赛事",
   "usingComponents": {
     "van-button": "@vant/weapp/button/index",
     "van-field": "@vant/weapp/field/index",

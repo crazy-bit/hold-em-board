@@ -3,5 +3,5 @@
   <view style="width:160rpx;height:160rpx;margin-bottom:40rpx;display:flex;align-items:center;justify-content:center;font-size:120rpx;">♠</view>
   <text class="page-title" style="text-align:center;">德州记分板</text>
   <text style="color:#999;font-size:26rpx;margin-bottom:60rpx;">轻松记录每一局的胜负</text>
-  <button class="btn-primary" style="width:480rpx;" bindtap="goToGroups">进入记分组</button>
+  <button class="btn-primary" style="width:480rpx;" bindtap="goToGroups">进入赛事</button>
 </view>

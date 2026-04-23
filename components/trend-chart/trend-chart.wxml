@@ -1,0 +1,13 @@
+<view class="chart-wrap" wx:if="{{series.length > 0 && labels.length > 1}}">
+  <canvas type="2d" id="trendCanvas" class="chart-canvas" style="width:{{canvasWidth}}px;height:{{canvasHeight}}px;" />
+  <!-- 图例 -->
+  <view class="legend-wrap">
+    <view class="legend-item" wx:for="{{series}}" wx:key="userId">
+      <view class="legend-dot" style="background:{{item.color}};"></view>
+      <text class="legend-text">{{item.nickName}}</text>
+    </view>
+  </view>
+</view>
+<view class="chart-empty" wx:else>
+  <text class="chart-empty-text">需要至少 2 期已结束赛程才能显示趋势</text>
+</view>

@@ -1,10 +1,10 @@
 <!-- pages/group/create/create.wxml -->
 <view class="container">
-  <text class="page-title">创建记分组</text>
+  <text class="page-title">创建赛事</text>
 
   <view class="card">
     <van-field
-      label="记分组名称"
+      label="赛事名称"
       placeholder="例如：周五德州局"
       value="{{groupName}}"
       bind:change="onNameInput"
@@ -24,7 +24,7 @@
       loading="{{creating}}"
       loading-text="创建中..."
     >
-      创建记分组
+      创建赛事
     </van-button>
   </view>
 </view>

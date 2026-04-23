@@ -1,6 +1,6 @@
 /**
  * tests/e2e/group.test.js
- * 记分组功能 E2E 测试
+ * 赛事功能 E2E 测试
  * 每个用例使用 reLaunch 独立导航，互不依赖
  * 利用 console 日志收集覆盖创建报错场景
  */
@@ -16,7 +16,7 @@ const {
   waitForConsoleMessage,
 } = require('./helpers');
 
-describe('记分组功能 E2E', () => {
+describe('赛事功能 E2E', () => {
   let miniProgram;
 
   beforeAll(async () => {
@@ -28,8 +28,8 @@ describe('记分组功能 E2E', () => {
     await releaseMiniProgram();
   });
 
-  // ── 创建记分组 ──────────────────────────────────────────────
-  describe('创建记分组', () => {
+  // ── 创建赛事 ──────────────────────────────────────────────
+  describe('创建赛事', () => {
     it('应能进入创建页面', async () => {
       // 首个用例连接 automator 耗时较长，增加 ensureOnPage 等待
       const page = await ensureOnPage(miniProgram, '/pages/group/create/create', 3000);
@@ -113,7 +113,7 @@ describe('记分组功能 E2E', () => {
       expect(typeof data.creating).toBe('boolean');
     }, 20000);
 
-    it('提交后应跳转到记分组详情页或捕获到错误日志（需已登录）', async () => {
+    it('提交后应跳转到赛事详情页或捕获到错误日志（需已登录）', async () => {
       clearConsoleLogs();
       let page = await ensureOnPage(miniProgram, '/pages/group/create/create', 3000);
 
@@ -289,7 +289,7 @@ describe('记分组功能 E2E', () => {
   describe('创建成功后详情页验证', () => {
     let createdGroupId = null;
 
-    it('创建记分组并验证详情页数据', async () => {
+    it('创建赛事并验证详情页数据', async () => {
       clearConsoleLogs();
       const page = await ensureOnPage(miniProgram, '/pages/group/create/create');
 
@@ -469,8 +469,8 @@ describe('记分组功能 E2E', () => {
     }, 35000);
   });
 
-  // ── 记分组列表页 ────────────────────────────────────────────
-  describe('记分组列表页', () => {
+  // ── 赛事列表页 ────────────────────────────────────────────
+  describe('赛事列表页', () => {
     it('应能进入列表页（或被重定向到登录页）', async () => {
       // reLaunch 支持 tabBar 页面
       const page = await ensureOnPage(miniProgram, '/pages/group/list/list', 2000);
@@ -521,13 +521,13 @@ describe('记分组功能 E2E', () => {
       }
     }, 15000);
 
-    it('列表页应显示已创建的记分组', async () => {
+    it('列表页应显示已创建的赛事', async () => {
       const page = await ensureOnPage(miniProgram, '/pages/group/list/list', 2000);
       await sleep(5000);
 
       if (page.path.includes('group/list')) {
         const data = await page.data();
-        // 前面的测试已经创建了记分组，列表应不为空
+        // 前面的测试已经创建了赛事，列表应不为空
         if (data.groups.length > 0) {
           const firstGroup = data.groups[0];
           expect(firstGroup.name).toBeTruthy();
@@ -538,8 +538,8 @@ describe('记分组功能 E2E', () => {
     }, 15000);
   });
 
-  // ── 加入记分组 ──────────────────────────────────────────────
-  describe('加入记分组', () => {
+  // ── 加入赛事 ──────────────────────────────────────────────
+  describe('加入赛事', () => {
     it('点击加入按钮应弹出邀请码弹窗', async () => {
       const page = await ensureOnPage(miniProgram, '/pages/group/list/list', 2000);
       await sleep(3000);
@@ -644,12 +644,12 @@ describe('记分组功能 E2E', () => {
     }, 15000);
   });
 
-  // ── 记分组详情页 Tab 切换 ───────────────────────────────────
-  describe('记分组详情页 Tab 切换', () => {
+  // ── 赛事详情页 Tab 切换 ───────────────────────────────────
+  describe('赛事详情页 Tab 切换', () => {
     let testGroupId = null;
 
     beforeAll(async () => {
-      // 创建一个记分组用于 Tab 切换测试
+      // 创建一个赛事用于 Tab 切换测试
       clearConsoleLogs();
       const page = await ensureOnPage(miniProgram, '/pages/group/create/create', 3000);
       try {
@@ -668,7 +668,7 @@ describe('记分组功能 E2E', () => {
       if (currentPage.path.includes('group/detail')) {
         const data = await currentPage.data();
         testGroupId = data.groupId;
-        console.log(`✅ Tab 测试前置：创建记分组成功, groupId: ${testGroupId}`);
+        console.log(`✅ Tab 测试前置：创建赛事成功, groupId: ${testGroupId}`);
       }
     }, 35000);
 

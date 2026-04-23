@@ -7,7 +7,7 @@ const db = cloud.database();
 const $ = db.command.aggregate;
 
 /**
- * 获取当前用户的记分组列表云函数
+ * 获取当前用户的赛事列表云函数
  * 使用聚合查询一次性获取所有组的成员数和赛程数，避免 N×2 次串行查询
  */
 exports.main = async (event, context) => {
@@ -29,7 +29,7 @@ exports.main = async (event, context) => {
     const memberMap = {};
     members.forEach(m => { memberMap[m.groupId] = m; });
 
-    // 2. 批量查询记分组信息
+    // 2. 批量查询赛事信息
     const { data: groupsData } = await db.collection('groups')
       .where({ _id: db.command.in(groupIds) })
       .get();

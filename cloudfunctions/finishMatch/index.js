@@ -49,7 +49,7 @@ exports.main = async (event, context) => {
       };
     }
 
-    // 从记分组读取规则（统一从 group 读取，不再使用 rulesSnapshot）
+    // 从赛事读取规则（统一从 group 读取，不再使用 rulesSnapshot）
     const bonusCountsToTotal = group.bonusCountsToTotal || false;
     const updatePromises = scores.map(s => {
       const finalChips = s.finalChips || 0;

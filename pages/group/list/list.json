@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "记分组",
+  "navigationBarTitleText": "赛事",
   "usingComponents": {
     "van-dialog": "@vant/weapp/dialog/index",
     "van-button": "@vant/weapp/button/index",

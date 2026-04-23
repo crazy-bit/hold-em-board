@@ -132,9 +132,9 @@ async function waitForConsoleMessage(text, options = {}) {
 
 /**
  * 通过 miniProgram.evaluate 在小程序端执行数据库操作，向 group_members 插入模拟成员
- * 用于模拟多人记分组场景（automator 只有一个真实用户身份，其余成员通过数据库直接插入）
+ * 用于模拟多人赛事场景（automator 只有一个真实用户身份，其余成员通过数据库直接插入）
  * @param {MiniProgram} miniProgram 小程序实例
- * @param {string} groupId 记分组 ID
+ * @param {string} groupId 赛事 ID
  * @param {Array<{userId: string, nickName: string}>} members 要插入的模拟成员列表
  * @returns {Promise<number>} 成功插入的成员数量
  */
@@ -180,7 +180,7 @@ async function addMockMembers(miniProgram, groupId, members) {
 /**
  * 通过 miniProgram.evaluate 在小程序端清理模拟成员数据
  * @param {MiniProgram} miniProgram 小程序实例
- * @param {string} groupId 记分组 ID
+ * @param {string} groupId 赛事 ID
  * @param {string[]} userIds 要清理的模拟成员 userId 列表
  */
 async function removeMockMembers(miniProgram, groupId, userIds) {

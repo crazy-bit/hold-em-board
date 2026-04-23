@@ -2,11 +2,11 @@
 
 ## 集合列表
 
-### groups（记分组）
+### groups（赛事）
 | 字段               | 类型    | 说明                   |
 | ------------------ | ------- | ---------------------- |
 | _id                | string  | 自动生成               |
-| name               | string  | 记分组名称             |
+| name               | string  | 赛事名称             |
 | adminId            | string  | 管理员 openId          |
 | inviteCode         | string  | 邀请码（唯一）         |
 | chipRules          | array   | 初始筹码规则（按名次） |
@@ -27,7 +27,7 @@ rank=0 表示默认规则（未上榜成员）
 | 字段      | 类型   | 说明        |
 | --------- | ------ | ----------- |
 | _id       | string | 自动生成    |
-| groupId   | string | 记分组 ID   |
+| groupId   | string | 赛事 ID   |
 | userId    | string | 用户 openId |
 | nickName  | string | 用户昵称    |
 | avatarUrl | string | 用户头像    |
@@ -37,7 +37,7 @@ rank=0 表示默认规则（未上榜成员）
 | 字段          | 类型   | 说明                          |
 | ------------- | ------ | ----------------------------- |
 | _id           | string | 自动生成                      |
-| groupId       | string | 记分组 ID                     |
+| groupId       | string | 赛事 ID                     |
 | title         | string | 赛程标题                      |
 | status        | string | active / finished / cancelled |
 | createdAt     | date   | 创建时间                      |
@@ -50,7 +50,7 @@ rank=0 表示默认规则（未上榜成员）
 | ------------ | ------ | ---------------------- |
 | _id          | string | 自动生成               |
 | matchId      | string | 赛程 ID                |
-| groupId      | string | 记分组 ID              |
+| groupId      | string | 赛事 ID              |
 | userId       | string | 用户 openId            |
 | nickName     | string | 用户昵称               |
 | initialChips | number | 初始筹码               |

@@ -26,7 +26,7 @@
     "list": [
       {
         "pagePath": "pages/group/list/list",
-        "text": "记分组"
+        "text": "赛事"
       },
       {
         "pagePath": "pages/index/index",

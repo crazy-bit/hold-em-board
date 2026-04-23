@@ -1,9 +1,9 @@
 /**
  * tests/e2e/multiPlayer.test.js
- * 多人记分组（4人）E2E 测试
+ * 多人赛事（4人）E2E 测试
  * 
  * 测试场景：
- * 1. 创建记分组 → 通过数据库插入 3 个模拟成员（共 4 人）
+ * 1. 创建赛事 → 通过数据库插入 3 个模拟成员（共 4 人）
  * 2. 验证详情页成员列表显示 4 人
  * 3. 创建赛程 → 验证为 4 人各创建了分数记录
  * 4. 填写当前用户的结算筹码
@@ -34,7 +34,7 @@ const MOCK_MEMBERS = [
 ];
 const MOCK_USER_IDS = MOCK_MEMBERS.map((m) => m.userId);
 
-describe('多人记分组（4人）E2E', () => {
+describe('多人赛事（4人）E2E', () => {
   let miniProgram;
   let groupId = null;
   let groupInviteCode = null;
@@ -54,9 +54,9 @@ describe('多人记分组（4人）E2E', () => {
     await releaseMiniProgram();
   });
 
-  // ── 第一步：创建 4 人记分组 ─────────────────────────────────
-  describe('创建 4 人记分组', () => {
-    it('应成功创建记分组', async () => {
+  // ── 第一步：创建 4 人赛事 ─────────────────────────────────
+  describe('创建 4 人赛事', () => {
+    it('应成功创建赛事', async () => {
       clearConsoleLogs();
       const page = await ensureOnPage(miniProgram, '/pages/group/create/create', 3000);
       try {
@@ -79,7 +79,7 @@ describe('多人记分组（4人）E2E', () => {
         if (data.group && data.group.inviteCode) {
           groupInviteCode = data.group.inviteCode;
         }
-        console.log(`✅ 记分组创建成功: groupId=${groupId}, inviteCode=${groupInviteCode}`);
+        console.log(`✅ 赛事创建成功: groupId=${groupId}, inviteCode=${groupInviteCode}`);
         expect(groupId).toBeTruthy();
       } else {
         console.warn(`⚠️ 创建未跳转到详情页: ${currentPage.path}`);
@@ -91,7 +91,7 @@ describe('多人记分组（4人）E2E', () => {
 
     it('应成功插入 3 个模拟成员（共 4 人）', async () => {
       if (!groupId) {
-        console.log('⏭️ 跳过：记分组创建失败');
+        console.log('⏭️ 跳过：赛事创建失败');
         return;
       }
 
@@ -414,7 +414,7 @@ describe('多人记分组（4人）E2E', () => {
 
   // ── 第五步：验证积分榜排名 ─────────────────────────────────
   describe('4 人积分榜验证', () => {
-    it('记分组详情页积分榜应显示 4 人排名', async () => {
+    it('赛事详情页积分榜应显示 4 人排名', async () => {
       if (!groupId) return;
 
       const page = await ensureOnPage(
@@ -652,7 +652,7 @@ describe('多人记分组（4人）E2E', () => {
 
   // ── 第八步：赛程列表验证 ───────────────────────────────────
   describe('赛程列表验证', () => {
-    it('记分组详情页应显示 2 期赛程', async () => {
+    it('赛事详情页应显示 2 期赛程', async () => {
       if (!groupId) return;
 
       const page = await ensureOnPage(

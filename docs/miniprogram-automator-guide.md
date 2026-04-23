@@ -312,7 +312,7 @@ describe('calcPoints - 积分计算', () => {
 tests/
 ├── e2e/
 │   ├── setup.js          # automator 连接配置（单例模式）
-│   ├── group.test.js     # 记分组功能 E2E
+│   ├── group.test.js     # 赛事功能 E2E
 │   └── match.test.js     # 赛程+分数 E2E
 └── unit/
     ├── __mocks__/

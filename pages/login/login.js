@@ -33,7 +33,7 @@ Page({
           avatarUrl: res.result.avatarUrl || '',
         };
 
-        // 跳转到记分组列表
+        // 跳转到赛事列表
         wx.switchTab({ url: '/pages/group/list/list' });
       } else {
         const msg = (res.result && res.result.msg) || '登录失败，请重试';

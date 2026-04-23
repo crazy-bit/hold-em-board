@@ -85,6 +85,13 @@
         </view>
       </view>
     </van-tab>
+
+    <van-tab title="积分趋势">
+      <!-- 积分趋势曲线图 -->
+      <view style="padding-top: 16rpx;">
+        <trend-chart series="{{trendSeries}}" labels="{{trendLabels}}" />
+      </view>
+    </van-tab>
   </van-tabs>
 </view>
 

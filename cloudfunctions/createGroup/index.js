@@ -6,7 +6,7 @@ cloud.init({ env: 'cloud1-d1goy6u8nf336912a' });
 const db = cloud.database();
 
 /**
- * 创建记分组云函数
+ * 创建赛事云函数
  */
 exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext();
@@ -14,7 +14,7 @@ exports.main = async (event, context) => {
   const { name, nickName, avatarUrl } = event;
 
   if (!name || !name.trim()) {
-    return { code: -1, msg: '记分组名称不能为空' };
+    return { code: -1, msg: '赛事名称不能为空' };
   }
 
   try {
@@ -26,7 +26,7 @@ exports.main = async (event, context) => {
       { rank: 0, initialChips: 1000, bonus: 0 },
     ];
 
-    // 创建记分组
+    // 创建赛事
     const groupRes = await db.collection('groups').add({
       data: {
         name: name.trim(),

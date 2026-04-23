@@ -7,8 +7,8 @@ const db = cloud.database()
 // 项目所需的全部集合
 const COLLECTIONS = [
   'users',          // 用户信息
-  'groups',         // 记分组
-  'group_members',  // 记分组成员关系
+  'groups',         // 赛事
+  'group_members',  // 赛事成员关系
   'matches',        // 牌局记录
   'scores',         // 分数记录
 ]

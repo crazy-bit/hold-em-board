@@ -6,7 +6,7 @@ cloud.init({ env: 'cloud1-d1goy6u8nf336912a' });
 const db = cloud.database();
 
 /**
- * 获取记分组详情云函数
+ * 获取赛事详情云函数
  * 使用管理员权限查询，绕过前端安全规则限制
  */
 exports.main = async (event, context) => {

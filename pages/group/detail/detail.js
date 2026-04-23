@@ -10,6 +10,8 @@ Page({
     members: [],
     matches: [],
     leaderboard: [],
+    trendSeries: [],
+    trendLabels: [],
     isAdmin: false,
     activeTab: 'matches',
     activeTabIndex: 0,
@@ -131,7 +133,7 @@ Page({
         totalPoints: 0,
         matchCount: 0,
       }));
-      this.setData({ leaderboard });
+      this.setData({ leaderboard, trendSeries: [], trendLabels: [] });
       return;
     }
 
@@ -159,15 +161,70 @@ Page({
         matchCount: countMap[m.userId] || 0,
       })).sort((a, b) => b.totalPoints - a.totalPoints);
 
-      this.setData({ leaderboard });
+      // 计算积分趋势数据
+      const { trendSeries, trendLabels } = this._calcTrend(finishedMatches, scores, members);
+
+      this.setData({ leaderboard, trendSeries, trendLabels });
     } catch (err) {
       console.warn('calcLeaderboard error:', err.message || err);
     }
   },
 
+  _calcTrend(finishedMatches, scores, members) {
+    const COLORS = [
+      '#e94560', '#4caf50', '#2196f3', '#ff9800', '#9c27b0',
+      '#00bcd4', '#795548', '#607d8b', '#f44336', '#3f51b5',
+    ];
+
+    // 按时间升序排列
+    const sorted = [...finishedMatches].sort((a, b) => {
+      const ta = a.createdAt ? new Date(a.createdAt) : 0;
+      const tb = b.createdAt ? new Date(b.createdAt) : 0;
+      return ta - tb;
+    });
+
+    const trendLabels = sorted.map((m, i) => m.title || `第${i + 1}期`);
+
+    // 按 matchId 分组 scores
+    const scoresByMatch = {};
+    scores.forEach(s => {
+      if (!scoresByMatch[s.matchId]) scoresByMatch[s.matchId] = [];
+      scoresByMatch[s.matchId].push(s);
+    });
+
+    // 为每个成员计算逐期累计积分
+    const cumulative = {};
+    members.forEach(m => { cumulative[m.userId] = []; });
+
+    sorted.forEach(match => {
+      const matchScores = scoresByMatch[match._id] || [];
+      const matchPointsMap = {};
+      matchScores.forEach(s => { matchPointsMap[s.userId] = s.points || 0; });
+
+      members.forEach(m => {
+        const prev = cumulative[m.userId].length > 0
+          ? cumulative[m.userId][cumulative[m.userId].length - 1]
+          : 0;
+        cumulative[m.userId].push(prev + (matchPointsMap[m.userId] || 0));
+      });
+    });
+
+    // 构建 series（只包含有参与记录的成员）
+    const trendSeries = members
+      .filter(m => cumulative[m.userId].some(v => v !== 0))
+      .map((m, i) => ({
+        userId: m.userId,
+        nickName: m.nickName,
+        color: COLORS[i % COLORS.length],
+        data: cumulative[m.userId],
+      }));
+
+    return { trendSeries, trendLabels };
+  },
+
   onTabChange(e) {
     const index = e.detail.index;
-    const tabs = ['matches', 'leaderboard'];
+    const tabs = ['matches', 'leaderboard', 'trend'];
     this.setData({ activeTab: tabs[index], activeTabIndex: index });
   },
 
@@ -210,7 +267,7 @@ Page({
   onShareAppMessage() {
     const { group } = this.data;
     return {
-      title: `加入「${group.name}」德州记分组`,
+      title: `加入「${group.name}」德州赛事`,
       path: `/pages/group/list/list?inviteCode=${group.inviteCode}`,
     };
   },

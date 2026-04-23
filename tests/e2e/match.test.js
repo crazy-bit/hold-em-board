@@ -1,7 +1,7 @@
 /**
  * tests/e2e/match.test.js
  * 赛程管理 E2E 测试
- * 包含自包含的创建流程（先创建记分组，再创建赛程），不依赖外部环境变量
+ * 包含自包含的创建流程（先创建赛事，再创建赛程），不依赖外部环境变量
  * 利用 console 日志收集覆盖赛程创建报错场景
  */
 const { getMiniProgram, releaseMiniProgram, getConsoleLogs, clearConsoleLogs, dumpConsoleLogs } = require('./setup');
@@ -18,14 +18,14 @@ const {
 
 describe('赛程管理 E2E', () => {
   let miniProgram;
-  // 自动创建的记分组 ID 和赛程 ID，供后续测试使用
+  // 自动创建的赛事 ID 和赛程 ID，供后续测试使用
   let autoGroupId = null;
   let autoMatchId = null;
 
   beforeAll(async () => {
     miniProgram = await getMiniProgram();
 
-    // 自动创建一个记分组，获取 groupId 供赛程测试使用
+    // 自动创建一个赛事，获取 groupId 供赛程测试使用
     try {
       const page = await ensureOnPage(miniProgram, '/pages/group/create/create', 3000);
       try {
@@ -44,12 +44,12 @@ describe('赛程管理 E2E', () => {
       if (currentPage.path.includes('group/detail')) {
         const data = await currentPage.data();
         autoGroupId = data.groupId;
-        console.log(`✅ 赛程测试前置：创建记分组成功, groupId: ${autoGroupId}`);
+        console.log(`✅ 赛程测试前置：创建赛事成功, groupId: ${autoGroupId}`);
       } else {
-        console.warn(`⚠️ 赛程测试前置：创建记分组未跳转到详情页 (${currentPage.path})`);
+        console.warn(`⚠️ 赛程测试前置：创建赛事未跳转到详情页 (${currentPage.path})`);
       }
     } catch (err) {
-      console.warn(`⚠️ 赛程测试前置：创建记分组失败: ${err.message}`);
+      console.warn(`⚠️ 赛程测试前置：创建赛事失败: ${err.message}`);
     }
   }, 60000);
 
@@ -292,7 +292,7 @@ describe('赛程管理 E2E', () => {
 
   // ── 赛程详情页 ──────────────────────────────────────────────
   describe('赛程详情页', () => {
-    it('应能进入记分组详情页查看赛程列表', async () => {
+    it('应能进入赛事详情页查看赛程列表', async () => {
       const groupId = getGroupId();
       if (!groupId) {
         console.log('⏭️ 跳过：无可用 groupId');

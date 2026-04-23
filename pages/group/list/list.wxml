@@ -2,7 +2,7 @@
 <view class="container">
   <!-- 顶部标题栏 -->
   <view class="header flex-between">
-    <text class="page-title" style="margin-bottom:0;">我的记分组</text>
+    <text class="page-title" style="margin-bottom:0;">我的赛事</text>
     <view class="flex-row" style="gap:24rpx;">
       <view class="icon-btn" bindtap="goJoinGroup">
         <text>加入</text>
@@ -17,13 +17,13 @@
   <van-skeleton title row="3" loading="{{loading}}" wx:if="{{loading}}" />
 
   <!-- 空状态 -->
-  <van-empty description="还没有加入任何记分组" wx:elif="{{groups.length === 0}}">
+  <van-empty description="还没有加入任何赛事" wx:elif="{{groups.length === 0}}">
     <van-button slot="bottom" round type="danger" size="small" bindtap="goJoinGroup" custom-style="margin-top: 20rpx;">
-      加入记分组
+      加入赛事
     </van-button>
   </van-empty>
 
-  <!-- 记分组列表 -->
+  <!-- 赛事列表 -->
   <view wx:else>
     <view
       class="group-card card"
@@ -53,7 +53,7 @@
 <!-- 加入组弹窗 -->
 <van-dialog
   use-slot
-  title="加入记分组"
+  title="加入赛事"
   show="{{showJoinModal}}"
   show-confirm-button="{{false}}"
   show-cancel-button="{{false}}"

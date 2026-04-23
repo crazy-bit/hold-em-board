@@ -1,7 +1,7 @@
 /**
  * tests/e2e/member.test.js
  * 成员详情页 E2E 测试
- * 自包含流程：先创建记分组和赛程，再进入成员详情页测试
+ * 自包含流程：先创建赛事和赛程，再进入成员详情页测试
  */
 const { getMiniProgram, releaseMiniProgram, getConsoleLogs, clearConsoleLogs, dumpConsoleLogs } = require('./setup');
 const {
@@ -21,7 +21,7 @@ describe('成员详情页 E2E', () => {
   beforeAll(async () => {
     miniProgram = await getMiniProgram();
 
-    // 创建一个记分组并获取成员信息
+    // 创建一个赛事并获取成员信息
     try {
       const page = await ensureOnPage(miniProgram, '/pages/group/create/create', 3000);
       try {
@@ -137,8 +137,8 @@ describe('成员详情页 E2E', () => {
     }, 15000);
   });
 
-  // ── 从记分组详情页跳转到成员详情页 ──────────────────────────
-  describe('从记分组详情页跳转', () => {
+  // ── 从赛事详情页跳转到成员详情页 ──────────────────────────
+  describe('从赛事详情页跳转', () => {
     it('点击积分榜成员应跳转到成员详情页', async () => {
       if (!testGroupId) {
         console.log('⏭️ 跳过：无可用 groupId');
@@ -184,9 +184,9 @@ describe('成员详情页 E2E', () => {
     let matchUserId = null;
 
     beforeAll(async () => {
-      // 创建记分组 + 赛程 + 结束赛程，生成积分数据
+      // 创建赛事 + 赛程 + 结束赛程，生成积分数据
       try {
-        // 创建记分组
+        // 创建赛事
         const createPage = await ensureOnPage(miniProgram, '/pages/group/create/create', 3000);
         try {
           await waitForElement(createPage, '.input-field', 8000);
