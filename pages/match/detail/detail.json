@@ -5,5 +5,11 @@
     "van-button": "@vant/weapp/button/index",
     "van-tag": "@vant/weapp/tag/index",
     "van-toast": "@vant/weapp/toast/index"
+  },
+  "componentPlaceholder": {
+    "van-dialog": "view",
+    "van-button": "view",
+    "van-tag": "view",
+    "van-toast": "view"
   }
 }

@@ -7,5 +7,12 @@
     "van-empty": "@vant/weapp/empty/index",
     "van-skeleton": "@vant/weapp/skeleton/index",
     "van-toast": "@vant/weapp/toast/index"
+  },
+  "componentPlaceholder": {
+    "van-dialog": "view",
+    "van-button": "view",
+    "van-tag": "view",
+    "van-empty": "view",
+    "van-toast": "view"
   }
 }

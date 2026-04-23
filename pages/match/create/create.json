@@ -4,5 +4,10 @@
     "van-button": "@vant/weapp/button/index",
     "van-field": "@vant/weapp/field/index",
     "van-toast": "@vant/weapp/toast/index"
+  },
+  "componentPlaceholder": {
+    "van-button": "view",
+    "van-field": "view",
+    "van-toast": "view"
   }
 }

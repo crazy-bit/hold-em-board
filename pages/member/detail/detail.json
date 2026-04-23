@@ -2,5 +2,8 @@
   "navigationBarTitleText": "成员详情",
   "usingComponents": {
     "van-empty": "@vant/weapp/empty/index"
+  },
+  "componentPlaceholder": {
+    "van-empty": "view"
   }
 }

@@ -8,5 +8,14 @@
     "van-tab": "@vant/weapp/tab/index",
     "van-toast": "@vant/weapp/toast/index",
     "trend-chart": "/components/trend-chart/trend-chart"
+  },
+  "componentPlaceholder": {
+    "van-button": "view",
+    "van-tag": "view",
+    "van-empty": "view",
+    "van-tabs": "view",
+    "van-tab": "view",
+    "van-toast": "view",
+    "trend-chart": "view"
   }
 }
