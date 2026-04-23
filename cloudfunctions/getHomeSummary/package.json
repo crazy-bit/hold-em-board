@@ -1,0 +1,9 @@
+{
+  "name": "getHomeSummary",
+  "version": "1.0.0",
+  "description": "获取首页摘要（最近赛事积分和排名）",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

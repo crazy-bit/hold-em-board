@@ -25,12 +25,12 @@
     "borderStyle": "black",
     "list": [
       {
-        "pagePath": "pages/group/list/list",
-        "text": "赛事"
-      },
-      {
         "pagePath": "pages/index/index",
         "text": "首页"
+      },
+      {
+        "pagePath": "pages/group/list/list",
+        "text": "赛事"
       }
     ]
   },

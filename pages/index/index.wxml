@@ -1,7 +1,66 @@
 <!-- pages/index/index.wxml -->
-<view class="container flex-center" style="flex-direction:column;min-height:100vh;">
-  <view style="width:160rpx;height:160rpx;margin-bottom:40rpx;display:flex;align-items:center;justify-content:center;font-size:120rpx;">♠</view>
-  <text class="page-title" style="text-align:center;">德州记分板</text>
-  <text style="color:#999;font-size:26rpx;margin-bottom:60rpx;">轻松记录每一局的胜负</text>
-  <button class="btn-primary" style="width:480rpx;" bindtap="goToGroups">进入赛事</button>
+<view class="container">
+  <!-- 加载中 -->
+  <van-skeleton title row="3" loading="{{loading}}" wx:if="{{loading}}" />
+
+  <!-- 有赛事 -->
+  <view wx:elif="{{hasGroup}}">
+    <text class="page-title">我的赛事</text>
+
+    <!-- 赛事摘要卡片 -->
+    <view class="summary-card card" bindtap="goGroupDetail">
+      <text class="group-name">{{group.name}}</text>
+
+      <view class="stats-row">
+        <!-- 排名 -->
+        <view class="stat-item">
+          <text class="stat-label">排名</text>
+          <view class="rank-display">
+            <text class="rank-medal" wx:if="{{myRank === 1}}">🥇</text>
+            <text class="rank-medal" wx:elif="{{myRank === 2}}">🥈</text>
+            <text class="rank-medal" wx:elif="{{myRank === 3}}">🥉</text>
+            <text class="rank-number" wx:elif="{{myRank > 0}}">第{{myRank}}名</text>
+            <text class="rank-number rank-none" wx:else>-</text>
+          </view>
+        </view>
+
+        <!-- 总积分 -->
+        <view class="stat-item">
+          <text class="stat-label">总积分</text>
+          <text class="stat-value {{myPoints >= 0 ? 'points-positive' : 'points-negative'}}">
+            {{myPoints >= 0 ? '+' : ''}}{{myPoints}}
+          </text>
+        </view>
+
+        <!-- 赛程数 -->
+        <view class="stat-item">
+          <text class="stat-label">赛程</text>
+          <text class="stat-value">{{matchCount}}期</text>
+        </view>
+      </view>
+
+      <view class="card-footer">
+        <text class="meta-text">{{totalMembers}} 位成员</text>
+        <text class="go-detail">查看详情 ›</text>
+      </view>
+    </view>
+
+    <!-- 快捷入口 -->
+    <view class="quick-actions">
+      <van-button plain round size="small" custom-style="flex:1;" bindtap="goGroupList">全部赛事</van-button>
+    </view>
+  </view>
+
+  <!-- 无赛事 -->
+  <view wx:else class="empty-state">
+    <view class="empty-icon">♠</view>
+    <text class="empty-title">德州记分板</text>
+    <text class="empty-desc">轻松记录每一局的胜负</text>
+    <view class="empty-actions">
+      <van-button type="danger" round block bindtap="goCreateGroup" custom-style="margin-bottom:16rpx;">创建赛事</van-button>
+      <van-button plain round block bindtap="goGroupList">加入已有赛事</van-button>
+    </view>
+  </view>
 </view>
+
+<van-toast id="van-toast" />

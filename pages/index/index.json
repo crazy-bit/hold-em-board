@@ -1,1 +1,8 @@
-{}
+{
+  "navigationBarTitleText": "首页",
+  "usingComponents": {
+    "van-button": "@vant/weapp/button/index",
+    "van-skeleton": "@vant/weapp/skeleton/index",
+    "van-toast": "@vant/weapp/toast/index"
+  }
+}
