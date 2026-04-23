@@ -6,12 +6,18 @@ Page({
     loading: false,
     nickName: '',
     avatarUrl: '',
+    autoFocusNickName: false,
   },
 
   onLoad(options) {
     if (app.globalData.openId) {
       this.redirectAfterLogin(options);
+      return;
     }
+    // 延迟自动聚焦昵称输入框，触发微信昵称建议弹窗
+    setTimeout(() => {
+      this.setData({ autoFocusNickName: true });
+    }, 500);
   },
 
   onChooseAvatar(e) {

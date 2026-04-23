@@ -7,17 +7,17 @@
   </view>
 
   <view class="login-card">
-    <text class="login-tip">设置头像和昵称开始使用</text>
+    <text class="login-tip">点击头像和昵称获取微信信息</text>
 
     <!-- 头像选择 -->
     <view class="avatar-row">
       <button class="avatar-btn" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
-        <image class="avatar-img" src="{{avatarUrl || '/images/default-avatar.png'}}" wx:if="{{avatarUrl}}" />
+        <image class="avatar-img" src="{{avatarUrl}}" wx:if="{{avatarUrl}}" />
         <view class="avatar-placeholder" wx:else>
           <text class="avatar-plus">+</text>
         </view>
       </button>
-      <text class="avatar-hint">点击选择头像</text>
+      <text class="avatar-hint">{{avatarUrl ? '点击更换头像' : '点击获取微信头像'}}</text>
     </view>
 
     <!-- 昵称输入 -->
@@ -25,10 +25,11 @@
       <input
         type="nickname"
         class="nickname-input"
-        placeholder="请输入昵称"
+        placeholder="点击获取微信昵称"
         value="{{nickName}}"
         bindinput="onNickNameInput"
         bindblur="onNickNameBlur"
+        focus="{{autoFocusNickName}}"
       />
     </view>
 
