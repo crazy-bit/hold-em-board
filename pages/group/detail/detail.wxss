@@ -82,9 +82,9 @@
 }
 
 .arrow {
-  font-size: 40rpx;
+  font-size: 32rpx;
   color: #ccc;
-  line-height: 1;
+  line-height: 48rpx;
 }
 
 /* 排行榜 */
