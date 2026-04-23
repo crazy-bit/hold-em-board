@@ -25,6 +25,14 @@
   margin-top: 8rpx;
 }
 
+/* 表格网格 */
+.score-grid {
+  display: grid;
+  grid-template-columns: 2fr 1.2fr 1.2fr 1.2fr 1.2fr;
+  align-items: center;
+  gap: 0 8rpx;
+}
+
 /* 表头 */
 .score-header {
   padding: 16rpx 32rpx;
@@ -34,22 +42,17 @@
 }
 
 .col-name {
-  flex: 2;
   font-size: 24rpx;
   color: #999;
 }
 
-.col-chips {
-  flex: 1.5;
+.col-header {
   font-size: 24rpx;
   color: #999;
   text-align: center;
 }
 
-.col-points {
-  flex: 1.5;
-  font-size: 24rpx;
-  color: #999;
+.col-last {
   text-align: right;
 }
 
@@ -61,7 +64,6 @@
 }
 
 .col-name-wrap {
-  flex: 2;
   display: flex;
   align-items: center;
   gap: 8rpx;
@@ -71,7 +73,6 @@
   font-size: 28rpx;
   font-weight: 600;
   color: #1a1a2e;
-  line-height: 48rpx;
 }
 
 .self-tag {
@@ -80,14 +81,13 @@
   font-size: 20rpx;
   padding: 2rpx 10rpx;
   border-radius: 12rpx;
+  flex-shrink: 0;
 }
 
-.col-chips-val {
-  flex: 1.5;
+.col-val {
   font-size: 28rpx;
   color: #333;
   text-align: center;
-  line-height: 48rpx;
 }
 
 .bonus {
@@ -99,20 +99,14 @@
   font-size: 24rpx;
 }
 
-.col-points-val {
-  flex: 1.5;
-  font-size: 30rpx;
-  font-weight: 700;
-  text-align: right;
-  line-height: 48rpx;
-}
-
 .positive {
   color: #4caf50;
+  font-weight: 700;
 }
 
 .negative {
   color: #f44336;
+  font-weight: 700;
 }
 
 /* 未填写提示 */

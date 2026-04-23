@@ -24,12 +24,12 @@
     <text class="section-title">成员分数</text>
 
     <!-- 表头 -->
-    <view class="score-header flex-row">
+    <view class="score-grid score-header">
       <text class="col-name">成员</text>
-      <text class="col-chips">初始筹码</text>
-      <text class="col-chips">额外加成</text>
-      <text class="col-chips">结算筹码</text>
-      <text class="col-points">本期积分</text>
+      <text class="col-header">初始筹码</text>
+      <text class="col-header">额外加成</text>
+      <text class="col-header">结算筹码</text>
+      <text class="col-header col-last">本期积分</text>
     </view>
 
     <!-- 分数行 -->
@@ -41,20 +41,20 @@
       data-userid="{{item.userId}}"
       data-scoreid="{{item._id}}"
     >
-      <view class="flex-row">
+      <view class="score-grid">
         <view class="col-name-wrap">
           <text class="member-name">{{item.nickName}}</text>
           <text class="self-tag" wx:if="{{item.isSelf}}">我</text>
         </view>
-        <text class="col-chips-val">{{item.initialChips}}</text>
-        <text class="col-chips-val bonus">+{{item.bonus || 0}}</text>
-        <text class="col-chips-val {{item.finalChips !== null ? '' : 'unfilled'}}">
+        <text class="col-val">{{item.initialChips}}</text>
+        <text class="col-val bonus">+{{item.bonus || 0}}</text>
+        <text class="col-val {{item.finalChips !== null ? '' : 'unfilled'}}">
           {{item.finalChips !== null ? item.finalChips : '待填写'}}
         </text>
-        <text class="col-points-val {{item.points >= 0 ? 'positive' : 'negative'}}" wx:if="{{item.points !== null}}">
+        <text class="col-val col-last {{item.points >= 0 ? 'positive' : 'negative'}}" wx:if="{{item.points !== null}}">
           {{item.points >= 0 ? '+' : ''}}{{item.points}}
         </text>
-        <text class="col-points-val unfilled" wx:else>-</text>
+        <text class="col-val col-last unfilled" wx:else>-</text>
       </view>
     </view>
   </view>
