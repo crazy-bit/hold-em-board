@@ -35,7 +35,7 @@ Page({
           // 如果昵称是默认值，引导用户去登录页设置
           if (!res.result.nickName || res.result.nickName === '德州玩家') {
             this._loading = false;
-            wx.redirectTo({ url: '/pages/login/login' });
+            wx.navigateTo({ url: '/pages/login/login' });
             return;
           }
           app.globalData.openId = res.result.openId;
@@ -46,12 +46,12 @@ Page({
           };
         } else {
           this._loading = false;
-          wx.redirectTo({ url: '/pages/login/login' });
+          wx.navigateTo({ url: '/pages/login/login' });
           return;
         }
       } catch (e) {
         this._loading = false;
-        wx.redirectTo({ url: '/pages/login/login' });
+        wx.navigateTo({ url: '/pages/login/login' });
         return;
       }
     }

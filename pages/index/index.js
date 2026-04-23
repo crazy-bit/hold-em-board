@@ -28,6 +28,11 @@ Page({
       try {
         const res = await wx.cloud.callFunction({ name: 'login', data: {} });
         if (res.result.code === 0) {
+          if (!res.result.nickName || res.result.nickName === '德州玩家') {
+            this._loading = false;
+            wx.navigateTo({ url: '/pages/login/login' });
+            return;
+          }
           app.globalData.openId = res.result.openId;
           app.globalData.userInfo = {
             openId: res.result.openId,
@@ -36,12 +41,12 @@ Page({
           };
         } else {
           this._loading = false;
-          wx.redirectTo({ url: '/pages/login/login' });
+          wx.navigateTo({ url: '/pages/login/login' });
           return;
         }
       } catch (e) {
         this._loading = false;
-        wx.redirectTo({ url: '/pages/login/login' });
+        wx.navigateTo({ url: '/pages/login/login' });
         return;
       }
     }
