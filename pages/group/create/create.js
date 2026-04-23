@@ -1,6 +1,7 @@
 // pages/group/create/create.js
 const app = getApp();
-const Toast = require('@vant/weapp/toast/toast');
+const _Toast = require('@vant/weapp/toast/toast');
+const Toast = _Toast.default || _Toast;
 Page({
   data: {
     groupName: '',

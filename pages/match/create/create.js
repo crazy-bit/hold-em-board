@@ -1,5 +1,6 @@
 // pages/match/create/create.js
-const Toast = require('@vant/weapp/toast/toast');
+const _Toast = require('@vant/weapp/toast/toast');
+const Toast = _Toast.default || _Toast;
 Page({
   data: {
     groupId: '',

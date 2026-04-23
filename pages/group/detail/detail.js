@@ -1,7 +1,8 @@
 // pages/group/detail/detail.js
 const app = getApp();
 const { formatDate, calcPoints } = require('../../../utils/util');
-const Toast = require('@vant/weapp/toast/toast');
+const _Toast = require('@vant/weapp/toast/toast');
+const Toast = _Toast.default || _Toast;
 
 Page({
   data: {
