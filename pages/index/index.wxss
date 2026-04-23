@@ -32,8 +32,8 @@
   margin-bottom: 12rpx;
 }
 
-.rank-display {
-  height: 64rpx;
+.stat-value-wrap {
+  height: 72rpx;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -58,8 +58,6 @@
   font-size: 36rpx;
   font-weight: 700;
   color: #1a1a2e;
-  height: 64rpx;
-  line-height: 64rpx;
 }
 
 .points-positive {
