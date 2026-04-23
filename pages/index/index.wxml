@@ -4,7 +4,7 @@
   <van-skeleton title row="3" loading="{{loading}}" wx:if="{{loading}}" />
 
   <!-- 有赛事 -->
-  <view wx:elif="{{hasGroup}}">
+  <view wx:elif="{{hasGroup}}" style="padding-top:16rpx;">
     <text class="page-title">我的赛事</text>
 
     <!-- 赛事摘要卡片 -->
