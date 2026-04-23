@@ -5,10 +5,9 @@
     <view class="flex-between" style="align-items:flex-start;">
       <view style="flex:1;min-width:0;margin-right:16rpx;">
         <text class="group-name">{{group.name}}</text>
-        <text class="invite-code">邀请码：{{group.inviteCode}}</text>
+        <text class="invite-code" bindtap="copyInviteCode">邀请码：{{group.inviteCode}}</text>
       </view>
       <view class="flex-row action-btns" wx:if="{{isAdmin}}">
-        <view class="action-btn" bindtap="copyInviteCode">复制邀请码</view>
         <button class="action-btn share-btn" open-type="share">分享</button>
         <view class="action-btn action-btn-primary" bindtap="goRules">规则</view>
       </view>
