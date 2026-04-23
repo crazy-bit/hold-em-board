@@ -46,6 +46,7 @@ exports.main = async (event, context) => {
       const matchIds = finishedMatches.map(m => m._id);
       const { data: scores } = await db.collection('scores')
         .where({ matchId: db.command.in(matchIds) })
+        .limit(1000)
         .get();
 
       const pointsMap = {};

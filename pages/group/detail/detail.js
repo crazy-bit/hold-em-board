@@ -37,89 +37,85 @@ Page({
     const db = wx.cloud.database();
 
     try {
-      // 先尝试直接查询数据库
       let group, members = [], matches = [], isAdmin = false;
 
+      // 优先尝试云函数（一次调用返回所有数据，最快）
+      let usedCloudFn = false;
       try {
-        const groupRes = await db.collection('groups').doc(groupId).get();
-        group = groupRes.data;
-      } catch (docErr) {
-        // doc().get() 失败，尝试用 where 查询（绕过 doc 的权限限制）
-        console.warn('loadData: doc().get() 失败，尝试 where 查询', docErr.errCode || docErr.message);
+        const res = await wx.cloud.callFunction({
+          name: 'getGroupDetail',
+          data: { groupId },
+        });
+        if (res.result && res.result.code === 0) {
+          const result = res.result;
+          group = result.group;
+          members = result.members || [];
+          matches = result.matches || [];
+          isAdmin = result.isAdmin || false;
+          usedCloudFn = true;
+        }
+      } catch (cfErr) {
+        console.warn('loadData: 云函数不可用，降级到直接查询');
+      }
+
+      // 降级：直接查询数据库
+      if (!usedCloudFn) {
         try {
-          const { data } = await db.collection('groups').where({ _id: groupId }).get();
-          if (data && data.length > 0) {
-            group = data[0];
-          }
-        } catch (whereErr) {
-          console.warn('loadData: where 查询也失败', whereErr.errCode || whereErr.message);
+          const groupRes = await db.collection('groups').doc(groupId).get();
+          group = groupRes.data;
+        } catch (docErr) {
+          try {
+            const { data } = await db.collection('groups').where({ _id: groupId }).get();
+            if (data && data.length > 0) group = data[0];
+          } catch (_) {}
         }
 
-        // 如果仍然失败，尝试通过云函数获取
         if (!group) {
-          try {
-            const res = await wx.cloud.callFunction({
-              name: 'getGroupDetail',
-              data: { groupId },
-            });
-            if (res.result && res.result.code === 0) {
-              const result = res.result;
-              const fmtMatches = (result.matches || []).map((m, i) => ({
-                ...m,
-                index: (result.matches || []).length - i,
-                createdAtStr: formatDate(m.createdAt),
-              }));
-              this.setData({
-                group: result.group,
-                members: result.members || [],
-                matches: fmtMatches,
-                isAdmin: result.isAdmin || false,
-                leaderboard: result.leaderboard || [],
-                loading: false,
-              });
-              return;
-            }
-          } catch (cfErr) {
-            // 云函数也不可用（可能未部署），最终失败
-            console.error('loadData: 所有查询方式均失败');
-          }
-
           this.setData({ loading: false });
           Toast.fail('加载失败');
           return;
         }
+
+        const [membersResult, matchesResult] = await Promise.allSettled([
+          db.collection('group_members').where({ groupId }).orderBy('joinedAt', 'asc').get(),
+          db.collection('matches').where({ groupId }).orderBy('createdAt', 'desc').get(),
+        ]);
+
+        if (membersResult.status === 'fulfilled') members = membersResult.value.data;
+        if (matchesResult.status === 'fulfilled') matches = matchesResult.value.data;
+        isAdmin = group.adminId === openId;
       }
 
-      // 查询成员和赛程（使用 allSettled 容错）
-      const [membersResult, matchesResult] = await Promise.allSettled([
-        db.collection('group_members').where({ groupId }).orderBy('joinedAt', 'asc').get(),
-        db.collection('matches').where({ groupId }).orderBy('createdAt', 'desc').get(),
-      ]);
+      const fmtMatches = matches.map((m, i) => ({
+        ...m,
+        index: matches.length - i,
+        createdAtStr: formatDate(m.createdAt),
+      }));
 
-      if (membersResult.status === 'fulfilled') {
-        members = membersResult.value.data;
-      }
-      if (matchesResult.status === 'fulfilled') {
-        matches = matchesResult.value.data.map((m, i) => ({
-          ...m,
-          index: matchesResult.value.data.length - i,
-          createdAtStr: formatDate(m.createdAt),
-        }));
-      }
-
-      isAdmin = group.adminId === openId;
-      this.setData({ group, members, matches, isAdmin, loading: false });
-
-      // 计算总积分榜
-      this.calcLeaderboard(members, matches, group);
+      this.setData({ group, members, matches: fmtMatches, isAdmin, loading: false });
+      this.calcLeaderboard(members, fmtMatches, group);
     } catch (err) {
-      const errInfo = err.errCode ? `errCode: ${err.errCode}, errMsg: ${err.errMsg}` : (err.message || JSON.stringify(err));
-      console.error('loadData error:', errInfo);
+      console.error('loadData error:', err.message || err);
       this.setData({ loading: false });
       wx.showToast({ title: '加载失败', icon: 'error' });
     } finally {
       this._loading = false;
     }
+  },
+
+  /** 分批获取所有 scores（突破 20 条限制） */
+  async _getAllScores(db, matchIds) {
+    const batchSize = 20;
+    let allScores = [];
+    for (let i = 0; i < matchIds.length; i += batchSize) {
+      const batch = matchIds.slice(i, i + batchSize);
+      const { data } = await db.collection('scores')
+        .where({ matchId: db.command.in(batch) })
+        .limit(100)
+        .get();
+      allScores = allScores.concat(data);
+    }
+    return allScores;
   },
 
   async calcLeaderboard(members, matches, group) {
@@ -139,9 +135,7 @@ Page({
 
     try {
       const matchIds = finishedMatches.map(m => m._id);
-      const { data: scores } = await db.collection('scores')
-        .where({ matchId: db.command.in(matchIds) })
-        .get();
+      const scores = await this._getAllScores(db, matchIds);
 
       const pointsMap = {};
       const countMap = {};
