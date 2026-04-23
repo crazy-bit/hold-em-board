@@ -48,12 +48,8 @@
         </view>
         <text class="col-val">{{item.initialChips}}</text>
         <text class="col-val bonus">+{{item.bonus || 0}}</text>
-        <text class="col-val {{item.finalChips !== null ? '' : 'unfilled'}}">
-          {{item.finalChips !== null ? item.finalChips : '待填写'}}
-        </text>
-        <text class="col-val col-last {{item.points >= 0 ? 'positive' : 'negative'}}" wx:if="{{item.points !== null}}">
-          {{item.points >= 0 ? '+' : ''}}{{item.points}}
-        </text>
+        <text class="col-val {{item.finalChips !== null ? '' : 'unfilled'}}">{{item.finalChips !== null ? item.finalChips : '待填写'}}</text>
+        <text class="col-val col-last {{item.points >= 0 ? 'positive' : 'negative'}}" wx:if="{{item.points !== null}}">{{item.points >= 0 ? '+' : ''}}{{item.points}}</text>
         <text class="col-val col-last unfilled" wx:else>-</text>
       </view>
     </view>
