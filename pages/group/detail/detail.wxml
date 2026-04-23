@@ -79,7 +79,7 @@
                 <text class="meta-text">参与 {{item.matchCount}} 期</text>
               </view>
             </view>
-            <view class="flex-row" style="gap:12rpx;flex-shrink:0;">
+            <view class="flex-row" style="gap:12rpx;flex-shrink:0;align-self:center;">
               <text class="total-points {{item.totalPoints >= 0 ? 'points-positive' : 'points-negative'}}">
                 {{item.totalPoints >= 0 ? '+' : ''}}{{item.totalPoints}}
               </text>

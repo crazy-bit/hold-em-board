@@ -84,6 +84,7 @@
 .arrow {
   font-size: 40rpx;
   color: #ccc;
+  line-height: 1;
 }
 
 /* 排行榜 */
