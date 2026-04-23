@@ -1,7 +1,5 @@
 <!-- pages/score/input/input.wxml -->
-<view class="container" style="padding-top:16rpx;">
-  <text class="page-title">填写结算筹码</text>
-
+<view class="container">
   <!-- 当前信息 -->
   <view class="card info-card">
     <view class="info-row">
