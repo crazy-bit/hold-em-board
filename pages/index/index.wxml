@@ -5,8 +5,6 @@
 
   <!-- 有赛事 -->
   <view wx:elif="{{hasGroup}}">
-    <text class="page-title-home">我的赛事</text>
-
     <!-- 赛事摘要卡片 -->
     <view class="summary-card card" bindtap="goGroupDetail">
       <text class="group-name">{{group.name}}</text>
