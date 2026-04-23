@@ -92,6 +92,22 @@
   cursor: pointer;
 }
 
+.rank-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.rank-points-area {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12rpx;
+  flex-shrink: 0;
+  height: 48rpx;
+}
+
 .rank-badge {
   width: 48rpx;
   height: 48rpx;
