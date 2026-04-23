@@ -75,16 +75,14 @@
   close-on-click-overlay
   bind:close="closeFinishModal"
 >
-  <view style="padding: 24rpx 48rpx;">
+  <view style="padding: 24rpx 32rpx;">
     <view wx:if="{{unfilledMembers.length > 0}}" class="unfilled-warning">
       <text>以下成员未填写结算筹码，将以 0 计算：</text>
       <text wx:for="{{unfilledMembers}}" wx:key="*this" class="unfilled-name">{{item}}</text>
     </view>
-    <view style="margin-top:32rpx;display:flex;gap:24rpx;">
-      <van-button plain round custom-style="flex:1;" bindtap="closeFinishModal">取消</van-button>
-      <van-button type="danger" round custom-style="flex:1;" bindtap="confirmFinish" loading="{{finishing}}" disabled="{{finishing}}">
-        确认结束
-      </van-button>
+    <view style="margin-top:32rpx;display:flex;gap:16rpx;">
+      <van-button plain round custom-style="flex:1;width:100%;min-width:0;" bindtap="closeFinishModal">取消</van-button>
+      <van-button type="danger" round custom-style="flex:1;width:100%;min-width:0;" bindtap="confirmFinish" loading="{{finishing}}" disabled="{{finishing}}">确认结束</van-button>
     </view>
   </view>
 </van-dialog>
