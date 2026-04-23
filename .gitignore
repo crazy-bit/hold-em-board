@@ -25,3 +25,5 @@ miniprogram_npm/
 
 # GitHub 仓库分析临时目录
 .github-analyze/
+
+tests/e2e/image/test-output/
