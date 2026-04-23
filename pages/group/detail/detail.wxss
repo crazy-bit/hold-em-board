@@ -89,19 +89,35 @@
 /* 排行榜 */
 .rank-card {
   cursor: pointer;
-  overflow: hidden;
 }
 
-.rank-num {
-  font-size: 28rpx;
-  font-weight: 700;
-  color: #999;
+.rank-badge {
   width: 48rpx;
   height: 48rpx;
-  line-height: 48rpx;
-  text-align: center;
+  border-radius: 50%;
+  background: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
-  overflow: hidden;
+  font-size: 24rpx;
+  font-weight: 700;
+  color: #999;
+}
+
+.rank-gold {
+  background: #FFD700;
+  color: #fff;
+}
+
+.rank-silver {
+  background: #C0C0C0;
+  color: #fff;
+}
+
+.rank-bronze {
+  background: #CD7F32;
+  color: #fff;
 }
 
 .rank-top {

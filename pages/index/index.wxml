@@ -16,10 +16,9 @@
         <view class="stat-item">
           <text class="stat-label">排名</text>
           <view class="stat-value-wrap">
-            <text class="rank-medal" wx:if="{{myRank === 1}}">🥇</text>
-            <text class="rank-medal" wx:elif="{{myRank === 2}}">🥈</text>
-            <text class="rank-medal" wx:elif="{{myRank === 3}}">🥉</text>
-            <text class="rank-number" wx:elif="{{myRank > 0}}">第{{myRank}}名</text>
+            <view class="home-rank-badge {{myRank === 1 ? 'rank-gold' : myRank === 2 ? 'rank-silver' : myRank === 3 ? 'rank-bronze' : ''}}" wx:if="{{myRank > 0}}">
+              <text>{{myRank}}</text>
+            </view>
             <text class="rank-number rank-none" wx:else>-</text>
           </view>
         </view>

@@ -67,12 +67,12 @@
         >
           <view class="flex-between">
             <view class="flex-row" style="gap:16rpx;flex:1;min-width:0;">
-              <text class="rank-num {{index < 3 ? 'rank-top' : ''}}">
-                {{index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : index + 1}}
-              </text>
+              <view class="rank-badge {{index === 0 ? 'rank-gold' : index === 1 ? 'rank-silver' : index === 2 ? 'rank-bronze' : ''}}">
+                <text>{{index + 1}}</text>
+              </view>
               <image class="rank-avatar" src="{{item.avatarUrl}}" wx:if="{{item.avatarUrl}}" />
               <view class="rank-avatar-placeholder" wx:else>
-                <text style="font-size:20rpx;color:#999;">{{item.nickName[0] || '?'}}</text>
+                <text style="font-size:22rpx;color:#999;">{{item.nickName[0] || '?'}}</text>
               </view>
               <view style="flex:1;min-width:0;">
                 <text class="member-name">{{item.nickName}}</text>

@@ -40,9 +40,32 @@
   min-height: 72rpx;
 }
 
-.rank-medal {
-  font-size: 48rpx;
-  line-height: 1;
+.home-rank-badge {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 50%;
+  background: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #999;
+}
+
+.rank-gold {
+  background: #FFD700;
+  color: #fff;
+}
+
+.rank-silver {
+  background: #C0C0C0;
+  color: #fff;
+}
+
+.rank-bronze {
+  background: #CD7F32;
+  color: #fff;
 }
 
 .rank-number {
