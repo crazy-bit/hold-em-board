@@ -4,8 +4,8 @@
   <van-skeleton title row="3" loading="{{loading}}" wx:if="{{loading}}" />
 
   <!-- 有赛事 -->
-  <view wx:elif="{{hasGroup}}" style="padding-top:16rpx;">
-    <text class="page-title">我的赛事</text>
+  <view wx:elif="{{hasGroup}}">
+    <text class="page-title-home">我的赛事</text>
 
     <!-- 赛事摘要卡片 -->
     <view class="summary-card card" bindtap="goGroupDetail">
