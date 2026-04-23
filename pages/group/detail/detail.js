@@ -157,7 +157,7 @@ Page({
       })).sort((a, b) => b.totalPoints - a.totalPoints);
 
       // 计算积分趋势数据
-      const { trendSeries, trendLabels } = this._calcTrend(finishedMatches, scores, members);
+      const { trendSeries, trendLabels } = this._calcTrend(finishedMatches, scores, members, matches);
 
       this.setData({ leaderboard, trendSeries, trendLabels });
     } catch (err) {
@@ -165,20 +165,30 @@ Page({
     }
   },
 
-  _calcTrend(finishedMatches, scores, members) {
+  _calcTrend(finishedMatches, scores, members, allMatches) {
     const COLORS = [
       '#e94560', '#4caf50', '#2196f3', '#ff9800', '#9c27b0',
       '#00bcd4', '#795548', '#607d8b', '#f44336', '#3f51b5',
     ];
 
-    // 按时间升序排列
+    // 所有赛程按时间升序，建立真实序号映射
+    const allSorted = [...allMatches].sort((a, b) => {
+      const ta = a.createdAt ? new Date(a.createdAt) : 0;
+      const tb = b.createdAt ? new Date(b.createdAt) : 0;
+      return ta - tb;
+    });
+    const matchIndexMap = {};
+    allSorted.forEach((m, i) => { matchIndexMap[m._id] = i + 1; });
+
+    // 已结束赛程按时间升序
     const sorted = [...finishedMatches].sort((a, b) => {
       const ta = a.createdAt ? new Date(a.createdAt) : 0;
       const tb = b.createdAt ? new Date(b.createdAt) : 0;
       return ta - tb;
     });
 
-    const trendLabels = sorted.map((m, i) => m.title || `第${i + 1}期`);
+    // 用真实序号作为标签
+    const trendLabels = sorted.map(m => m.title || `第${matchIndexMap[m._id] || '?'}期`);
 
     // 按 matchId 分组 scores
     const scoresByMatch = {};
