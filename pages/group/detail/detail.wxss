@@ -34,25 +34,24 @@
   white-space: nowrap;
 }
 
-.share-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 1;
-  border: none;
-  margin: 0;
-  padding: 0;
-  min-height: 0;
-  width: auto;
-  box-sizing: border-box;
-  font-size: 26rpx;
-  background: #f0f0f0;
-  color: #555;
-  padding: 12rpx 24rpx;
-  border-radius: 24rpx;
+.share-btn-wrap {
+  position: relative;
+  overflow: hidden;
 }
 
-.share-btn::after {
+.share-btn-hidden {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.share-btn-hidden::after {
   border: none;
 }
 
