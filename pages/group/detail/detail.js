@@ -85,6 +85,26 @@ Page({
         if (membersResult.status === 'fulfilled') members = membersResult.value.data;
         if (matchesResult.status === 'fulfilled') matches = matchesResult.value.data;
         isAdmin = group.adminId === openId;
+
+        // 尝试从 users 表获取最新昵称和头像
+        try {
+          const userIds = members.map(m => m.userId);
+          if (userIds.length > 0) {
+            const { data: users } = await db.collection('users')
+              .where({ _id: db.command.in(userIds) })
+              .get();
+            const usersMap = {};
+            users.forEach(u => { usersMap[u._id] = u; });
+            members = members.map(m => {
+              const u = usersMap[m.userId];
+              return {
+                ...m,
+                nickName: (u && u.nickName && u.nickName !== '德州玩家') ? u.nickName : m.nickName,
+                avatarUrl: (u && u.avatarUrl) ? u.avatarUrl : (m.avatarUrl || ''),
+              };
+            });
+          }
+        } catch (_) {}
       }
 
       const fmtMatches = matches.map((m, i) => ({
@@ -127,6 +147,7 @@ Page({
       const leaderboard = members.map(m => ({
         userId: m.userId,
         nickName: m.nickName,
+        avatarUrl: m.avatarUrl || '',
         totalPoints: 0,
         matchCount: 0,
       }));
