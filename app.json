@@ -1,15 +1,23 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/login/login",
-    "pages/group/list/list",
-    "pages/group/create/create",
-    "pages/group/detail/detail",
-    "pages/match/detail/detail",
-    "pages/match/create/create",
-    "pages/score/input/input",
-    "pages/rules/edit/edit",
-    "pages/member/detail/detail"
+    "pages/group/list/list"
+  ],
+  "subpackages": [
+    {
+      "root": "pages",
+      "name": "main",
+      "pages": [
+        "login/login",
+        "group/create/create",
+        "group/detail/detail",
+        "match/detail/detail",
+        "match/create/create",
+        "score/input/input",
+        "rules/edit/edit",
+        "member/detail/detail"
+      ]
+    }
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -35,6 +43,7 @@
     ]
   },
   "cloud": true,
+  "lazyCodeLoading": "requiredComponents",
   "sitemapLocation": "sitemap.json",
   "style": "v2"
 }

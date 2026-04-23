@@ -3,9 +3,9 @@
     "es6": false,
     "postcss": false,
     "compileWorklet": false,
-    "minified": false,
+    "minified": true,
     "uglifyFileName": false,
-    "uploadWithSourceMap": true,
+    "uploadWithSourceMap": false,
     "enhance": false,
     "packNpmManually": true,
     "packNpmRelationList": [
@@ -36,6 +36,66 @@
       {
         "type": "folder",
         "value": "node_modules"
+      },
+      {
+        "type": "folder",
+        "value": "tests"
+      },
+      {
+        "type": "folder",
+        "value": "docs"
+      },
+      {
+        "type": "folder",
+        "value": "database"
+      },
+      {
+        "type": "folder",
+        "value": "openspec"
+      },
+      {
+        "type": "folder",
+        "value": ".codebuddy"
+      },
+      {
+        "type": "folder",
+        "value": ".github-analyze"
+      },
+      {
+        "type": "file",
+        "value": "jest.config.e2e.js"
+      },
+      {
+        "type": "file",
+        "value": "patch-automator.js"
+      },
+      {
+        "type": "file",
+        "value": "start-auto.js"
+      },
+      {
+        "type": "file",
+        "value": "package-lock.json"
+      },
+      {
+        "type": "file",
+        "value": "CODEBUDDY.md"
+      },
+      {
+        "type": "file",
+        "value": "skills-lock.json"
+      },
+      {
+        "type": "file",
+        "value": "test-results.json"
+      },
+      {
+        "type": "file",
+        "value": "bash.exe.stackdump"
+      },
+      {
+        "type": "file",
+        "value": "nul"
       }
     ],
     "include": []
