@@ -114,6 +114,8 @@
 .total-points {
   font-size: 36rpx;
   font-weight: 700;
+  text-align: right;
+  min-width: 80rpx;
 }
 
 .points-positive {
