@@ -4,40 +4,61 @@ const app = getApp();
 Page({
   data: {
     loading: false,
+    nickName: '',
+    avatarUrl: '',
   },
 
   onLoad(options) {
-    // 如果已登录，直接跳转
     if (app.globalData.openId) {
       this.redirectAfterLogin(options);
     }
   },
 
+  onChooseAvatar(e) {
+    this.setData({ avatarUrl: e.detail.avatarUrl });
+  },
+
+  onNickNameInput(e) {
+    this.setData({ nickName: e.detail.value });
+  },
+
+  onNickNameBlur(e) {
+    // type="nickname" 在 blur 时返回微信昵称
+    if (e.detail.value) {
+      this.setData({ nickName: e.detail.value });
+    }
+  },
+
   async onLoginTap() {
+    const { nickName, avatarUrl } = this.data;
+
+    if (!nickName.trim()) {
+      wx.showToast({ title: '请输入昵称', icon: 'none' });
+      return;
+    }
+
     this.setData({ loading: true });
 
     try {
-      // 直接调用云函数登录，云函数内部通过 WXContext 获取 openId
       const res = await wx.cloud.callFunction({
         name: 'login',
-        data: {},
+        data: {
+          nickName: nickName.trim(),
+          avatarUrl: avatarUrl || '',
+        },
       });
-
-      console.log('login result:', JSON.stringify(res.result));
 
       if (res.result && res.result.code === 0) {
         app.globalData.openId = res.result.openId;
         app.globalData.userInfo = {
           openId: res.result.openId,
-          nickName: res.result.nickName || '德州玩家',
-          avatarUrl: res.result.avatarUrl || '',
+          nickName: res.result.nickName,
+          avatarUrl: res.result.avatarUrl,
         };
 
-        // 跳转到赛事列表
         wx.switchTab({ url: '/pages/group/list/list' });
       } else {
         const msg = (res.result && res.result.msg) || '登录失败，请重试';
-        console.error('login failed:', msg);
         wx.showToast({ title: msg, icon: 'none' });
       }
     } catch (err) {

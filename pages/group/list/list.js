@@ -32,6 +32,12 @@ Page({
       try {
         const res = await wx.cloud.callFunction({ name: 'login', data: {} });
         if (res.result.code === 0) {
+          // 如果昵称是默认值，引导用户去登录页设置
+          if (!res.result.nickName || res.result.nickName === '德州玩家') {
+            this._loading = false;
+            wx.redirectTo({ url: '/pages/login/login' });
+            return;
+          }
           app.globalData.openId = res.result.openId;
           app.globalData.userInfo = {
             openId: res.result.openId,
