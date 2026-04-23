@@ -71,6 +71,7 @@
   font-size: 28rpx;
   font-weight: 600;
   color: #1a1a2e;
+  line-height: 48rpx;
 }
 
 .self-tag {
@@ -86,6 +87,7 @@
   font-size: 28rpx;
   color: #333;
   text-align: center;
+  line-height: 48rpx;
 }
 
 .bonus {
@@ -102,6 +104,7 @@
   font-size: 30rpx;
   font-weight: 700;
   text-align: right;
+  line-height: 48rpx;
 }
 
 .positive {
