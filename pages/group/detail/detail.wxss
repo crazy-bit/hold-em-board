@@ -34,6 +34,16 @@
   white-space: nowrap;
 }
 
+.share-btn {
+  line-height: 1.5;
+  border: none;
+  margin: 0;
+}
+
+.share-btn::after {
+  border: none;
+}
+
 .action-btn-primary {
   background: #e94560;
   color: #fff;

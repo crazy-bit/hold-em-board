@@ -251,21 +251,11 @@ Page({
     wx.navigateTo({ url: `/pages/rules/edit/edit?groupId=${this.data.groupId}` });
   },
 
-  shareGroup() {
+  copyInviteCode() {
     const { group } = this.data;
-    wx.showActionSheet({
-      itemList: ['复制邀请码', '分享给好友'],
-      success: (res) => {
-        if (res.tapIndex === 0) {
-          wx.setClipboardData({
-            data: group.inviteCode,
-            success: () => Toast.success('邀请码已复制'),
-          });
-        } else if (res.tapIndex === 1) {
-          // 触发页面分享
-          Toast('请点击右上角分享');
-        }
-      },
+    wx.setClipboardData({
+      data: group.inviteCode,
+      success: () => Toast.success('邀请码已复制'),
     });
   },
 
