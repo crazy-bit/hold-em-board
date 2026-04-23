@@ -35,14 +35,21 @@
 }
 
 .share-btn {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   line-height: 1;
   border: none;
   margin: 0;
-  padding: 12rpx 24rpx;
+  padding: 0;
   min-height: 0;
   width: auto;
   box-sizing: border-box;
+  font-size: 26rpx;
+  background: #f0f0f0;
+  color: #555;
+  padding: 12rpx 24rpx;
+  border-radius: 24rpx;
 }
 
 .share-btn::after {
