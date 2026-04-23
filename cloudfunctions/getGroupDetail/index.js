@@ -31,14 +31,38 @@ exports.main = async (event, context) => {
     const matches = matchesRes.data;
     const isAdmin = group.adminId === openId;
 
+    // 查询 users 表获取最新昵称和头像
+    const userIds = members.map(m => m.userId);
+    let usersMap = {};
+    if (userIds.length > 0) {
+      try {
+        const { data: users } = await db.collection('users')
+          .where({ _id: db.command.in(userIds) })
+          .limit(100)
+          .get();
+        users.forEach(u => { usersMap[u._id] = u; });
+      } catch (_) {}
+    }
+
+    // 用 users 表的最新信息覆盖 members 中的昵称和头像
+    const enrichedMembers = members.map(m => {
+      const user = usersMap[m.userId];
+      return {
+        ...m,
+        nickName: (user && user.nickName && user.nickName !== '德州玩家') ? user.nickName : m.nickName,
+        avatarUrl: (user && user.avatarUrl) ? user.avatarUrl : (m.avatarUrl || ''),
+      };
+    });
+
     // 计算积分榜
     let leaderboard = [];
     const finishedMatches = matches.filter(m => m.status === 'finished');
 
     if (finishedMatches.length === 0) {
-      leaderboard = members.map(m => ({
+      leaderboard = enrichedMembers.map(m => ({
         userId: m.userId,
         nickName: m.nickName,
+        avatarUrl: m.avatarUrl || '',
         totalPoints: 0,
         matchCount: 0,
       }));
@@ -60,9 +84,10 @@ exports.main = async (event, context) => {
         countMap[s.userId]++;
       });
 
-      leaderboard = members.map(m => ({
+      leaderboard = enrichedMembers.map(m => ({
         userId: m.userId,
         nickName: m.nickName,
+        avatarUrl: m.avatarUrl || '',
         totalPoints: pointsMap[m.userId] || 0,
         matchCount: countMap[m.userId] || 0,
       })).sort((a, b) => b.totalPoints - a.totalPoints);
@@ -71,7 +96,7 @@ exports.main = async (event, context) => {
     return {
       code: 0,
       group,
-      members,
+      members: enrichedMembers,
       matches,
       isAdmin,
       leaderboard,

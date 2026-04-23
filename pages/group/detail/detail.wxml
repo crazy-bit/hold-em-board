@@ -66,10 +66,14 @@
           data-userid="{{item.userId}}"
         >
           <view class="flex-between">
-            <view class="flex-row" style="gap:24rpx;">
+            <view class="flex-row" style="gap:20rpx;">
               <text class="rank-num {{index < 3 ? 'rank-top' : ''}}">
                 {{index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : index + 1}}
               </text>
+              <image class="rank-avatar" src="{{item.avatarUrl}}" wx:if="{{item.avatarUrl}}" />
+              <view class="rank-avatar-placeholder" wx:else>
+                <text style="font-size:24rpx;color:#999;">{{item.nickName[0] || '?'}}</text>
+              </view>
               <view>
                 <text class="member-name">{{item.nickName}}</text>
                 <text class="meta-text">参与 {{item.matchCount}} 期</text>

@@ -152,6 +152,7 @@ Page({
       const leaderboard = members.map(m => ({
         userId: m.userId,
         nickName: m.nickName,
+        avatarUrl: m.avatarUrl || '',
         totalPoints: pointsMap[m.userId] || 0,
         matchCount: countMap[m.userId] || 0,
       })).sort((a, b) => b.totalPoints - a.totalPoints);
