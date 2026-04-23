@@ -14,6 +14,7 @@
 
 .stats-row {
   display: flex;
+  align-items: flex-end;
   margin-bottom: 32rpx;
 }
 
@@ -33,14 +34,14 @@
 }
 
 .stat-value-wrap {
-  height: 72rpx;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
+  min-height: 72rpx;
 }
 
 .rank-medal {
-  font-size: 56rpx;
+  font-size: 48rpx;
   line-height: 1;
 }
 
@@ -48,6 +49,7 @@
   font-size: 32rpx;
   font-weight: 700;
   color: #1a1a2e;
+  line-height: 1;
 }
 
 .rank-none {
@@ -58,6 +60,7 @@
   font-size: 36rpx;
   font-weight: 700;
   color: #1a1a2e;
+  line-height: 1;
 }
 
 .points-positive {
