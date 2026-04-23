@@ -1,12 +1,19 @@
 <!-- pages/score/input/input.wxml -->
-<view class="container">
+<view class="container" style="padding-top:16rpx;">
   <text class="page-title">填写结算筹码</text>
 
   <!-- 当前信息 -->
-  <van-cell-group inset custom-class="info-card-group">
-    <van-cell title="初始筹码" value="{{score.initialChips}}" />
-    <van-cell title="额外加成" value="+{{score.bonus || 0}}" value-class="bonus-value" />
-  </van-cell-group>
+  <view class="card info-card">
+    <view class="info-row">
+      <text class="info-label">初始筹码</text>
+      <text class="info-value">{{score.initialChips}}</text>
+    </view>
+    <view class="divider"></view>
+    <view class="info-row">
+      <text class="info-label">额外加成</text>
+      <text class="info-value bonus">+{{score.bonus || 0}}</text>
+    </view>
+  </view>
 
   <!-- 输入区 -->
   <view class="card" style="margin-top: 24rpx;">
@@ -20,9 +27,7 @@
     />
     <view class="preview-points" wx:if="{{finalChips !== ''}}">
       <text class="preview-label">预计本期积分：</text>
-      <text class="preview-value {{previewPoints >= 0 ? 'positive' : 'negative'}}">
-        {{previewPoints >= 0 ? '+' : ''}}{{previewPoints}}
-      </text>
+      <text class="preview-value {{previewPoints >= 0 ? 'positive' : 'negative'}}">{{previewPoints >= 0 ? '+' : ''}}{{previewPoints}}</text>
     </view>
   </view>
 

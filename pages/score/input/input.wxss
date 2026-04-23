@@ -1,11 +1,13 @@
 /* pages/score/input/input.wxss */
 .info-card {
-  background: #f8f9ff;
-  border: 1rpx solid #e8eaf6;
+  padding: 32rpx;
 }
 
 .info-row {
-  padding: 8rpx 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16rpx 0;
 }
 
 .info-label {
@@ -23,20 +25,12 @@
   color: #ff9800;
 }
 
-.chips-input {
-  font-size: 48rpx;
-  font-weight: 700;
-  text-align: center;
-  padding: 32rpx;
-  margin-top: 16rpx;
-}
-
 .preview-points {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   justify-content: center;
   margin-top: 20rpx;
-  gap: 12rpx;
+  gap: 8rpx;
 }
 
 .preview-label {
