@@ -15,7 +15,7 @@
         <!-- 排名 -->
         <view class="stat-item">
           <text class="stat-label">排名</text>
-          <view class="home-rank-badge {{myRank === 1 ? 'rank-gold' : myRank === 2 ? 'rank-silver' : myRank === 3 ? 'rank-bronze' : ''}}">
+          <view class="stat-circle {{myRank === 1 ? 'rank-gold' : myRank === 2 ? 'rank-silver' : myRank === 3 ? 'rank-bronze' : ''}}">
             <text>{{myRank > 0 ? myRank : '-'}}</text>
           </view>
         </view>
@@ -23,15 +23,17 @@
         <!-- 总积分 -->
         <view class="stat-item">
           <text class="stat-label">总积分</text>
-          <text class="stat-num {{myPoints >= 0 ? 'points-positive' : 'points-negative'}}">
-            {{myPoints >= 0 ? '+' : ''}}{{myPoints}}
-          </text>
+          <view class="stat-circle {{myPoints >= 0 ? 'points-positive' : 'points-negative'}}">
+            <text>{{myPoints >= 0 ? '+' : ''}}{{myPoints}}</text>
+          </view>
         </view>
 
         <!-- 赛程数 -->
         <view class="stat-item">
           <text class="stat-label">赛程</text>
-          <text class="stat-num">{{matchCount}}期</text>
+          <view class="stat-circle">
+            <text>{{matchCount}}期</text>
+          </view>
         </view>
       </view>
 
