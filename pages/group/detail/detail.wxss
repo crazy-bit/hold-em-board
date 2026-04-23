@@ -89,16 +89,19 @@
 /* 排行榜 */
 .rank-card {
   cursor: pointer;
+  overflow: hidden;
 }
 
 .rank-num {
-  font-size: 36rpx;
+  font-size: 28rpx;
   font-weight: 700;
   color: #999;
-  min-width: 48rpx;
+  width: 48rpx;
+  height: 48rpx;
+  line-height: 48rpx;
   text-align: center;
-  line-height: 64rpx;
-  height: 64rpx;
+  flex-shrink: 0;
+  overflow: hidden;
 }
 
 .rank-top {
@@ -114,15 +117,15 @@
 }
 
 .rank-avatar {
-  width: 64rpx;
-  height: 64rpx;
+  width: 48rpx;
+  height: 48rpx;
   border-radius: 50%;
   flex-shrink: 0;
 }
 
 .rank-avatar-placeholder {
-  width: 64rpx;
-  height: 64rpx;
+  width: 48rpx;
+  height: 48rpx;
   border-radius: 50%;
   background: #f0f0f0;
   display: flex;
