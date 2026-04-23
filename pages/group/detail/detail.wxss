@@ -155,6 +155,7 @@
   font-weight: 700;
   text-align: right;
   min-width: 80rpx;
+  line-height: 1;
 }
 
 .points-positive {

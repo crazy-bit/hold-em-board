@@ -14,7 +14,7 @@
 
 .stats-row {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   margin-bottom: 32rpx;
 }
 
@@ -34,10 +34,10 @@
 }
 
 .stat-value-wrap {
+  height: 64rpx;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
-  min-height: 72rpx;
 }
 
 .home-rank-badge {
