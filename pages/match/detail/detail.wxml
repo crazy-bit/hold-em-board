@@ -41,7 +41,7 @@
       data-userid="{{item.userId}}"
       data-scoreid="{{item._id}}"
     >
-      <view class="flex-between">
+      <view class="flex-row">
         <view class="col-name-wrap">
           <text class="member-name">{{item.nickName}}</text>
           <text class="self-tag" wx:if="{{item.isSelf}}">我</text>
