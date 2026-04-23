@@ -3,24 +3,30 @@
   <text class="page-title">创建记分组</text>
 
   <view class="card">
-    <text class="section-title">记分组名称</text>
-    <input
-      class="input-field"
+    <van-field
+      label="记分组名称"
       placeholder="例如：周五德州局"
       value="{{groupName}}"
-      bindinput="onNameInput"
+      bind:change="onNameInput"
       maxlength="20"
+      clearable
     />
     <text class="char-count">{{groupName.length}}/20</text>
   </view>
 
   <view style="margin-top:48rpx;">
-    <button
-      class="btn-primary"
+    <van-button
+      type="danger"
+      block
+      round
       bindtap="createGroup"
       disabled="{{creating || !groupName}}"
+      loading="{{creating}}"
+      loading-text="创建中..."
     >
-      {{creating ? '创建中...' : '创建记分组'}}
-    </button>
+      创建记分组
+    </van-button>
   </view>
 </view>
+
+<van-toast id="van-toast" />

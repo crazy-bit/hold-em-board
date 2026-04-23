@@ -3,13 +3,13 @@
   <text class="page-title">创建赛程</text>
 
   <view class="card">
-    <text class="section-title">赛程标题（可选）</text>
-    <input
-      class="input-field"
+    <van-field
+      label="赛程标题"
       placeholder="例如：第12期，留空则自动编号"
       value="{{title}}"
-      bindinput="onTitleInput"
+      bind:change="onTitleInput"
       maxlength="20"
+      clearable
     />
   </view>
 
@@ -19,12 +19,18 @@
   </view>
 
   <view style="margin-top:48rpx;">
-    <button
-      class="btn-primary"
+    <van-button
+      type="danger"
+      block
+      round
       bindtap="createMatch"
       disabled="{{creating}}"
+      loading="{{creating}}"
+      loading-text="创建中..."
     >
-      {{creating ? '创建中...' : '创建赛程'}}
-    </button>
+      创建赛程
+    </van-button>
   </view>
 </view>
+
+<van-toast id="van-toast" />

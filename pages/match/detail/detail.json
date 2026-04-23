@@ -1,3 +1,9 @@
 {
-  "navigationBarTitleText": "赛程详情"
+  "navigationBarTitleText": "赛程详情",
+  "usingComponents": {
+    "van-dialog": "@vant/weapp/dialog/index",
+    "van-button": "@vant/weapp/button/index",
+    "van-tag": "@vant/weapp/tag/index",
+    "van-toast": "@vant/weapp/toast/index"
+  }
 }

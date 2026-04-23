@@ -40,9 +40,10 @@ rank=0 表示默认规则（未上榜成员）
 | groupId       | string | 记分组 ID                     |
 | title         | string | 赛程标题                      |
 | status        | string | active / finished / cancelled |
-| rulesSnapshot | object | 创建时的规则快照              |
 | createdAt     | date   | 创建时间                      |
 | finishedAt    | date   | 结束时间                      |
+
+> 注：规则统一存储在 `groups` 集合的 `chipRules` 和 `bonusCountsToTotal` 字段中，所有赛程共享组级规则。
 
 ### scores（分数记录）
 | 字段         | 类型   | 说明                   |

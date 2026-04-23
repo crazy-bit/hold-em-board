@@ -13,17 +13,15 @@
     </view>
   </view>
 
-  <!-- 加载中 -->
-  <view class="loading-wrap" wx:if="{{loading}}">
-    <text>加载中...</text>
-  </view>
+  <!-- 加载中 - 骨架屏 -->
+  <van-skeleton title row="3" loading="{{loading}}" wx:if="{{loading}}" />
 
   <!-- 空状态 -->
-  <view class="empty-state" wx:elif="{{groups.length === 0}}">
-    <text style="font-size:80rpx;">🃏</text>
-    <text style="margin-top:24rpx;">还没有加入任何记分组</text>
-    <text style="font-size:24rpx;margin-top:12rpx;color:#ccc;">点击右上角创建或加入</text>
-  </view>
+  <van-empty description="还没有加入任何记分组" wx:elif="{{groups.length === 0}}">
+    <van-button slot="bottom" round type="danger" size="small" bindtap="goJoinGroup" custom-style="margin-top: 20rpx;">
+      加入记分组
+    </van-button>
+  </van-empty>
 
   <!-- 记分组列表 -->
   <view wx:else>
@@ -44,7 +42,7 @@
           </view>
         </view>
         <view class="flex-row" style="gap:12rpx;">
-          <view class="tag tag-admin" wx:if="{{item.isAdmin}}">管理员</view>
+          <van-tag type="warning" round wx:if="{{item.isAdmin}}">管理员</van-tag>
           <text class="arrow">›</text>
         </view>
       </view>
@@ -53,22 +51,28 @@
 </view>
 
 <!-- 加入组弹窗 -->
-<view class="modal-mask" wx:if="{{showJoinModal}}" bindtap="closeJoinModal">
-  <view class="modal-card" catchtap="">
-    <text class="modal-title">加入记分组</text>
+<van-dialog
+  use-slot
+  title="加入记分组"
+  show="{{showJoinModal}}"
+  show-confirm-button="{{false}}"
+  show-cancel-button="{{false}}"
+  close-on-click-overlay
+  bind:close="closeJoinModal"
+>
+  <view class="join-modal-body">
     <input
-      class="input-field"
+      class="input-field invite-code-input"
       placeholder="输入6位邀请码"
       value="{{inviteCode}}"
       bindinput="onInviteCodeInput"
       maxlength="6"
-      style="text-transform:uppercase;letter-spacing:8rpx;text-align:center;font-size:36rpx;"
     />
-    <view style="margin-top:32rpx;display:flex;gap:24rpx;">
-      <button class="btn-secondary" style="flex:1;" bindtap="closeJoinModal">取消</button>
-      <button class="btn-primary" style="flex:1;" bindtap="confirmJoin" disabled="{{joining}}">
-        {{joining ? '加入中...' : '确认加入'}}
-      </button>
+    <view class="join-modal-btns">
+      <van-button plain round custom-style="width:100%;" bindtap="closeJoinModal">取消</van-button>
+      <van-button type="danger" round custom-style="width:100%;" bindtap="confirmJoin" loading="{{joining}}" disabled="{{joining}}">确认加入</van-button>
     </view>
   </view>
-</view>
+</van-dialog>
+
+<van-toast id="van-toast" />

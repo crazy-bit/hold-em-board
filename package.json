@@ -33,5 +33,8 @@
       "lcov"
     ],
     "testTimeout": 60000
+  },
+  "dependencies": {
+    "@vant/weapp": "^1.11.7"
   }
 }

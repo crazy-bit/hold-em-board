@@ -35,11 +35,8 @@ exports.main = async (event, context) => {
     // 计算当前总积分排名
     const leaderboard = await calcCurrentLeaderboard(groupId, members);
 
-    // 保存规则快照
-    const rulesSnapshot = {
-      chipRules: group.chipRules || [{ rank: 0, initialChips: 1000, bonus: 0 }],
-      bonusCountsToTotal: group.bonusCountsToTotal || false,
-    };
+    // 获取组规则
+    const chipRules = group.chipRules || [{ rank: 0, initialChips: 1000, bonus: 0 }];
 
     // 创建赛程
     const matchRes = await db.collection('matches').add({
@@ -47,7 +44,6 @@ exports.main = async (event, context) => {
         groupId,
         title: title || '',
         status: 'active',
-        rulesSnapshot,
         createdAt: db.serverDate(),
       },
     });
@@ -55,7 +51,6 @@ exports.main = async (event, context) => {
     const matchId = matchRes._id;
 
     // 为每个成员创建初始分数记录（含初始筹码和额外加成）
-    const chipRules = rulesSnapshot.chipRules;
     const scorePromises = leaderboard.map((member, index) => {
       const rank = index + 1;
       const rule = getRuleByRank(chipRules, rank);

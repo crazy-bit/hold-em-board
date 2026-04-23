@@ -1,3 +1,8 @@
 {
-  "navigationBarTitleText": "积分规则配置"
+  "navigationBarTitleText": "积分规则配置",
+  "usingComponents": {
+    "van-button": "@vant/weapp/button/index",
+    "van-field": "@vant/weapp/field/index",
+    "van-toast": "@vant/weapp/toast/index"
+  }
 }

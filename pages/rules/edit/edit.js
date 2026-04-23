@@ -1,4 +1,5 @@
 // pages/rules/edit/edit.js
+const Toast = require('@vant/weapp/toast/toast');
 Page({
   data: {
     groupId: '',
@@ -25,7 +26,7 @@ Page({
         bonusCountsToTotal: group.bonusCountsToTotal || false,
       });
     } catch (err) {
-      wx.showToast({ title: '加载失败', icon: 'error' });
+      Toast.fail('加载失败');
     }
   },
 
@@ -36,7 +37,7 @@ Page({
   onChipsInput(e) {
     const { index, field } = e.currentTarget.dataset;
     const chipRules = [...this.data.chipRules];
-    chipRules[index] = { ...chipRules[index], [field]: Number(e.detail.value) || 0 };
+    chipRules[index] = { ...chipRules[index], [field]: Number(e.detail) || 0 };
     this.setData({ chipRules });
   },
 
@@ -72,13 +73,13 @@ Page({
       });
 
       if (res.result.code === 0) {
-        wx.showToast({ title: '规则已保存', icon: 'success' });
+        Toast.success('规则已保存');
         setTimeout(() => wx.navigateBack(), 800);
       } else {
-        wx.showToast({ title: res.result.msg || '保存失败', icon: 'error' });
+        Toast.fail(res.result.msg || '保存失败');
       }
     } catch (err) {
-      wx.showToast({ title: '保存失败，请重试', icon: 'error' });
+      Toast.fail('保存失败，请重试');
     } finally {
       this.setData({ saving: false });
     }

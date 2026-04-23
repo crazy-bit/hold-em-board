@@ -47,6 +47,7 @@ describe('finishMatch 云函数', () => {
     /**
      * 直接测试 finishMatch 中的积分计算公式：
      * points = finalChips - initialChips + (bonusCountsToTotal ? bonus : 0)
+     * 注：bonusCountsToTotal 从 group 文档读取（不再从 match.rulesSnapshot）
      */
     function calcPointsInline(finalChips, initialChips, bonus, bonusCountsToTotal) {
       const fc = finalChips || 0;

@@ -1,5 +1,6 @@
 // pages/group/list/list.js
 const app = getApp();
+const Toast = require('@vant/weapp/toast/toast');
 
 Page({
   data: {
@@ -64,7 +65,7 @@ Page({
       } else {
         console.error('loadGroups error:', res.result.msg);
         this.setData({ loading: false });
-        wx.showToast({ title: '加载失败', icon: 'error' });
+        Toast.fail('加载失败');
       }
     } catch (err) {
       console.error('loadGroups error:', err);
@@ -94,7 +95,7 @@ Page({
   async confirmJoin() {
     const { inviteCode } = this.data;
     if (!inviteCode || inviteCode.length !== 6) {
-      wx.showToast({ title: '请输入6位邀请码', icon: 'none' });
+      Toast('请输入6位邀请码');
       return;
     }
 
@@ -112,13 +113,13 @@ Page({
 
       if (res.result.code === 0) {
         this.setData({ showJoinModal: false, inviteCode: '' });
-        wx.showToast({ title: res.result.alreadyJoined ? '已在组内' : '加入成功', icon: 'success' });
+        Toast.success(res.result.alreadyJoined ? '已在组内' : '加入成功');
         wx.navigateTo({ url: `/pages/group/detail/detail?id=${res.result.groupId}` });
       } else {
-        wx.showToast({ title: res.result.msg || '加入失败', icon: 'error' });
+        Toast.fail(res.result.msg || '加入失败');
       }
     } catch (err) {
-      wx.showToast({ title: '加入失败，请重试', icon: 'error' });
+      Toast.fail('加入失败，请重试');
     } finally {
       this.setData({ joining: false });
     }

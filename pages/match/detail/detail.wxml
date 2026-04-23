@@ -7,16 +7,16 @@
         <text class="match-title">{{match.title || '赛程详情'}}</text>
         <text class="match-date">{{match.createdAtStr}}</text>
       </view>
-      <view class="tag {{match.status === 'active' ? 'tag-active' : match.status === 'finished' ? 'tag-finished' : 'tag-cancelled'}}">
-        {{match.status === 'active' ? '进行中' : match.status === 'finished' ? '已结束' : '已作废'}}
-      </view>
+      <van-tag type="success" round wx:if="{{match.status === 'active'}}">进行中</van-tag>
+      <van-tag type="primary" round wx:elif="{{match.status === 'finished'}}">已结束</van-tag>
+      <van-tag color="#fafafa" text-color="#999" round wx:else>已作废</van-tag>
     </view>
   </view>
 
   <!-- 管理员操作区（仅进行中赛程） -->
   <view wx:if="{{isAdmin && match.status === 'active'}}" class="admin-actions">
-    <button class="btn-primary" bindtap="finishMatch">结束赛程</button>
-    <button class="btn-danger" style="margin-top:16rpx;" bindtap="cancelMatch">销毁赛程（作废）</button>
+    <van-button type="danger" block round bindtap="finishMatch">结束赛程</van-button>
+    <van-button plain block round color="#ff4d4f" custom-style="margin-top:16rpx;" bindtap="cancelMatch">销毁赛程（作废）</van-button>
   </view>
 
   <!-- 分数列表 -->
@@ -66,18 +66,27 @@
 </view>
 
 <!-- 结束赛程确认弹窗 -->
-<view class="modal-mask" wx:if="{{showFinishModal}}" bindtap="closeFinishModal">
-  <view class="modal-card" catchtap="">
-    <text class="modal-title">确认结束赛程？</text>
+<van-dialog
+  use-slot
+  title="确认结束赛程？"
+  show="{{showFinishModal}}"
+  show-confirm-button="{{false}}"
+  show-cancel-button="{{false}}"
+  close-on-click-overlay
+  bind:close="closeFinishModal"
+>
+  <view style="padding: 24rpx 48rpx;">
     <view wx:if="{{unfilledMembers.length > 0}}" class="unfilled-warning">
       <text>以下成员未填写结算筹码，将以 0 计算：</text>
       <text wx:for="{{unfilledMembers}}" wx:key="*this" class="unfilled-name">{{item}}</text>
     </view>
     <view style="margin-top:32rpx;display:flex;gap:24rpx;">
-      <button class="btn-secondary" style="flex:1;" bindtap="closeFinishModal">取消</button>
-      <button class="btn-primary" style="flex:1;" bindtap="confirmFinish" disabled="{{finishing}}">
-        {{finishing ? '结束中...' : '确认结束'}}
-      </button>
+      <van-button plain round custom-style="flex:1;" bindtap="closeFinishModal">取消</van-button>
+      <van-button type="danger" round custom-style="flex:1;" bindtap="confirmFinish" loading="{{finishing}}" disabled="{{finishing}}">
+        确认结束
+      </van-button>
     </view>
   </view>
-</view>
+</van-dialog>
+
+<van-toast id="van-toast" />

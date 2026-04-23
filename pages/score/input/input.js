@@ -1,8 +1,10 @@
 // pages/score/input/input.js
+const Toast = require('@vant/weapp/toast/toast');
 Page({
   data: {
     scoreId: '',
     matchId: '',
+    groupId: '',
     score: {},
     finalChips: '',
     previewPoints: 0,
@@ -11,23 +13,24 @@ Page({
   },
 
   onLoad(options) {
-    this.setData({ scoreId: options.scoreId, matchId: options.matchId });
+    this.setData({ scoreId: options.scoreId, matchId: options.matchId, groupId: options.groupId || '' });
     this.loadScore();
   },
 
   async loadScore() {
-    const { scoreId, matchId } = this.data;
+    const { scoreId, groupId } = this.data;
     const db = wx.cloud.database();
 
     try {
-      const [scoreRes, matchRes] = await Promise.all([
-        db.collection('scores').doc(scoreId).get(),
-        db.collection('matches').doc(matchId).get(),
-      ]);
+      // 并行查询分数记录和记分组规则
+      const queries = [db.collection('scores').doc(scoreId).get()];
+      if (groupId) {
+        queries.push(db.collection('groups').doc(groupId).get());
+      }
+      const results = await Promise.all(queries);
 
-      const score = scoreRes.data;
-      const match = matchRes.data;
-      const bonusCountsToTotal = match.rulesSnapshot && match.rulesSnapshot.bonusCountsToTotal;
+      const score = results[0].data;
+      const bonusCountsToTotal = results[1] ? (results[1].data.bonusCountsToTotal || false) : false;
 
       this.setData({
         score,
@@ -41,12 +44,12 @@ Page({
         this.calcPreview(score.finalChips);
       }
     } catch (err) {
-      wx.showToast({ title: '加载失败', icon: 'error' });
+      Toast.fail('加载失败');
     }
   },
 
   onChipsInput(e) {
-    const val = e.detail.value;
+    const val = e.detail;
     this.setData({ finalChips: val });
     if (val !== '') {
       this.calcPreview(Number(val));
@@ -72,13 +75,13 @@ Page({
       });
 
       if (res.result.code === 0) {
-        wx.showToast({ title: '保存成功', icon: 'success' });
+        Toast.success('保存成功');
         setTimeout(() => wx.navigateBack(), 800);
       } else {
-        wx.showToast({ title: res.result.msg || '保存失败', icon: 'error' });
+        Toast.fail(res.result.msg || '保存失败');
       }
     } catch (err) {
-      wx.showToast({ title: '保存失败，请重试', icon: 'error' });
+      Toast.fail('保存失败，请重试');
     } finally {
       this.setData({ saving: false });
     }

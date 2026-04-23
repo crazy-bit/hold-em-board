@@ -1,3 +1,8 @@
 {
-  "navigationBarTitleText": "创建记分组"
+  "navigationBarTitleText": "创建记分组",
+  "usingComponents": {
+    "van-button": "@vant/weapp/button/index",
+    "van-field": "@vant/weapp/field/index",
+    "van-toast": "@vant/weapp/toast/index"
+  }
 }

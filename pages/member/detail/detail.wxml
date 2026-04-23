@@ -19,10 +19,7 @@
   <!-- 历史赛程积分 -->
   <text class="section-title">历史赛程记录</text>
 
-  <view class="empty-state" wx:if="{{scores.length === 0}}">
-    <text style="font-size:60rpx;">📊</text>
-    <text style="margin-top:16rpx;">暂无赛程记录</text>
-  </view>
+  <van-empty description="暂无赛程记录" wx:if="{{scores.length === 0}}" />
 
   <view
     class="score-card card"

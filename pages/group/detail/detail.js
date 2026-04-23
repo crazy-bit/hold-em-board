@@ -1,6 +1,7 @@
 // pages/group/detail/detail.js
 const app = getApp();
 const { formatDate, calcPoints } = require('../../../utils/util');
+const Toast = require('@vant/weapp/toast/toast');
 
 Page({
   data: {
@@ -11,6 +12,7 @@ Page({
     leaderboard: [],
     isAdmin: false,
     activeTab: 'matches',
+    activeTabIndex: 0,
     loading: true,
   },
 
@@ -81,7 +83,7 @@ Page({
           }
 
           this.setData({ loading: false });
-          wx.showToast({ title: '加载失败', icon: 'error' });
+          Toast.fail('加载失败');
           return;
         }
       }
@@ -163,8 +165,10 @@ Page({
     }
   },
 
-  switchTab(e) {
-    this.setData({ activeTab: e.currentTarget.dataset.tab });
+  onTabChange(e) {
+    const index = e.detail.index;
+    const tabs = ['matches', 'leaderboard'];
+    this.setData({ activeTab: tabs[index], activeTabIndex: index });
   },
 
   createMatch() {
@@ -193,11 +197,11 @@ Page({
         if (res.tapIndex === 0) {
           wx.setClipboardData({
             data: group.inviteCode,
-            success: () => wx.showToast({ title: '邀请码已复制', icon: 'success' }),
+            success: () => Toast.success('邀请码已复制'),
           });
         } else if (res.tapIndex === 1) {
           // 触发页面分享
-          wx.showToast({ title: '请点击右上角分享', icon: 'none' });
+          Toast('请点击右上角分享');
         }
       },
     });

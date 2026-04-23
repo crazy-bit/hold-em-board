@@ -29,7 +29,8 @@ exports.main = async (event, context) => {
 
     // 验证管理员权限
     const groupRes = await db.collection('groups').doc(match.groupId).get();
-    if (groupRes.data.adminId !== adminId) {
+    const group = groupRes.data;
+    if (group.adminId !== adminId) {
       return { code: -1, msg: '只有管理员才能结束赛程' };
     }
 
@@ -48,8 +49,8 @@ exports.main = async (event, context) => {
       };
     }
 
-    // 计算每人本期积分
-    const bonusCountsToTotal = match.rulesSnapshot && match.rulesSnapshot.bonusCountsToTotal;
+    // 从记分组读取规则（统一从 group 读取，不再使用 rulesSnapshot）
+    const bonusCountsToTotal = group.bonusCountsToTotal || false;
     const updatePromises = scores.map(s => {
       const finalChips = s.finalChips || 0;
       const points = finalChips - s.initialChips + (bonusCountsToTotal ? (s.bonus || 0) : 0);

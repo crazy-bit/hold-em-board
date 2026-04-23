@@ -1,6 +1,7 @@
 // pages/match/detail/detail.js
 const app = getApp();
 const { formatDate } = require('../../../utils/util');
+const Toast = require('@vant/weapp/toast/toast');
 
 Page({
   data: {
@@ -57,7 +58,7 @@ Page({
       this.setData({ match, scores, isAdmin, unfilledCount });
     } catch (err) {
       console.error('loadData error:', err);
-      wx.showToast({ title: '加载失败', icon: 'error' });
+      Toast.fail('加载失败');
     } finally {
       this._loading = false;
     }
@@ -73,12 +74,12 @@ Page({
 
     // 只能填写自己的分数
     if (userId !== openId) {
-      wx.showToast({ title: '只能填写自己的分数', icon: 'none' });
+      Toast('只能填写自己的分数');
       return;
     }
 
     wx.navigateTo({
-      url: `/pages/score/input/input?scoreId=${scoreId}&matchId=${this.data.matchId}`,
+      url: `/pages/score/input/input?scoreId=${scoreId}&matchId=${this.data.matchId}&groupId=${this.data.groupId}`,
     });
   },
 
@@ -106,15 +107,13 @@ Page({
 
       if (res.result.code === 0) {
         this.setData({ showFinishModal: false });
-        wx.showToast({ title: '赛程已结束', icon: 'success' });
+        Toast.success('赛程已结束');
         this.loadData();
       } else {
-        console.error('finishMatch 返回错误:', res.result.msg || '未知错误');
-        wx.showToast({ title: res.result.msg || '操作失败', icon: 'error' });
+        Toast.fail(res.result.msg || '操作失败');
       }
     } catch (err) {
-      console.error('finishMatch 调用失败:', err.errCode || '', err.errMsg || err.message || JSON.stringify(err));
-      wx.showToast({ title: '操作失败，请重试', icon: 'error' });
+      Toast.fail('操作失败，请重试');
     } finally {
       this.setData({ finishing: false });
     }
@@ -134,13 +133,13 @@ Page({
               data: { matchId: this.data.matchId },
             });
             if (result.result.code === 0) {
-              wx.showToast({ title: '赛程已作废', icon: 'success' });
+              Toast.success('赛程已作废');
               this.loadData();
             } else {
-              wx.showToast({ title: result.result.msg || '操作失败', icon: 'error' });
+              Toast.fail(result.result.msg || '操作失败');
             }
           } catch (err) {
-            wx.showToast({ title: '操作失败，请重试', icon: 'error' });
+            Toast.fail('操作失败，请重试');
           }
         }
       },

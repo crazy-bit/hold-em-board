@@ -1,6 +1,6 @@
 // pages/group/create/create.js
 const app = getApp();
-
+const Toast = require('@vant/weapp/toast/toast');
 Page({
   data: {
     groupName: '',
@@ -8,7 +8,7 @@ Page({
   },
 
   onNameInput(e) {
-    this.setData({ groupName: e.detail.value });
+    this.setData({ groupName: e.detail });
   },
 
   async createGroup() {
@@ -28,17 +28,17 @@ Page({
       });
 
       if (res.result.code === 0) {
-        wx.showToast({ title: '创建成功', icon: 'success' });
+        Toast.success('创建成功');
         setTimeout(() => {
           wx.redirectTo({
             url: `/pages/group/detail/detail?id=${res.result.groupId}`,
           });
         }, 1000);
       } else {
-        wx.showToast({ title: res.result.msg || '创建失败', icon: 'error' });
+        Toast.fail(res.result.msg || '创建失败');
       }
     } catch (err) {
-      wx.showToast({ title: '创建失败，请重试', icon: 'error' });
+      Toast.fail('创建失败，请重试');
     } finally {
       this.setData({ creating: false });
     }

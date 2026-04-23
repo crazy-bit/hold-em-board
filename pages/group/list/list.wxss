@@ -45,32 +45,29 @@
   line-height: 1;
 }
 
-/* 弹窗 */
-.modal-mask {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 100;
-}
-
-.modal-card {
-  background: #fff;
-  border-radius: 24rpx;
-  padding: 48rpx;
-  width: 80%;
-}
-
-.modal-title {
-  display: block;
-  font-size: 36rpx;
-  font-weight: 700;
-  color: #1a1a2e;
+.invite-code-input {
+  text-transform: uppercase;
   text-align: center;
-  margin-bottom: 40rpx;
+  font-size: 32rpx;
+  height: 88rpx;
+  line-height: 88rpx;
+  padding: 0 28rpx;
 }
+
+.join-modal-body {
+  padding: 24rpx 32rpx;
+  overflow: hidden;
+}
+
+.join-modal-btns {
+  margin-top: 32rpx;
+  display: flex;
+  gap: 16rpx;
+}
+
+.join-modal-btns van-button {
+  flex: 1;
+  min-width: 0;
+}
+
+
