@@ -30,7 +30,7 @@ Page({
         if (res.result.code === 0) {
           if (!res.result.nickName || res.result.nickName === '德州玩家') {
             this._loading = false;
-            wx.navigateTo({ url: '/pages/login/login' });
+            wx.navigateTo({ url: '/subpages/login/login' });
             return;
           }
           app.globalData.openId = res.result.openId;
@@ -41,12 +41,12 @@ Page({
           };
         } else {
           this._loading = false;
-          wx.navigateTo({ url: '/pages/login/login' });
+          wx.navigateTo({ url: '/subpages/login/login' });
           return;
         }
       } catch (e) {
         this._loading = false;
-        wx.navigateTo({ url: '/pages/login/login' });
+        wx.navigateTo({ url: '/subpages/login/login' });
         return;
       }
     }
@@ -85,12 +85,12 @@ Page({
   goGroupDetail() {
     const { group } = this.data;
     if (group && group._id) {
-      wx.navigateTo({ url: `/pages/group/detail/detail?id=${group._id}` });
+      wx.navigateTo({ url: `/subpages/group/detail/detail?id=${group._id}` });
     }
   },
 
   goCreateGroup() {
-    wx.navigateTo({ url: '/pages/group/create/create' });
+    wx.navigateTo({ url: '/subpages/group/create/create' });
   },
 
   goGroupList() {

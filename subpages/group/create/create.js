@@ -32,7 +32,7 @@ Page({
         Toast.success('创建成功');
         setTimeout(() => {
           wx.redirectTo({
-            url: `/pages/group/detail/detail?id=${res.result.groupId}`,
+            url: `/subpages/group/detail/detail?id=${res.result.groupId}`,
           });
         }, 1000);
       } else {

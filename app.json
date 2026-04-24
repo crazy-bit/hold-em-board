@@ -5,7 +5,7 @@
   ],
   "subpackages": [
     {
-      "root": "pages",
+      "root": "subpages",
       "name": "main",
       "pages": [
         "login/login",

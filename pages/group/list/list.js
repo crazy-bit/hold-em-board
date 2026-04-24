@@ -84,7 +84,7 @@ Page({
   },
 
   goCreateGroup() {
-    wx.navigateTo({ url: '/pages/group/create/create' });
+    wx.navigateTo({ url: '/subpages/group/create/create' });
   },
 
   goJoinGroup() {

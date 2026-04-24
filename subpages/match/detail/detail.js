@@ -80,7 +80,7 @@ Page({
     }
 
     wx.navigateTo({
-      url: `/pages/score/input/input?scoreId=${scoreId}&matchId=${this.data.matchId}&groupId=${this.data.groupId}`,
+      url: `/subpages/score/input/input?scoreId=${scoreId}&matchId=${this.data.matchId}&groupId=${this.data.groupId}`,
     });
   },
 

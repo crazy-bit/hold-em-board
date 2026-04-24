@@ -256,21 +256,21 @@ Page({
   },
 
   createMatch() {
-    wx.navigateTo({ url: `/pages/match/create/create?groupId=${this.data.groupId}` });
+    wx.navigateTo({ url: `/subpages/match/create/create?groupId=${this.data.groupId}` });
   },
 
   goMatchDetail(e) {
     const id = e.currentTarget.dataset.id;
-    wx.navigateTo({ url: `/pages/match/detail/detail?id=${id}&groupId=${this.data.groupId}` });
+    wx.navigateTo({ url: `/subpages/match/detail/detail?id=${id}&groupId=${this.data.groupId}` });
   },
 
   goMemberDetail(e) {
     const userId = e.currentTarget.dataset.userid;
-    wx.navigateTo({ url: `/pages/member/detail/detail?userId=${userId}&groupId=${this.data.groupId}` });
+    wx.navigateTo({ url: `/subpages/member/detail/detail?userId=${userId}&groupId=${this.data.groupId}` });
   },
 
   goRules() {
-    wx.navigateTo({ url: `/pages/rules/edit/edit?groupId=${this.data.groupId}` });
+    wx.navigateTo({ url: `/subpages/rules/edit/edit?groupId=${this.data.groupId}` });
   },
 
   copyInviteCode() {

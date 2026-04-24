@@ -30,7 +30,7 @@ Page({
         Toast.success('赛程已创建');
         setTimeout(() => {
           wx.redirectTo({
-            url: `/pages/match/detail/detail?id=${res.result.matchId}&groupId=${groupId}`,
+            url: `/subpages/match/detail/detail?id=${res.result.matchId}&groupId=${groupId}`,
           });
         }, 800);
       } else {
