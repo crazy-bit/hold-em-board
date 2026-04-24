@@ -15,7 +15,7 @@ const {
   generateInviteCode,
   calcPoints,
   getRuleByRank,
-} = require('../../utils/util');
+} = require('../../subpages/utils/util');
 
 // ─────────────────────────────────────────
 // formatDate

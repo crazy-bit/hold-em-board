@@ -1,5 +1,5 @@
 // pages/member/detail/detail.js
-const { formatDate } = require('../../../utils/util');
+const { formatDate } = require('../../utils/util');
 
 Page({
   data: {

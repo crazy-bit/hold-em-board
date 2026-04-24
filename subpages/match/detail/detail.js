@@ -1,6 +1,6 @@
 // pages/match/detail/detail.js
 const app = getApp();
-const { formatDate } = require('../../../utils/util');
+const { formatDate } = require('../../utils/util');
 const _Toast = require('@vant/weapp/toast/toast');
 const Toast = _Toast.default || _Toast;
 
