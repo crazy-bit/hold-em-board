@@ -9,10 +9,30 @@ Page({
     autoFocusNickName: false,
   },
 
-  onLoad(options) {
+  async onLoad(options) {
     if (app.globalData.openId) {
       this.redirectAfterLogin(options);
       return;
+    }
+    // 尝试静默登录，预填已有的昵称和头像
+    try {
+      const res = await wx.cloud.callFunction({ name: 'login', data: {} });
+      if (res.result && res.result.code === 0) {
+        const { nickName, avatarUrl, openId } = res.result;
+        // 有真实昵称（非默认值）说明已注册，直接跳过登录页
+        if (nickName && nickName !== '德州玩家') {
+          app.globalData.openId = openId;
+          app.globalData.userInfo = { openId, nickName, avatarUrl };
+          this.redirectAfterLogin(options);
+          return;
+        }
+        // 有头像则预填
+        if (avatarUrl) {
+          this.setData({ avatarUrl });
+        }
+      }
+    } catch (e) {
+      // 静默登录失败不影响正常流程
     }
     // 延迟自动聚焦昵称输入框，触发微信昵称建议弹窗
     setTimeout(() => {
