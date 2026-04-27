@@ -3,6 +3,16 @@
   <!-- 加载中 -->
   <t-skeleton theme="paragraph" loading="{{loading}}" wx:if="{{loading}}" />
 
+  <!-- 游客态：未登录时展示 -->
+  <view wx:elif="{{!isLoggedIn}}" class="empty-state">
+    <view class="empty-icon">♠</view>
+    <text class="empty-title">德州记分板</text>
+    <text class="empty-desc">轻松记录每一局的胜负与积分</text>
+    <view class="empty-actions">
+      <t-button theme="danger" shape="round" block bindtap="goLogin" style="margin-bottom:16rpx;">登录开始使用</t-button>
+    </view>
+  </view>
+
   <!-- 有赛事 -->
   <view wx:elif="{{hasGroup}}">
     <!-- 赛事摘要卡片 -->
@@ -47,7 +57,7 @@
     </view>
   </view>
 
-  <!-- 无赛事 -->
+  <!-- 无赛事（已登录但没有赛事） -->
   <view wx:else class="empty-state">
     <view class="empty-icon">♠</view>
     <text class="empty-title">德州记分板</text>

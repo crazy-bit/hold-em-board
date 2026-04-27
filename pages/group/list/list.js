@@ -14,6 +14,7 @@ Page({
   data: {
     groups: [],
     loading: true,
+    isLoggedIn: false,
     showJoinModal: false,
     inviteCode: '',
     joining: false,
@@ -39,10 +40,10 @@ Page({
       try {
         const res = await wx.cloud.callFunction({ name: 'login', data: {} });
         if (res.result.code === 0) {
-          // 如果昵称是默认值，引导用户去登录页设置
+          // 如果昵称是默认值，展示游客态，不强制跳转
           if (!res.result.nickName || res.result.nickName === '德州玩家') {
+            this.setData({ loading: false, isLoggedIn: false });
             this._loading = false;
-            wx.navigateTo({ url: '/pages/login/login' });
             return;
           }
           app.globalData.openId = res.result.openId;
@@ -52,16 +53,19 @@ Page({
             avatarUrl: res.result.avatarUrl,
           };
         } else {
+          // 登录失败 → 展示游客态，不强制跳转
+          this.setData({ loading: false, isLoggedIn: false });
           this._loading = false;
-          wx.navigateTo({ url: '/pages/login/login' });
           return;
         }
       } catch (e) {
+        // 异常 → 展示游客态，不强制跳转
+        this.setData({ loading: false, isLoggedIn: false });
         this._loading = false;
-        wx.navigateTo({ url: '/pages/login/login' });
         return;
       }
     }
+    this.setData({ isLoggedIn: true });
     await this.loadGroups();
     this._loading = false;
   },
@@ -90,11 +94,25 @@ Page({
     }
   },
 
+  goLogin() {
+    wx.navigateTo({ url: '/subpages/login/login' });
+  },
+
   goCreateGroup() {
+    // 需要登录才能创建
+    if (!app.globalData.openId) {
+      wx.navigateTo({ url: '/subpages/login/login' });
+      return;
+    }
     wx.navigateTo({ url: '/subpages/group/create/create' });
   },
 
   goJoinGroup() {
+    // 需要登录才能加入
+    if (!app.globalData.openId) {
+      wx.navigateTo({ url: '/subpages/login/login' });
+      return;
+    }
     this.setData({ showJoinModal: true, inviteCode: '' });
   },
 
@@ -128,7 +146,7 @@ Page({
       if (res.result.code === 0) {
         this.setData({ showJoinModal: false, inviteCode: '' });
         showToast({ context: this, selector: '#t-toast', message: res.result.alreadyJoined ? '已在组内' : '加入成功', theme: 'success' });
-        wx.navigateTo({ url: `/pages/group/detail/detail?id=${res.result.groupId}` });
+        wx.navigateTo({ url: `/subpages/group/detail/detail?id=${res.result.groupId}` });
       } else {
         showToast({ context: this, selector: '#t-toast', message: res.result.msg || '加入失败', theme: 'error' });
       }
@@ -141,6 +159,6 @@ Page({
 
   goGroupDetail(e) {
     const id = e.currentTarget.dataset.id;
-    wx.navigateTo({ url: `/pages/group/detail/detail?id=${id}` });
+    wx.navigateTo({ url: `/subpages/group/detail/detail?id=${id}` });
   },
 });
