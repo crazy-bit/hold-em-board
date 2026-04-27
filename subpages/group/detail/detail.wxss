@@ -6,7 +6,7 @@
 .group-name {
   font-size: 38rpx;
   font-weight: 700;
-  color: #1a1a2e;
+  color: #eaeaea;
   display: block;
   margin-bottom: 8rpx;
   overflow: hidden;
@@ -16,7 +16,7 @@
 
 .invite-code {
   font-size: 24rpx;
-  color: #999;
+  color: #a0a0b0;
   display: block;
 }
 
@@ -28,9 +28,9 @@
 .action-btn {
   padding: 12rpx 24rpx;
   border-radius: 24rpx;
-  background: #f0f0f0;
+  background: #16213e;
   font-size: 26rpx;
-  color: #555;
+  color: #a0a0b0;
   white-space: nowrap;
 }
 
@@ -62,11 +62,8 @@
 
 .meta-text {
   font-size: 24rpx;
-  color: #999;
+  color: #a0a0b0;
 }
-
-
-
 
 /* 赛程卡片 */
 .match-card {
@@ -76,20 +73,20 @@
 .match-title {
   font-size: 32rpx;
   font-weight: 600;
-  color: #1a1a2e;
+  color: #eaeaea;
   display: block;
   margin-bottom: 8rpx;
 }
 
 .match-date {
   font-size: 24rpx;
-  color: #999;
+  color: #a0a0b0;
   display: block;
 }
 
 .arrow {
   font-size: 32rpx;
-  color: #ccc;
+  color: #666680;
   line-height: 48rpx;
 }
 
@@ -118,24 +115,25 @@
   width: 48rpx;
   height: 48rpx;
   border-radius: 50%;
-  background: #f0f0f0;
+  background: #16213e;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
   font-size: 24rpx;
   font-weight: 700;
-  color: #999;
+  color: #a0a0b0;
 }
 
 .rank-gold {
   background: #FFD700;
-  color: #fff;
+  color: #1a1a2e;
+  box-shadow: 0 0 12rpx rgba(255, 215, 0, 0.4);
 }
 
 .rank-silver {
   background: #C0C0C0;
-  color: #fff;
+  color: #1a1a2e;
 }
 
 .rank-bronze {
@@ -150,7 +148,7 @@
 .member-name {
   font-size: 30rpx;
   font-weight: 600;
-  color: #1a1a2e;
+  color: #eaeaea;
   display: block;
   margin-bottom: 4rpx;
 }
@@ -166,7 +164,7 @@
   width: 48rpx;
   height: 48rpx;
   border-radius: 50%;
-  background: #f0f0f0;
+  background: #16213e;
   display: flex;
   align-items: center;
   justify-content: center;

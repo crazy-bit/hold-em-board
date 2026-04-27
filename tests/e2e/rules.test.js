@@ -22,17 +22,17 @@ describe('规则编辑页 E2E', () => {
 
     // 创建一个赛事用于规则编辑测试
     try {
-      const page = await ensureOnPage(miniProgram, '/pages/group/create/create', 3000);
+      const page = await ensureOnPage(miniProgram, '/subpages/group/create/create', 3000);
       try {
-        await waitForElement(page, '.input-field', 8000);
+        await waitForData(page, d => d.groupName !== undefined, 8000);
       } catch (_) {
         const p = await miniProgram.currentPage();
-        await waitForElement(p, '.input-field', 5000);
+        await waitForData(p, d => d.groupName !== undefined, 5000);
       }
 
-      await safeInput(page, '.input-field', `规则测试组_${Date.now()}`, 5000);
+      await page.setData({ groupName: `规则测试组_${Date.now()}` });
       await sleep(300);
-      await safeTap(page, '.btn-primary');
+      await page.callMethod('saveRules');
       await sleep(8000);
 
       const currentPage = await miniProgram.currentPage();
@@ -62,7 +62,7 @@ describe('规则编辑页 E2E', () => {
 
       const page = await ensureOnPage(
         miniProgram,
-        `/pages/rules/edit/edit?groupId=${testGroupId}`,
+        `/subpages/rules/edit/edit?groupId=${testGroupId}`,
         2000
       );
 
@@ -74,7 +74,7 @@ describe('规则编辑页 E2E', () => {
 
       const page = await ensureOnPage(
         miniProgram,
-        `/pages/rules/edit/edit?groupId=${testGroupId}`,
+        `/subpages/rules/edit/edit?groupId=${testGroupId}`,
         2000
       );
       await sleep(3000);
@@ -94,7 +94,7 @@ describe('规则编辑页 E2E', () => {
 
       const page = await ensureOnPage(
         miniProgram,
-        `/pages/rules/edit/edit?groupId=${testGroupId}`,
+        `/subpages/rules/edit/edit?groupId=${testGroupId}`,
         2000
       );
       await sleep(3000);
@@ -112,7 +112,7 @@ describe('规则编辑页 E2E', () => {
 
       const page = await ensureOnPage(
         miniProgram,
-        `/pages/rules/edit/edit?groupId=${testGroupId}`,
+        `/subpages/rules/edit/edit?groupId=${testGroupId}`,
         2000
       );
       await sleep(3000);
@@ -135,7 +135,7 @@ describe('规则编辑页 E2E', () => {
 
       const page = await ensureOnPage(
         miniProgram,
-        `/pages/rules/edit/edit?groupId=${testGroupId}`,
+        `/subpages/rules/edit/edit?groupId=${testGroupId}`,
         2000
       );
       await sleep(3000);
@@ -156,7 +156,7 @@ describe('规则编辑页 E2E', () => {
 
       const page = await ensureOnPage(
         miniProgram,
-        `/pages/rules/edit/edit?groupId=${testGroupId}`,
+        `/subpages/rules/edit/edit?groupId=${testGroupId}`,
         2000
       );
       await sleep(3000);
@@ -181,7 +181,7 @@ describe('规则编辑页 E2E', () => {
 
       const page = await ensureOnPage(
         miniProgram,
-        `/pages/rules/edit/edit?groupId=${testGroupId}`,
+        `/subpages/rules/edit/edit?groupId=${testGroupId}`,
         2000
       );
       await sleep(3000);
@@ -212,7 +212,7 @@ describe('规则编辑页 E2E', () => {
 
       const page = await ensureOnPage(
         miniProgram,
-        `/pages/rules/edit/edit?groupId=${testGroupId}`,
+        `/subpages/rules/edit/edit?groupId=${testGroupId}`,
         2000
       );
       await sleep(3000);
@@ -249,13 +249,13 @@ describe('规则编辑页 E2E', () => {
 
       const page = await ensureOnPage(
         miniProgram,
-        `/pages/rules/edit/edit?groupId=${testGroupId}`,
+        `/subpages/rules/edit/edit?groupId=${testGroupId}`,
         2000
       );
       await sleep(3000);
 
       // 点击保存按钮
-      await safeTap(page, '.btn-primary');
+      await page.callMethod('saveRules');
       await sleep(5000);
 
       dumpConsoleLogs();
@@ -288,12 +288,12 @@ describe('规则编辑页 E2E', () => {
 
       const page = await ensureOnPage(
         miniProgram,
-        `/pages/rules/edit/edit?groupId=${testGroupId}`,
+        `/subpages/rules/edit/edit?groupId=${testGroupId}`,
         2000
       );
       await sleep(3000);
 
-      await safeTap(page, '.btn-primary');
+      await page.callMethod('saveRules');
       await sleep(5000);
 
       const currentPage = await miniProgram.currentPage();

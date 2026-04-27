@@ -1,9 +1,9 @@
 {
   "navigationBarTitleText": "成员详情",
   "usingComponents": {
-    "van-empty": "@vant/weapp/empty/index"
+    "t-empty": "/miniprogram_npm/tdesign-miniprogram/empty/empty"
   },
   "componentPlaceholder": {
-    "van-empty": "view"
+    "t-empty": "view"
   }
 }

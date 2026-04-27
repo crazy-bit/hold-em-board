@@ -1,7 +1,14 @@
 // pages/group/create/create.js
 const app = getApp();
-const _Toast = require('@vant/weapp/toast/toast');
-const Toast = _Toast.default || _Toast;
+let Toast;
+try { Toast = require('tdesign-miniprogram/toast/index'); } catch(e) { Toast = null; }
+function showToast(opts) {
+  if (typeof Toast === 'function') {
+    Toast(opts);
+  } else {
+    wx.showToast({ title: opts.message || '', icon: opts.theme === 'success' ? 'success' : 'none', duration: 2000 });
+  }
+}
 Page({
   data: {
     groupName: '',
@@ -29,17 +36,17 @@ Page({
       });
 
       if (res.result.code === 0) {
-        Toast.success('创建成功');
+      showToast({ context: this, selector: '#t-toast', message: '创建成功', theme: 'success' });
         setTimeout(() => {
           wx.redirectTo({
             url: `/subpages/group/detail/detail?id=${res.result.groupId}`,
           });
         }, 1000);
       } else {
-        Toast.fail(res.result.msg || '创建失败');
+      showToast({ context: this, selector: '#t-toast', message: res.result.msg || '创建失败', theme: 'error' });
       }
     } catch (err) {
-      Toast.fail('创建失败，请重试');
+      showToast({ context: this, selector: '#t-toast', message: '创建失败，请重试', theme: 'error' });
     } finally {
       this.setData({ creating: false });
     }

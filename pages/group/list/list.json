@@ -1,18 +1,19 @@
 {
   "navigationBarTitleText": "赛事",
   "usingComponents": {
-    "van-dialog": "@vant/weapp/dialog/index",
-    "van-button": "@vant/weapp/button/index",
-    "van-tag": "@vant/weapp/tag/index",
-    "van-empty": "@vant/weapp/empty/index",
-    "van-skeleton": "@vant/weapp/skeleton/index",
-    "van-toast": "@vant/weapp/toast/index"
+    "t-dialog": "/miniprogram_npm/tdesign-miniprogram/dialog/dialog",
+    "t-button": "/miniprogram_npm/tdesign-miniprogram/button/button",
+    "t-tag": "/miniprogram_npm/tdesign-miniprogram/tag/tag",
+    "t-empty": "/miniprogram_npm/tdesign-miniprogram/empty/empty",
+    "t-skeleton": "/miniprogram_npm/tdesign-miniprogram/skeleton/skeleton",
+    "t-toast": "/miniprogram_npm/tdesign-miniprogram/toast/toast"
   },
   "componentPlaceholder": {
-    "van-dialog": "view",
-    "van-button": "view",
-    "van-tag": "view",
-    "van-empty": "view",
-    "van-toast": "view"
+    "t-dialog": "view",
+    "t-button": "view",
+    "t-tag": "view",
+    "t-empty": "view",
+    "t-skeleton": "view",
+    "t-toast": "view"
   }
 }

@@ -1,13 +1,13 @@
 {
   "navigationBarTitleText": "创建赛程",
   "usingComponents": {
-    "van-button": "@vant/weapp/button/index",
-    "van-field": "@vant/weapp/field/index",
-    "van-toast": "@vant/weapp/toast/index"
+    "t-button": "/miniprogram_npm/tdesign-miniprogram/button/button",
+    "t-input": "/miniprogram_npm/tdesign-miniprogram/input/input",
+    "t-toast": "/miniprogram_npm/tdesign-miniprogram/toast/toast"
   },
   "componentPlaceholder": {
-    "van-button": "view",
-    "van-field": "view",
-    "van-toast": "view"
+    "t-button": "view",
+    "t-input": "view",
+    "t-toast": "view"
   }
 }

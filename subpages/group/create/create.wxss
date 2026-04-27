@@ -3,6 +3,6 @@
   display: block;
   text-align: right;
   font-size: 22rpx;
-  color: #bbb;
+  color: #666680;
   margin-top: 8rpx;
 }

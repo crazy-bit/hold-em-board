@@ -58,18 +58,18 @@ describe('多人赛事（4人）E2E', () => {
   describe('创建 4 人赛事', () => {
     it('应成功创建赛事', async () => {
       clearConsoleLogs();
-      const page = await ensureOnPage(miniProgram, '/pages/group/create/create', 3000);
+      const page = await ensureOnPage(miniProgram, '/subpages/group/create/create', 3000);
       try {
-        await waitForElement(page, '.input-field', 8000);
+        await waitForData(page, d => d.groupName !== undefined, 8000);
       } catch (_) {
         const p = await miniProgram.currentPage();
-        await waitForElement(p, '.input-field', 5000);
+        await waitForData(p, d => d.groupName !== undefined, 5000);
       }
 
       const groupName = `4人测试组_${Date.now()}`;
-      await safeInput(page, '.input-field', groupName, 5000);
+      await page.setData({ groupName: groupName });
       await sleep(300);
-      await safeTap(page, '.btn-primary');
+      await page.callMethod('createGroup');
       await sleep(8000);
 
       const currentPage = await miniProgram.currentPage();
@@ -105,7 +105,7 @@ describe('多人赛事（4人）E2E', () => {
 
       const page = await ensureOnPage(
         miniProgram,
-        `/pages/group/detail/detail?id=${groupId}`,
+        `/subpages/group/detail/detail?id=${groupId}`,
         3000
       );
 
@@ -143,11 +143,11 @@ describe('多人赛事（4人）E2E', () => {
 
       const page = await ensureOnPage(
         miniProgram,
-        `/pages/match/create/create?groupId=${groupId}`,
+        `/subpages/match/create/create?groupId=${groupId}`,
         2000
       );
-      await waitForElement(page, '.btn-primary', 5000);
-      await safeTap(page, '.btn-primary');
+      await waitForData(page, d => typeof d.creating === 'boolean', 5000);
+      await page.callMethod('createMatch');
       await sleep(8000);
 
       const currentPage = await miniProgram.currentPage();
@@ -192,7 +192,7 @@ describe('多人赛事（4人）E2E', () => {
 
       const page = await ensureOnPage(
         miniProgram,
-        `/pages/match/detail/detail?id=${matchId}&groupId=${groupId}`,
+        `/subpages/match/detail/detail?id=${matchId}&groupId=${groupId}`,
         3000
       );
       await sleep(2000);
@@ -206,7 +206,7 @@ describe('多人赛事（4人）E2E', () => {
 
       const page = await ensureOnPage(
         miniProgram,
-        `/pages/match/detail/detail?id=${matchId}&groupId=${groupId}`,
+        `/subpages/match/detail/detail?id=${matchId}&groupId=${groupId}`,
         3000
       );
       await sleep(2000);
@@ -226,7 +226,7 @@ describe('多人赛事（4人）E2E', () => {
 
       const page = await ensureOnPage(
         miniProgram,
-        `/pages/score/input/input?scoreId=${selfScoreId}&matchId=${matchId}`,
+        `/subpages/score/input/input?scoreId=${selfScoreId}&matchId=${matchId}`,
         2000
       );
       await sleep(3000);
@@ -249,7 +249,7 @@ describe('多人赛事（4人）E2E', () => {
         console.log(`📋 填写结算筹码: ${finalChips}, 预览积分: ${afterData.previewPoints}`);
 
         // 保存
-        await safeTap(page, '.btn-primary');
+        await page.callMethod('createGroup');
         await sleep(5000);
 
         const currentPage = await miniProgram.currentPage();
@@ -264,7 +264,7 @@ describe('多人赛事（4人）E2E', () => {
 
       const page = await ensureOnPage(
         miniProgram,
-        `/pages/match/detail/detail?id=${matchId}&groupId=${groupId}`,
+        `/subpages/match/detail/detail?id=${matchId}&groupId=${groupId}`,
         3000
       );
       await sleep(3000);
@@ -291,7 +291,7 @@ describe('多人赛事（4人）E2E', () => {
 
       const page = await ensureOnPage(
         miniProgram,
-        `/pages/match/detail/detail?id=${matchId}&groupId=${groupId}`,
+        `/subpages/match/detail/detail?id=${matchId}&groupId=${groupId}`,
         3000
       );
       await sleep(3000);
@@ -302,19 +302,16 @@ describe('多人赛事（4人）E2E', () => {
         return;
       }
 
-      // 点击结束赛程按钮
-      const adminBtns = await page.$$('.admin-actions .btn-primary');
-      if (adminBtns && adminBtns.length > 0) {
-        await adminBtns[0].tap();
-        await sleep(1000);
+      // 直接调用方法，比点击 t-button 更可靠
+      await page.callMethod('finishMatch');
+      await sleep(1000);
 
-        const modalData = await page.data();
-        expect(modalData.showFinishModal).toBe(true);
+      const modalData = await page.data();
+      expect(modalData.showFinishModal).toBe(true);
 
-        // 应显示未填写成员列表（3 个模拟成员）
-        console.log(`📋 未填写成员: ${modalData.unfilledMembers.join(', ')}`);
-        expect(modalData.unfilledMembers.length).toBeGreaterThanOrEqual(3);
-      }
+      // 应显示未填写成员列表（3 个模拟成员）
+      console.log(`📋 未填写成员: ${modalData.unfilledMembers.join(', ')}`);
+      expect(modalData.unfilledMembers.length).toBeGreaterThanOrEqual(3);
     }, 25000);
 
     it('确认结束赛程后应成功计算 4 人积分', async () => {
@@ -323,7 +320,7 @@ describe('多人赛事（4人）E2E', () => {
 
       const page = await ensureOnPage(
         miniProgram,
-        `/pages/match/detail/detail?id=${matchId}&groupId=${groupId}`,
+        `/subpages/match/detail/detail?id=${matchId}&groupId=${groupId}`,
         3000
       );
       await sleep(3000);
@@ -331,19 +328,15 @@ describe('多人赛事（4人）E2E', () => {
       const data = await page.data();
       if (!data.isAdmin || data.match.status !== 'active') return;
 
-      // 点击结束赛程 → 弹窗 → 确认
-      const adminBtns = await page.$$('.admin-actions .btn-primary');
+      // 直接调用方法，比点击 t-button 更可靠
+      const adminBtns = await page.$$('.admin-actions t-button');
       if (!adminBtns || adminBtns.length === 0) return;
 
-      await adminBtns[0].tap();
+      await page.callMethod('finishMatch');
       await sleep(1000);
-
-      const modalBtns = await page.$$('.modal-card .btn-primary');
-      if (!modalBtns || modalBtns.length === 0) return;
-
-      await modalBtns[0].tap();
+      // 直接调用确认方法，比点击 UI 更可靠
+      await page.callMethod('confirmFinish');
       await sleep(8000);
-
       dumpConsoleLogs();
 
       const afterData = await page.data();
@@ -355,7 +348,7 @@ describe('多人赛事（4人）E2E', () => {
         // 重新加载详情页获取最新分数
         const detailPage = await ensureOnPage(
           miniProgram,
-          `/pages/match/detail/detail?id=${matchId}&groupId=${groupId}`,
+          `/subpages/match/detail/detail?id=${matchId}&groupId=${groupId}`,
           3000
         );
         await sleep(3000);
@@ -419,7 +412,7 @@ describe('多人赛事（4人）E2E', () => {
 
       const page = await ensureOnPage(
         miniProgram,
-        `/pages/group/detail/detail?id=${groupId}`,
+        `/subpages/group/detail/detail?id=${groupId}`,
         3000
       );
 
@@ -454,7 +447,7 @@ describe('多人赛事（4人）E2E', () => {
 
       const page = await ensureOnPage(
         miniProgram,
-        `/pages/group/detail/detail?id=${groupId}`,
+        `/subpages/group/detail/detail?id=${groupId}`,
         3000
       );
 
@@ -476,7 +469,7 @@ describe('多人赛事（4人）E2E', () => {
 
       const page = await ensureOnPage(
         miniProgram,
-        `/pages/group/detail/detail?id=${groupId}`,
+        `/subpages/group/detail/detail?id=${groupId}`,
         3000
       );
       await sleep(3000);
@@ -508,7 +501,7 @@ describe('多人赛事（4人）E2E', () => {
       // 查看 Alice 的成员详情
       const page = await ensureOnPage(
         miniProgram,
-        `/pages/member/detail/detail?userId=${MOCK_MEMBERS[0].userId}&groupId=${groupId}`,
+        `/subpages/member/detail/detail?userId=${MOCK_MEMBERS[0].userId}&groupId=${groupId}`,
         2000
       );
       await sleep(3000);
@@ -535,7 +528,7 @@ describe('多人赛事（4人）E2E', () => {
       // 先获取当前用户的 userId
       const detailPage = await ensureOnPage(
         miniProgram,
-        `/pages/group/detail/detail?id=${groupId}`,
+        `/subpages/group/detail/detail?id=${groupId}`,
         3000
       );
       await sleep(3000);
@@ -552,7 +545,7 @@ describe('多人赛事（4人）E2E', () => {
 
       const page = await ensureOnPage(
         miniProgram,
-        `/pages/member/detail/detail?userId=${selfMember.userId}&groupId=${groupId}`,
+        `/subpages/member/detail/detail?userId=${selfMember.userId}&groupId=${groupId}`,
         2000
       );
       await sleep(3000);
@@ -575,16 +568,15 @@ describe('多人赛事（4人）E2E', () => {
       clearConsoleLogs();
       const page = await ensureOnPage(
         miniProgram,
-        `/pages/match/create/create?groupId=${groupId}`,
+        `/subpages/match/create/create?groupId=${groupId}`,
         2000
       );
-      await waitForElement(page, '.btn-primary', 5000);
-      await safeTap(page, '.btn-primary');
+      await waitForData(page, d => typeof d.creating === 'boolean', 5000);
+      await page.callMethod('createMatch');
       await sleep(8000);
 
       const currentPage = await miniProgram.currentPage();
-      if (currentPage.path.includes('match/detail')) {
-        const data = await currentPage.data();
+      if (!currentPage.path.includes('match/detail')) {        const data = await currentPage.data();
         secondMatchId = data.matchId;
         console.log(`✅ 第二期赛程创建成功: matchId=${secondMatchId}`);
         expect(data.scores.length).toBe(4);
@@ -599,7 +591,7 @@ describe('多人赛事（4人）E2E', () => {
       clearConsoleLogs();
       const page = await ensureOnPage(
         miniProgram,
-        `/pages/match/detail/detail?id=${secondMatchId}&groupId=${groupId}`,
+        `/subpages/match/detail/detail?id=${secondMatchId}&groupId=${groupId}`,
         3000
       );
       await sleep(3000);
@@ -608,21 +600,16 @@ describe('多人赛事（4人）E2E', () => {
       if (!data.isAdmin || data.match.status !== 'active') return;
 
       // 直接结束（所有人未填写）
-      const adminBtns = await page.$$('.admin-actions .btn-primary');
-      if (adminBtns && adminBtns.length > 0) {
-        await adminBtns[0].tap();
-        await sleep(1000);
-        const modalBtns = await page.$$('.modal-card .btn-primary');
-        if (modalBtns && modalBtns.length > 0) {
-          await modalBtns[0].tap();
-          await sleep(8000);
-        }
-      }
+      await page.callMethod('finishMatch');
+      await sleep(1000);
+      // 直接调用确认方法，比点击 UI 更可靠
+      await page.callMethod('confirmFinish');
+      await sleep(8000);
 
       // 验证积分榜累计
       const groupPage = await ensureOnPage(
         miniProgram,
-        `/pages/group/detail/detail?id=${groupId}`,
+        `/subpages/group/detail/detail?id=${groupId}`,
         3000
       );
 
@@ -657,7 +644,7 @@ describe('多人赛事（4人）E2E', () => {
 
       const page = await ensureOnPage(
         miniProgram,
-        `/pages/group/detail/detail?id=${groupId}`,
+        `/subpages/group/detail/detail?id=${groupId}`,
         3000
       );
 

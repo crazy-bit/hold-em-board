@@ -6,9 +6,9 @@
 .icon-btn {
   padding: 12rpx 28rpx;
   border-radius: 32rpx;
-  background: #f0f0f0;
+  background: #16213e;
   font-size: 26rpx;
-  color: #555;
+  color: #a0a0b0;
 }
 
 .icon-btn-primary {
@@ -23,16 +23,16 @@
 .group-name {
   font-size: 34rpx;
   font-weight: 600;
-  color: #1a1a2e;
+  color: #eaeaea;
 }
 
 .meta-text {
   font-size: 24rpx;
-  color: #999;
+  color: #a0a0b0;
 }
 
 .tag-admin {
-  background: #fff3e0;
+  background: rgba(255, 152, 0, 0.15);
   color: #ff9800;
   padding: 4rpx 16rpx;
   border-radius: 20rpx;
@@ -41,7 +41,7 @@
 
 .arrow {
   font-size: 40rpx;
-  color: #ccc;
+  color: #666680;
   line-height: 1;
 }
 
@@ -65,7 +65,7 @@
   gap: 16rpx;
 }
 
-.join-modal-btns van-button {
+.join-modal-btns t-button {
   flex: 1;
   min-width: 0;
 }

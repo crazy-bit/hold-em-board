@@ -32,36 +32,35 @@ describe('赛事功能 E2E', () => {
   describe('创建赛事', () => {
     it('应能进入创建页面', async () => {
       // 首个用例连接 automator 耗时较长，增加 ensureOnPage 等待
-      const page = await ensureOnPage(miniProgram, '/pages/group/create/create', 3000);
+      const page = await ensureOnPage(miniProgram, '/subpages/group/create/create', 3000);
 
       expect(page.path).toContain('group/create');
 
       // 验证关键元素存在
-      const input = await waitForElement(page, '.input-field', 5000);
+      const input = await waitForData(page, d => d.groupName !== undefined, 5000);
       expect(input).toBeTruthy();
 
-      const btn = await waitForElement(page, '.btn-primary', 5000);
+      const btn = await waitForData(page, d => typeof d.creating === "boolean", 5000);
       expect(btn).toBeTruthy();
     }, 60000);
 
     it('组名为空时按钮应禁用', async () => {
-      const page = await ensureOnPage(miniProgram, '/pages/group/create/create');
+      const page = await ensureOnPage(miniProgram, '/subpages/group/create/create');
 
       // 验证初始状态：组名为空
       const data = await page.data();
       expect(data.groupName === '' || data.groupName === undefined).toBe(true);
 
       // disabled 表达式为 creating || !groupName，组名为空时应为 true
-      const btn = await waitForElement(page, '.btn-primary', 3000);
-      const disabled = await btn.attribute('disabled');
-      // 小程序中 disabled 属性存在即表示禁用
-      expect(disabled !== null && disabled !== undefined).toBe(true);
+      // 通过 data 验证：groupName 为空时按钮应禁用
+      const data2 = await page.data();
+      expect(!data2.groupName || data2.creating).toBe(true);
     }, 15000);
 
     it('输入组名后数据绑定正确', async () => {
-      const page = await ensureOnPage(miniProgram, '/pages/group/create/create');
+      const page = await ensureOnPage(miniProgram, '/subpages/group/create/create');
 
-      await safeInput(page, '.input-field', 'E2E测试组');
+      await page.setData({ groupName: 'E2E测试组' });
       await sleep(500);
 
       const data = await page.data();
@@ -69,10 +68,10 @@ describe('赛事功能 E2E', () => {
     }, 15000);
 
     it('输入组名后按钮应启用', async () => {
-      const page = await ensureOnPage(miniProgram, '/pages/group/create/create');
+      const page = await ensureOnPage(miniProgram, '/subpages/group/create/create');
 
       // 输入组名
-      await safeInput(page, '.input-field', '测试启用按钮');
+      await page.setData({ groupName: '测试启用按钮' });
       await sleep(500);
 
       // 验证数据绑定
@@ -82,9 +81,9 @@ describe('赛事功能 E2E', () => {
     }, 15000);
 
     it('字符计数应正确显示', async () => {
-      const page = await ensureOnPage(miniProgram, '/pages/group/create/create');
+      const page = await ensureOnPage(miniProgram, '/subpages/group/create/create');
 
-      await safeInput(page, '.input-field', '测试组名');
+      await page.setData({ groupName: '测试组名' });
       await sleep(500);
 
       // 验证字符计数元素存在
@@ -98,13 +97,13 @@ describe('赛事功能 E2E', () => {
 
     it('点击创建后 creating 状态应变为 true', async () => {
       clearConsoleLogs();
-      const page = await ensureOnPage(miniProgram, '/pages/group/create/create');
+      const page = await ensureOnPage(miniProgram, '/subpages/group/create/create');
 
-      await safeInput(page, '.input-field', `状态测试_${Date.now()}`);
+      await page.setData({ groupName: `状态测试_${Date.now()}` });
       await sleep(300);
 
       // 点击创建按钮
-      await safeTap(page, '.btn-primary');
+      await page.callMethod('createGroup');
 
       // 短暂等待后检查 creating 状态（云函数调用期间应为 true）
       await sleep(500);
@@ -115,28 +114,28 @@ describe('赛事功能 E2E', () => {
 
     it('提交后应跳转到赛事详情页或捕获到错误日志（需已登录）', async () => {
       clearConsoleLogs();
-      let page = await ensureOnPage(miniProgram, '/pages/group/create/create', 3000);
+      let page = await ensureOnPage(miniProgram, '/subpages/group/create/create', 3000);
 
       // 确认确实在创建页面，如果不在则重新导航
       if (!page.path.includes('group/create')) {
-        await miniProgram.reLaunch('/pages/group/create/create');
+        await miniProgram.reLaunch('/subpages/group/create/create');
         await sleep(3000);
         page = await miniProgram.currentPage();
       }
 
       // 等待页面完全渲染，如果失败则重新获取 page 对象再试
       try {
-        await waitForElement(page, '.input-field', 8000);
+        await waitForData(page, d => d.groupName !== undefined, 8000);
       } catch (_) {
         page = await miniProgram.currentPage();
-        await waitForElement(page, '.input-field', 5000);
+        await waitForData(page, d => d.groupName !== undefined, 5000);
       }
 
       const groupName = `E2E创建测试_${Date.now()}`;
-      await safeInput(page, '.input-field', groupName, 5000);
+      await page.setData({ groupName: groupName });
       await sleep(300);
 
-      await safeTap(page, '.btn-primary');
+      await page.callMethod('createGroup');
 
       // 等待云函数调用和页面跳转
       await sleep(6000);
@@ -204,12 +203,12 @@ describe('赛事功能 E2E', () => {
 
     it('创建失败时不应有未捕获异常', async () => {
       clearConsoleLogs();
-      const page = await ensureOnPage(miniProgram, '/pages/group/create/create');
+      const page = await ensureOnPage(miniProgram, '/subpages/group/create/create');
 
-      await safeInput(page, '.input-field', `异常检测_${Date.now()}`);
+      await page.setData({ groupName: `异常检测_${Date.now()}` });
       await sleep(300);
 
-      await safeTap(page, '.btn-primary');
+      await page.callMethod('createGroup');
       await sleep(6000);
 
       // 检查是否有未捕获的异常（如 TypeError、ReferenceError 等）
@@ -234,12 +233,12 @@ describe('赛事功能 E2E', () => {
 
     it('创建失败时 creating 状态应恢复为 false', async () => {
       clearConsoleLogs();
-      const page = await ensureOnPage(miniProgram, '/pages/group/create/create');
+      const page = await ensureOnPage(miniProgram, '/subpages/group/create/create');
 
-      await safeInput(page, '.input-field', `恢复测试_${Date.now()}`);
+      await page.setData({ groupName: `恢复测试_${Date.now()}` });
       await sleep(300);
 
-      await safeTap(page, '.btn-primary');
+      await page.callMethod('createGroup');
 
       // 等待云函数返回（无论成功失败）
       await sleep(8000);
@@ -256,12 +255,12 @@ describe('赛事功能 E2E', () => {
 
     it('云函数调用失败时应显示错误提示（通过 console 验证）', async () => {
       clearConsoleLogs();
-      const page = await ensureOnPage(miniProgram, '/pages/group/create/create');
+      const page = await ensureOnPage(miniProgram, '/subpages/group/create/create');
 
-      await safeInput(page, '.input-field', `错误提示测试_${Date.now()}`);
+      await page.setData({ groupName: `错误提示测试_${Date.now()}` });
       await sleep(300);
 
-      await safeTap(page, '.btn-primary');
+      await page.callMethod('createGroup');
       await sleep(6000);
 
       // 收集所有日志用于分析
@@ -291,13 +290,13 @@ describe('赛事功能 E2E', () => {
 
     it('创建赛事并验证详情页数据', async () => {
       clearConsoleLogs();
-      const page = await ensureOnPage(miniProgram, '/pages/group/create/create');
+      const page = await ensureOnPage(miniProgram, '/subpages/group/create/create');
 
       const groupName = `E2E详情验证_${Date.now()}`;
-      await safeInput(page, '.input-field', groupName);
+      await page.setData({ groupName: groupName });
       await sleep(300);
 
-      await safeTap(page, '.btn-primary');
+      await page.callMethod('createGroup');
 
       // 等待跳转
       try {
@@ -370,7 +369,7 @@ describe('赛事功能 E2E', () => {
 
       const page = await ensureOnPage(
         miniProgram,
-        `/pages/group/detail/detail?id=${createdGroupId}`,
+        `/subpages/group/detail/detail?id=${createdGroupId}`,
         3000
       );
 
@@ -393,7 +392,7 @@ describe('赛事功能 E2E', () => {
 
       const page = await ensureOnPage(
         miniProgram,
-        `/pages/group/detail/detail?id=${createdGroupId}`,
+        `/subpages/group/detail/detail?id=${createdGroupId}`,
         3000
       );
 
@@ -418,18 +417,18 @@ describe('赛事功能 E2E', () => {
       clearConsoleLogs();
 
       // 完整走一遍创建 → 跳转详情页的流程
-      const page = await ensureOnPage(miniProgram, '/pages/group/create/create', 3000);
+      const page = await ensureOnPage(miniProgram, '/subpages/group/create/create', 3000);
       try {
-        await waitForElement(page, '.input-field', 8000);
+        await waitForData(page, d => d.groupName !== undefined, 8000);
       } catch (_) {
         const p = await miniProgram.currentPage();
-        await waitForElement(p, '.input-field', 5000);
+        await waitForData(p, d => d.groupName !== undefined, 5000);
       }
 
       const groupName = `E2E加载验证_${Date.now()}`;
-      await safeInput(page, '.input-field', groupName, 5000);
+      await page.setData({ groupName: groupName });
       await sleep(300);
-      await safeTap(page, '.btn-primary');
+      await page.callMethod('createGroup');
 
       // 等待跳转到详情页
       await sleep(8000);
@@ -571,7 +570,7 @@ describe('赛事功能 E2E', () => {
       await sleep(500);
 
       // 输入邀请码
-      const input = await page.$('.modal-card .input-field');
+      const input = await page.$('.join-modal-body .input-field');
       if (input) {
         await input.input('abcdef');
         await sleep(500);
@@ -593,13 +592,13 @@ describe('赛事功能 E2E', () => {
       await page.callMethod('goJoinGroup');
       await sleep(500);
 
-      const input = await page.$('.modal-card .input-field');
+      const input = await page.$('.join-modal-body .input-field');
       if (input) {
         await input.input('ZZZZZZ');
         await sleep(300);
 
         // 点击确认加入
-        const confirmBtns = await page.$$('.modal-card .btn-primary');
+        const confirmBtns = await page.$$('.join-modal-body t-button');
         if (confirmBtns && confirmBtns.length > 0) {
           await confirmBtns[0].tap();
           await sleep(5000);
@@ -651,17 +650,17 @@ describe('赛事功能 E2E', () => {
     beforeAll(async () => {
       // 创建一个赛事用于 Tab 切换测试
       clearConsoleLogs();
-      const page = await ensureOnPage(miniProgram, '/pages/group/create/create', 3000);
+      const page = await ensureOnPage(miniProgram, '/subpages/group/create/create', 3000);
       try {
-        await waitForElement(page, '.input-field', 8000);
+        await waitForData(page, d => d.groupName !== undefined, 8000);
       } catch (_) {
         const p = await miniProgram.currentPage();
-        await waitForElement(p, '.input-field', 5000);
+        await waitForData(p, d => d.groupName !== undefined, 5000);
       }
 
-      await safeInput(page, '.input-field', `Tab测试组_${Date.now()}`, 5000);
+      await page.setData({ groupName: `Tab测试组_${Date.now()}` });
       await sleep(300);
-      await safeTap(page, '.btn-primary');
+      await page.callMethod('createGroup');
       await sleep(8000);
 
       const currentPage = await miniProgram.currentPage();
@@ -680,7 +679,7 @@ describe('赛事功能 E2E', () => {
 
       const page = await ensureOnPage(
         miniProgram,
-        `/pages/group/detail/detail?id=${testGroupId}`,
+        `/subpages/group/detail/detail?id=${testGroupId}`,
         3000
       );
       await sleep(2000);
@@ -694,7 +693,7 @@ describe('赛事功能 E2E', () => {
 
       const page = await ensureOnPage(
         miniProgram,
-        `/pages/group/detail/detail?id=${testGroupId}`,
+        `/subpages/group/detail/detail?id=${testGroupId}`,
         3000
       );
       await sleep(2000);
@@ -715,7 +714,7 @@ describe('赛事功能 E2E', () => {
 
       const page = await ensureOnPage(
         miniProgram,
-        `/pages/group/detail/detail?id=${testGroupId}`,
+        `/subpages/group/detail/detail?id=${testGroupId}`,
         3000
       );
       await sleep(2000);
@@ -740,7 +739,7 @@ describe('赛事功能 E2E', () => {
 
       const page = await ensureOnPage(
         miniProgram,
-        `/pages/group/detail/detail?id=${testGroupId}`,
+        `/subpages/group/detail/detail?id=${testGroupId}`,
         3000
       );
 

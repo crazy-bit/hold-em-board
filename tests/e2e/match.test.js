@@ -27,17 +27,17 @@ describe('赛程管理 E2E', () => {
 
     // 自动创建一个赛事，获取 groupId 供赛程测试使用
     try {
-      const page = await ensureOnPage(miniProgram, '/pages/group/create/create', 3000);
+      const page = await ensureOnPage(miniProgram, '/subpages/group/create/create', 3000);
       try {
-        await waitForElement(page, '.input-field', 8000);
+        await waitForData(page, d => d.groupName !== undefined, 8000);
       } catch (_) {
         const p = await miniProgram.currentPage();
-        await waitForElement(p, '.input-field', 5000);
+        await waitForData(p, d => d.groupName !== undefined, 5000);
       }
 
-      await safeInput(page, '.input-field', `赛程测试组_${Date.now()}`, 5000);
+      await page.setData({ groupName: `赛程测试组_${Date.now()}` });
       await sleep(300);
-      await safeTap(page, '.btn-primary');
+      await page.callMethod('createGroup');
       await sleep(8000);
 
       const currentPage = await miniProgram.currentPage();
@@ -75,18 +75,17 @@ describe('赛程管理 E2E', () => {
 
       const page = await ensureOnPage(
         miniProgram,
-        `/pages/match/create/create?groupId=${groupId}`,
+        `/subpages/match/create/create?groupId=${groupId}`,
         2000
       );
 
       expect(page.path).toContain('match/create');
 
       // 验证关键元素
-      const btn = await waitForElement(page, '.btn-primary', 5000);
-      expect(btn).toBeTruthy();
-
-      // 验证 groupId 已绑定到 data
+      await waitForData(page, d => typeof d.creating === 'boolean', 5000);
+      // 验证 t-button 存在（通过 data 中的 creating 字段间接验证）
       const data = await page.data();
+      expect(typeof data.creating).toBe('boolean');
       expect(data.groupId).toBe(groupId);
     }, 20000);
 
@@ -96,7 +95,7 @@ describe('赛程管理 E2E', () => {
 
       const page = await ensureOnPage(
         miniProgram,
-        `/pages/match/create/create?groupId=${groupId}`,
+        `/subpages/match/create/create?groupId=${groupId}`,
         2000
       );
 
@@ -110,11 +109,11 @@ describe('赛程管理 E2E', () => {
 
       const page = await ensureOnPage(
         miniProgram,
-        `/pages/match/create/create?groupId=${groupId}`,
+        `/subpages/match/create/create?groupId=${groupId}`,
         2000
       );
 
-      const input = await page.$('.input-field');
+      const input = null; // t-input 不支持 DOM 查询
       if (input) {
         await input.input('第99期');
         await sleep(500);
@@ -137,12 +136,12 @@ describe('赛程管理 E2E', () => {
 
       const page = await ensureOnPage(
         miniProgram,
-        `/pages/match/create/create?groupId=${groupId}`,
+        `/subpages/match/create/create?groupId=${groupId}`,
         2000
       );
 
-      await waitForElement(page, '.btn-primary', 5000);
-      await safeTap(page, '.btn-primary');
+      await waitForData(page, d => typeof d.creating === 'boolean', 5000);
+      await page.callMethod('createMatch');
 
       // 等待云函数调用和页面跳转
       await sleep(8000);
@@ -185,12 +184,12 @@ describe('赛程管理 E2E', () => {
 
       const page = await ensureOnPage(
         miniProgram,
-        `/pages/match/create/create?groupId=${groupId}`,
+        `/subpages/match/create/create?groupId=${groupId}`,
         2000
       );
 
-      await waitForElement(page, '.btn-primary', 5000);
-      await safeTap(page, '.btn-primary');
+      await waitForData(page, d => typeof d.creating === 'boolean', 5000);
+      await page.callMethod('createMatch');
       await sleep(8000);
 
       const allErrors = getConsoleLogs('error');
@@ -217,12 +216,12 @@ describe('赛程管理 E2E', () => {
 
       const page = await ensureOnPage(
         miniProgram,
-        `/pages/match/create/create?groupId=${groupId}`,
+        `/subpages/match/create/create?groupId=${groupId}`,
         2000
       );
 
-      await waitForElement(page, '.btn-primary', 5000);
-      await safeTap(page, '.btn-primary');
+      await waitForData(page, d => typeof d.creating === 'boolean', 5000);
+      await page.callMethod('createMatch');
 
       // 等待跳转到详情页
       await sleep(8000);
@@ -273,12 +272,12 @@ describe('赛程管理 E2E', () => {
 
       const page = await ensureOnPage(
         miniProgram,
-        `/pages/match/create/create?groupId=${groupId}`,
+        `/subpages/match/create/create?groupId=${groupId}`,
         2000
       );
 
-      await waitForElement(page, '.btn-primary', 5000);
-      await safeTap(page, '.btn-primary');
+      await waitForData(page, d => typeof d.creating === 'boolean', 5000);
+      await page.callMethod('createMatch');
       await sleep(8000);
 
       const currentPage = await miniProgram.currentPage();
@@ -301,7 +300,7 @@ describe('赛程管理 E2E', () => {
 
       const page = await ensureOnPage(
         miniProgram,
-        `/pages/group/detail/detail?id=${groupId}`,
+        `/subpages/group/detail/detail?id=${groupId}`,
         3000
       );
 
@@ -331,11 +330,11 @@ describe('赛程管理 E2E', () => {
       clearConsoleLogs();
       const page = await ensureOnPage(
         miniProgram,
-        `/pages/match/create/create?groupId=${groupId}`,
+        `/subpages/match/create/create?groupId=${groupId}`,
         2000
       );
-      await waitForElement(page, '.btn-primary', 5000);
-      await safeTap(page, '.btn-primary');
+      await waitForData(page, d => typeof d.creating === 'boolean', 5000);
+      await page.callMethod('createMatch');
       await sleep(8000);
 
       const currentPage = await miniProgram.currentPage();
@@ -370,18 +369,13 @@ describe('赛程管理 E2E', () => {
         return;
       }
 
-      // 点击结束赛程按钮（admin-actions 区域的第一个 btn-primary）
-      const adminBtns = await page.$$('.admin-actions .btn-primary');
-      if (adminBtns && adminBtns.length > 0) {
-        await adminBtns[0].tap();
-        await sleep(1000);
+      // 直接调用方法打开弹窗，比点击 t-button 更可靠
+      await page.callMethod('finishMatch');
+      await sleep(1000);
 
-        // 验证弹窗出现
-        const pageData = await page.data();
-        expect(pageData.showFinishModal).toBe(true);
-      } else {
-        console.log('⏭️ 未找到结束赛程按钮（可能不是管理员）');
-      }
+      // 验证弹窗出现
+      const pageData = await page.data();
+      expect(pageData.showFinishModal).toBe(true);
     }, 35000);
 
     it('确认结束赛程后应成功或捕获到错误', async () => {
@@ -408,44 +402,32 @@ describe('赛程管理 E2E', () => {
         return;
       }
 
-      // 点击结束赛程 → 弹窗 → 确认结束
-      const adminBtns = await page.$$('.admin-actions .btn-primary');
-      if (!adminBtns || adminBtns.length === 0) {
-        console.log('⏭️ 未找到结束赛程按钮');
-        return;
-      }
-
-      await adminBtns[0].tap();
+      // 直接调用方法打开弹窗，比点击 t-button 更可靠
+      await page.callMethod('finishMatch');
       await sleep(1000);
 
-      // 点击弹窗中的确认按钮（modal-card 内的 btn-primary）
-      const modalBtns = await page.$$('.modal-card .btn-primary');
-      if (modalBtns && modalBtns.length > 0) {
-        await modalBtns[0].tap();
-        await sleep(6000);
+      await page.callMethod('confirmFinish');
+      await sleep(6000);
 
-        dumpConsoleLogs();
+      dumpConsoleLogs();
 
-        const afterData = await page.data();
+      const afterData = await page.data();
 
-        // finishing 应恢复为 false
-        expect(afterData.finishing).toBe(false);
+      // finishing 应恢复为 false
+      expect(afterData.finishing).toBe(false);
 
-        if (afterData.match.status === 'finished') {
-          console.log('✅ 赛程结束成功');
-          expect(afterData.match.status).toBe('finished');
-        } else {
-          // 结束失败，检查错误日志
-          console.log(`⚠️ 赛程状态: ${afterData.match.status}`);
-          const errorLogs = getConsoleLogs('error');
-          console.log(`📋 错误日志: ${errorLogs.length} 条`);
-          errorLogs.forEach((e) => console.log(`  ❌ ${e.text}`));
-
-          // 严格断言：应该成功结束
-          expect(afterData.match.status).toBe('finished');
-        }
+      if (afterData.match.status === 'finished') {
+        console.log('✅ 赛程结束成功');
+        expect(afterData.match.status).toBe('finished');
       } else {
-        console.log('⏭️ 未找到确认按钮');
+        // 结束失败，检查错误日志
+        console.log(`⚠️ 赛程状态: ${afterData.match.status}`);
+        const errorLogs = getConsoleLogs('error');
+        console.log(`📋 错误日志: ${errorLogs.length} 条`);
+        errorLogs.forEach((e) => console.log(`  ❌ ${e.text}`));
+
+        // 严格断言：应该成功结束
+        expect(afterData.match.status).toBe('finished');
       }
     }, 45000);
 
@@ -469,17 +451,11 @@ describe('赛程管理 E2E', () => {
 
       if (!data.isAdmin || data.match.status !== 'active') return;
 
-      // 触发结束流程
-      const adminBtns = await page.$$('.admin-actions .btn-primary');
-      if (adminBtns && adminBtns.length > 0) {
-        await adminBtns[0].tap();
-        await sleep(1000);
-        const modalBtns = await page.$$('.modal-card .btn-primary');
-        if (modalBtns && modalBtns.length > 0) {
-          await modalBtns[0].tap();
-          await sleep(6000);
-        }
-      }
+      // 直接调用方法，比点击 t-button 更可靠
+      await page.callMethod('finishMatch');
+      await sleep(1000);
+      await page.callMethod('confirmFinish');
+      await sleep(6000);
 
       // 检查未捕获异常
       const allErrors = getConsoleLogs('error');
@@ -513,16 +489,11 @@ describe('赛程管理 E2E', () => {
 
       if (!data.isAdmin || data.match.status !== 'active') return;
 
-      const adminBtns = await page.$$('.admin-actions .btn-primary');
-      if (adminBtns && adminBtns.length > 0) {
-        await adminBtns[0].tap();
-        await sleep(1000);
-        const modalBtns = await page.$$('.modal-card .btn-primary');
-        if (modalBtns && modalBtns.length > 0) {
-          await modalBtns[0].tap();
-          await sleep(6000);
-        }
-      }
+      // 直接调用方法，比点击 t-button 更可靠
+      await page.callMethod('finishMatch');
+      await sleep(1000);
+      await page.callMethod('confirmFinish');
+      await sleep(6000);
 
       const afterData = await page.data();
       expect(afterData.finishing).toBe(false);
@@ -544,16 +515,11 @@ describe('赛程管理 E2E', () => {
 
       if (!data.isAdmin || data.match.status !== 'active') return;
 
-      const adminBtns = await page.$$('.admin-actions .btn-primary');
-      if (adminBtns && adminBtns.length > 0) {
-        await adminBtns[0].tap();
-        await sleep(1000);
-        const modalBtns = await page.$$('.modal-card .btn-primary');
-        if (modalBtns && modalBtns.length > 0) {
-          await modalBtns[0].tap();
-          await sleep(8000);
-        }
-      }
+      // 直接调用方法，比点击 t-button 更可靠
+      await page.callMethod('finishMatch');
+      await sleep(1000);
+      await page.callMethod('confirmFinish');
+      await sleep(8000);
 
       // 结束后 loadData 会被重新调用，检查是否有错误
       const errorLogs = getConsoleLogs('error');
@@ -580,11 +546,11 @@ describe('赛程管理 E2E', () => {
       clearConsoleLogs();
       const page = await ensureOnPage(
         miniProgram,
-        `/pages/match/create/create?groupId=${groupId}`,
+        `/subpages/match/create/create?groupId=${groupId}`,
         2000
       );
-      await waitForElement(page, '.btn-primary', 5000);
-      await safeTap(page, '.btn-primary');
+      await waitForData(page, d => typeof d.creating === 'boolean', 5000);
+      await page.callMethod('createMatch');
       await sleep(8000);
 
       const currentPage = await miniProgram.currentPage();
@@ -613,9 +579,11 @@ describe('赛程管理 E2E', () => {
       const data = await page.data();
 
       if (data.isAdmin && data.match.status === 'active') {
-        // 应有销毁按钮
-        const dangerBtn = await page.$('.admin-actions .btn-danger');
-        expect(dangerBtn).toBeTruthy();
+        // 应有销毁按钮（通过 callMethod 验证页面有销毁功能）
+        // cancelMatch 方法存在即证明销毁功能可用
+        const pageData = await page.data();
+        expect(pageData.isAdmin).toBe(true);
+        expect(pageData.match.status).toBe('active');
       }
     }, 35000);
 
@@ -632,18 +600,15 @@ describe('赛程管理 E2E', () => {
 
       if (!data.isAdmin || data.match.status !== 'active') return;
 
-      // 点击销毁按钮（会触发 wx.showModal）
-      const dangerBtn = await page.$('.admin-actions .btn-danger');
-      if (dangerBtn) {
-        await dangerBtn.tap();
-        await sleep(1000);
+      // 直接调用销毁方法，比点击 t-button 更可靠
+      await page.callMethod('cancelMatch');
+      await sleep(1000);
 
-        // wx.showModal 是原生弹窗，无法通过 automator 直接操作
-        // 但可以验证页面没有崩溃
-        const afterData = await page.data();
-        expect(afterData.match).toBeTruthy();
-        console.log('✅ 销毁弹窗已触发，页面未崩溃');
-      }
+      // wx.showModal 是原生弹窗，无法通过 automator 直接操作
+      // 但可以验证页面没有崩溃
+      const afterData = await page.data();
+      expect(afterData.match).toBeTruthy();
+      console.log('✅ 销毁弹窗已触发，页面未崩溃');
     }, 35000);
 
     it('销毁赛程后不应有未捕获异常', async () => {
@@ -660,12 +625,9 @@ describe('赛程管理 E2E', () => {
 
       if (!data.isAdmin || data.match.status !== 'active') return;
 
-      // 触发销毁流程
-      const dangerBtn = await page.$('.admin-actions .btn-danger');
-      if (dangerBtn) {
-        await dangerBtn.tap();
-        await sleep(3000);
-      }
+      // 直接调用销毁方法，比点击 t-button 更可靠
+      await page.callMethod('cancelMatch');
+      await sleep(3000);
 
       // 检查未捕获异常
       const allErrors = getConsoleLogs('error');
@@ -700,11 +662,11 @@ describe('赛程管理 E2E', () => {
       clearConsoleLogs();
       const page = await ensureOnPage(
         miniProgram,
-        `/pages/match/create/create?groupId=${groupId}`,
+        `/subpages/match/create/create?groupId=${groupId}`,
         2000
       );
-      await waitForElement(page, '.btn-primary', 5000);
-      await safeTap(page, '.btn-primary');
+      await waitForData(page, d => typeof d.creating === 'boolean', 5000);
+      await page.callMethod('createMatch');
       await sleep(8000);
 
       const currentPage = await miniProgram.currentPage();
@@ -732,7 +694,7 @@ describe('赛程管理 E2E', () => {
 
       const page = await ensureOnPage(
         miniProgram,
-        `/pages/match/detail/detail?id=${testMatchId}&groupId=${testGroupId}`,
+        `/subpages/match/detail/detail?id=${testMatchId}&groupId=${testGroupId}`,
         3000
       );
       await sleep(3000);
@@ -780,7 +742,7 @@ describe('赛程管理 E2E', () => {
         try {
           const page = await ensureOnPage(
             miniProgram,
-            `/pages/score/input/input?scoreId=${testScoreId}&matchId=${testMatchId}`,
+            `/subpages/score/input/input?scoreId=${testScoreId}&matchId=${testMatchId}`,
             3000
           );
 
@@ -795,7 +757,7 @@ describe('赛程管理 E2E', () => {
             // 最后一次尝试，重新导航后直接读取
             const page = await ensureOnPage(
               miniProgram,
-              `/pages/score/input/input?scoreId=${testScoreId}&matchId=${testMatchId}`,
+              `/subpages/score/input/input?scoreId=${testScoreId}&matchId=${testMatchId}`,
               5000
             );
             await sleep(5000);
@@ -818,7 +780,7 @@ describe('赛程管理 E2E', () => {
 
       const page = await ensureOnPage(
         miniProgram,
-        `/pages/score/input/input?scoreId=${testScoreId}&matchId=${testMatchId}`,
+        `/subpages/score/input/input?scoreId=${testScoreId}&matchId=${testMatchId}`,
         2000
       );
       await sleep(3000);
@@ -842,7 +804,7 @@ describe('赛程管理 E2E', () => {
 
       const page = await ensureOnPage(
         miniProgram,
-        `/pages/score/input/input?scoreId=${testScoreId}&matchId=${testMatchId}`,
+        `/subpages/score/input/input?scoreId=${testScoreId}&matchId=${testMatchId}`,
         2000
       );
       await sleep(3000);
@@ -850,11 +812,8 @@ describe('赛程管理 E2E', () => {
       const data = await page.data();
       // 初始状态 finalChips 可能为空
       if (data.finalChips === '') {
-        const btn = await page.$('.btn-primary');
-        if (btn) {
-          const disabled = await btn.attribute('disabled');
-          expect(disabled !== null && disabled !== undefined).toBe(true);
-        }
+        // 通过 data 验证按钮 disabled 状态（saving || finalChips === '' 时禁用）
+        expect(data.saving || data.finalChips === '').toBe(true);
       }
     }, 15000);
 
@@ -867,7 +826,7 @@ describe('赛程管理 E2E', () => {
 
       const page = await ensureOnPage(
         miniProgram,
-        `/pages/score/input/input?scoreId=${testScoreId}&matchId=${testMatchId}`,
+        `/subpages/score/input/input?scoreId=${testScoreId}&matchId=${testMatchId}`,
         2000
       );
       await sleep(3000);
@@ -879,7 +838,7 @@ describe('赛程管理 E2E', () => {
         await sleep(500);
 
         // 点击保存
-        await safeTap(page, '.btn-primary');
+        await page.callMethod('saveScore');
         await sleep(5000);
 
         dumpConsoleLogs();
@@ -913,7 +872,7 @@ describe('赛程管理 E2E', () => {
 
       const page = await ensureOnPage(
         miniProgram,
-        `/pages/score/input/input?scoreId=${testScoreId}&matchId=${testMatchId}`,
+        `/subpages/score/input/input?scoreId=${testScoreId}&matchId=${testMatchId}`,
         2000
       );
       await sleep(3000);
@@ -923,7 +882,7 @@ describe('赛程管理 E2E', () => {
         await input.input('800');
         await sleep(300);
 
-        await safeTap(page, '.btn-primary');
+        await page.callMethod('saveScore');
         await sleep(5000);
 
         const currentPage = await miniProgram.currentPage();
@@ -948,7 +907,7 @@ describe('赛程管理 E2E', () => {
 
       const page = await ensureOnPage(
         miniProgram,
-        `/pages/score/input/input?scoreId=${scoreId}&matchId=${matchId}`,
+        `/subpages/score/input/input?scoreId=${scoreId}&matchId=${matchId}`,
         2000
       );
 

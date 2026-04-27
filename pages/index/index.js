@@ -1,7 +1,5 @@
 // pages/index/index.js
 const app = getApp();
-const _Toast = require('@vant/weapp/toast/toast');
-const Toast = _Toast.default || _Toast;
 
 Page({
   data: {

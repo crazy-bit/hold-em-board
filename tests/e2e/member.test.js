@@ -23,17 +23,17 @@ describe('成员详情页 E2E', () => {
 
     // 创建一个赛事并获取成员信息
     try {
-      const page = await ensureOnPage(miniProgram, '/pages/group/create/create', 3000);
+      const page = await ensureOnPage(miniProgram, '/subpages/group/create/create', 3000);
       try {
-        await waitForElement(page, '.input-field', 8000);
+        await waitForData(page, d => d.groupName !== undefined, 8000);
       } catch (_) {
         const p = await miniProgram.currentPage();
-        await waitForElement(p, '.input-field', 5000);
+        await waitForData(p, d => d.groupName !== undefined, 5000);
       }
 
-      await safeInput(page, '.input-field', `成员测试组_${Date.now()}`, 5000);
+      await page.setData({ groupName: `成员测试组_${Date.now()}` });
       await sleep(300);
-      await safeTap(page, '.btn-primary');
+      await page.callMethod('createGroup');
       await sleep(8000);
 
       const currentPage = await miniProgram.currentPage();
@@ -66,7 +66,7 @@ describe('成员详情页 E2E', () => {
 
       const page = await ensureOnPage(
         miniProgram,
-        `/pages/member/detail/detail?userId=${testUserId}&groupId=${testGroupId}`,
+        `/subpages/member/detail/detail?userId=${testUserId}&groupId=${testGroupId}`,
         2000
       );
 
@@ -78,7 +78,7 @@ describe('成员详情页 E2E', () => {
 
       const page = await ensureOnPage(
         miniProgram,
-        `/pages/member/detail/detail?userId=${testUserId}&groupId=${testGroupId}`,
+        `/subpages/member/detail/detail?userId=${testUserId}&groupId=${testGroupId}`,
         2000
       );
       await sleep(3000);
@@ -99,7 +99,7 @@ describe('成员详情页 E2E', () => {
 
       const page = await ensureOnPage(
         miniProgram,
-        `/pages/member/detail/detail?userId=${testUserId}&groupId=${testGroupId}`,
+        `/subpages/member/detail/detail?userId=${testUserId}&groupId=${testGroupId}`,
         2000
       );
       await sleep(3000);
@@ -126,7 +126,7 @@ describe('成员详情页 E2E', () => {
 
       const page = await ensureOnPage(
         miniProgram,
-        `/pages/member/detail/detail?userId=${testUserId}&groupId=${testGroupId}`,
+        `/subpages/member/detail/detail?userId=${testUserId}&groupId=${testGroupId}`,
         2000
       );
       await sleep(3000);
@@ -147,7 +147,7 @@ describe('成员详情页 E2E', () => {
 
       const page = await ensureOnPage(
         miniProgram,
-        `/pages/group/detail/detail?id=${testGroupId}`,
+        `/subpages/group/detail/detail?id=${testGroupId}`,
         3000
       );
 
@@ -187,17 +187,17 @@ describe('成员详情页 E2E', () => {
       // 创建赛事 + 赛程 + 结束赛程，生成积分数据
       try {
         // 创建赛事
-        const createPage = await ensureOnPage(miniProgram, '/pages/group/create/create', 3000);
+        const createPage = await ensureOnPage(miniProgram, '/subpages/group/create/create', 3000);
         try {
-          await waitForElement(createPage, '.input-field', 8000);
+          await waitForData(createPage, d => d.groupName !== undefined, 8000);
         } catch (_) {
           const p = await miniProgram.currentPage();
-          await waitForElement(p, '.input-field', 5000);
+          await waitForData(p, d => d.groupName !== undefined, 5000);
         }
 
-        await safeInput(createPage, '.input-field', `成员积分测试_${Date.now()}`, 5000);
+        await createPage.setData({ groupName: `成员积分测试_${Date.now()}` });
         await sleep(300);
-        await safeTap(createPage, '.btn-primary');
+        await createPage.callMethod('createGroup');
         await sleep(8000);
 
         let currentPage = await miniProgram.currentPage();
@@ -212,11 +212,11 @@ describe('成员详情页 E2E', () => {
         // 创建赛程
         const matchPage = await ensureOnPage(
           miniProgram,
-          `/pages/match/create/create?groupId=${matchGroupId}`,
+          `/subpages/match/create/create?groupId=${matchGroupId}`,
           2000
         );
-        await waitForElement(matchPage, '.btn-primary', 5000);
-        await safeTap(matchPage, '.btn-primary');
+        await waitForData(matchPage, d => typeof d.creating === 'boolean', 5000);
+        await matchPage.callMethod('createMatch');
         await sleep(8000);
 
         currentPage = await miniProgram.currentPage();
@@ -226,16 +226,11 @@ describe('成员详情页 E2E', () => {
 
         // 结束赛程
         if (matchData.isAdmin && matchData.match.status === 'active') {
-          const adminBtns = await currentPage.$$('.admin-actions .btn-primary');
-          if (adminBtns && adminBtns.length > 0) {
-            await adminBtns[0].tap();
-            await sleep(1000);
-            const modalBtns = await currentPage.$$('.modal-card .btn-primary');
-            if (modalBtns && modalBtns.length > 0) {
-              await modalBtns[0].tap();
-              await sleep(6000);
-            }
-          }
+          // 直接调用方法，比点击 t-button 更可靠
+          await currentPage.callMethod('finishMatch');
+          await sleep(1000);
+          await currentPage.callMethod('confirmFinish');
+          await sleep(6000);
         }
 
         console.log(`✅ 成员积分测试前置完成: groupId=${matchGroupId}, userId=${matchUserId}`);
@@ -252,7 +247,7 @@ describe('成员详情页 E2E', () => {
 
       const page = await ensureOnPage(
         miniProgram,
-        `/pages/member/detail/detail?userId=${matchUserId}&groupId=${matchGroupId}`,
+        `/subpages/member/detail/detail?userId=${matchUserId}&groupId=${matchGroupId}`,
         2000
       );
       await sleep(3000);
@@ -276,7 +271,7 @@ describe('成员详情页 E2E', () => {
 
       const page = await ensureOnPage(
         miniProgram,
-        `/pages/member/detail/detail?userId=${matchUserId}&groupId=${matchGroupId}`,
+        `/subpages/member/detail/detail?userId=${matchUserId}&groupId=${matchGroupId}`,
         2000
       );
       await sleep(3000);

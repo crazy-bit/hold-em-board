@@ -6,14 +6,14 @@
 .member-name {
   font-size: 38rpx;
   font-weight: 700;
-  color: #1a1a2e;
+  color: #eaeaea;
   display: block;
   margin-bottom: 8rpx;
 }
 
 .meta-text {
   font-size: 24rpx;
-  color: #999;
+  color: #a0a0b0;
 }
 
 .total-wrap {
@@ -23,7 +23,7 @@
 .total-label {
   display: block;
   font-size: 24rpx;
-  color: #999;
+  color: #a0a0b0;
   margin-bottom: 4rpx;
 }
 
@@ -47,14 +47,14 @@
 .match-title {
   font-size: 30rpx;
   font-weight: 600;
-  color: #1a1a2e;
+  color: #eaeaea;
   display: block;
   margin-bottom: 6rpx;
 }
 
 .match-date {
   font-size: 24rpx;
-  color: #999;
+  color: #a0a0b0;
   display: block;
 }
 
@@ -67,12 +67,12 @@
 }
 
 .unfilled {
-  color: #bbb;
+  color: #666680;
   font-size: 26rpx;
 }
 
 .chips-detail {
   font-size: 22rpx;
-  color: #bbb;
+  color: #666680;
   text-align: right;
 }

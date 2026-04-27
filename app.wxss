@@ -1,9 +1,54 @@
 /* app.wxss - 全局样式 */
+
+/* TDesign 暗黑主题 CSS 变量 */
 page {
-  background-color: #f5f5f5;
+  /* 品牌色 */
+  --td-brand-color: #e94560;
+  --td-brand-color-active: #d63d56;
+  --td-brand-color-disabled: rgba(233, 69, 96, 0.4);
+  --td-brand-color-focus: #e94560;
+  --td-brand-color-light: rgba(233, 69, 96, 0.1);
+  --td-brand-color-light-active: rgba(233, 69, 96, 0.2);
+  /* 暗黑背景 */
+  --td-bg-color-page: #0f0f23;
+  --td-bg-color-container: #1a1a2e;
+  --td-bg-color-container-active: #16213e;
+  --td-bg-color-secondarycontainer: #16213e;
+  --td-bg-color-component: #1e2a45;
+  --td-bg-color-component-active: #253352;
+  --td-bg-color-component-disabled: #1a1a2e;
+  /* 文字色 */
+  --td-text-color-primary: #eaeaea;
+  --td-text-color-secondary: #a0a0b0;
+  --td-text-color-placeholder: #666680;
+  --td-text-color-disabled: #555568;
+  --td-text-color-anti: #0f0f23;
+  --td-text-color-brand: #e94560;
+  /* 功能色 */
+  --td-success-color: #4caf50;
+  --td-success-color-active: #43a047;
+  --td-error-color: #f44336;
+  --td-error-color-active: #e53935;
+  --td-warning-color: #FFD700;
+  --td-warning-color-active: #FFC107;
+  /* 边框 & 分割线 */
+  --td-border-color: rgba(255, 255, 255, 0.08);
+  --td-component-border: rgba(255, 255, 255, 0.12);
+  --td-component-stroke: rgba(255, 255, 255, 0.08);
+  /* 遮罩 */
+  --td-mask-active: rgba(0, 0, 0, 0.6);
+  /* 阴影 */
+  --td-shadow-1: 0 4rpx 16rpx rgba(0, 0, 0, 0.3);
+  --td-shadow-2: 0 8rpx 24rpx rgba(0, 0, 0, 0.4);
+  /* 圆角 */
+  --td-radius-default: 16rpx;
+  --td-radius-large: 24rpx;
+  --td-radius-round: 999rpx;
+
+  background-color: #0f0f23;
   font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
   font-size: 28rpx;
-  color: #333;
+  color: #eaeaea;
   box-sizing: border-box;
 }
 
@@ -15,14 +60,15 @@ page {
 
 /* 卡片 */
 .card {
-  background: #fff;
+  background: #1a1a2e;
   border-radius: 16rpx;
   padding: 32rpx;
   margin-bottom: 24rpx;
-  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.3);
+  color: #eaeaea;
 }
 
-/* 主按钮 */
+/* 主按钮（保留兼容） */
 .btn-primary {
   background: #e94560;
   color: #fff;
@@ -39,17 +85,14 @@ page {
   border: none;
 }
 
-
-
-
 /* 输入框 */
 .input-field {
-  background: #f8f8f8;
+  background: #16213e;
   border-radius: 12rpx;
   padding: 24rpx 28rpx;
   font-size: 30rpx;
-  color: #333;
-  border: 2rpx solid #eee;
+  color: #eaeaea;
+  border: 2rpx solid rgba(255, 255, 255, 0.08);
   width: 100%;
   box-sizing: border-box;
 }
@@ -58,23 +101,21 @@ page {
 .page-title {
   font-size: 40rpx;
   font-weight: 700;
-  color: #1a1a2e;
+  color: #eaeaea;
   margin-bottom: 32rpx;
 }
 
 .section-title {
   font-size: 30rpx;
   font-weight: 600;
-  color: #555;
+  color: #a0a0b0;
   margin-bottom: 16rpx;
 }
-
-
 
 /* 分割线 */
 .divider {
   height: 1rpx;
-  background: #f0f0f0;
+  background: rgba(255, 255, 255, 0.08);
   margin: 24rpx 0;
 }
 
@@ -104,6 +145,16 @@ page {
   align-items: center;
   justify-content: center;
   padding: 60rpx 0;
-  color: #bbb;
+  color: #666680;
   font-size: 26rpx;
+}
+
+/* 覆盖 TDesign 图标字体，使用 CDN 地址（需在开发者工具本地设置中关闭域名校验） */
+/* 或在正式发布前将字体文件下载到本地 */
+@font-face {
+  font-family: "t";
+  src: url("https://tdesign.gtimg.com/icon/0.4.2/fonts/t.woff2") format("woff2"),
+       url("https://tdesign.gtimg.com/icon/0.4.2/fonts/t.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
 }

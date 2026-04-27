@@ -40,44 +40,43 @@
       <view class="flex-row rule-inputs">
         <view class="input-group">
           <text class="input-label">初始筹码</text>
-          <van-field
+          <t-input
             type="number"
             value="{{item.initialChips}}"
             bind:change="onChipsInput"
             data-index="{{index}}"
             data-field="initialChips"
-            custom-style="padding: 12rpx 0;"
+            style="padding: 12rpx 0;"
           />
         </view>
         <view class="input-group">
           <text class="input-label">额外加成</text>
-          <van-field
+          <t-input
             type="number"
             value="{{item.bonus}}"
             bind:change="onChipsInput"
             data-index="{{index}}"
             data-field="bonus"
-            custom-style="padding: 12rpx 0;"
+            style="padding: 12rpx 0;"
           />
         </view>
       </view>
     </view>
   </view>
 
-  <van-button
-    type="danger"
+  <t-button
+    theme="danger"
     block
-    round
-    custom-style="margin-top:48rpx;"
+    shape="round"
+    style="margin-top:48rpx;"
     bindtap="saveRules"
     disabled="{{saving}}"
     loading="{{saving}}"
-    loading-text="保存中..."
   >
     保存规则
-  </van-button>
+  </t-button>
 
   <text class="save-tip">规则变更将对所有赛程生效</text>
 </view>
 
-<van-toast id="van-toast" />
+<t-toast id="t-toast" />

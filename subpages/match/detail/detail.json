@@ -1,15 +1,15 @@
 {
   "navigationBarTitleText": "赛程详情",
   "usingComponents": {
-    "van-dialog": "@vant/weapp/dialog/index",
-    "van-button": "@vant/weapp/button/index",
-    "van-tag": "@vant/weapp/tag/index",
-    "van-toast": "@vant/weapp/toast/index"
+    "t-dialog": "/miniprogram_npm/tdesign-miniprogram/dialog/dialog",
+    "t-button": "/miniprogram_npm/tdesign-miniprogram/button/button",
+    "t-tag": "/miniprogram_npm/tdesign-miniprogram/tag/tag",
+    "t-toast": "/miniprogram_npm/tdesign-miniprogram/toast/toast"
   },
   "componentPlaceholder": {
-    "van-dialog": "view",
-    "van-button": "view",
-    "van-tag": "view",
-    "van-toast": "view"
+    "t-dialog": "view",
+    "t-button": "view",
+    "t-tag": "view",
+    "t-toast": "view"
   }
 }

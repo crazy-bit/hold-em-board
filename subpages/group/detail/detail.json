@@ -1,21 +1,21 @@
 {
   "navigationBarTitleText": "赛事详情",
   "usingComponents": {
-    "van-button": "@vant/weapp/button/index",
-    "van-tag": "@vant/weapp/tag/index",
-    "van-empty": "@vant/weapp/empty/index",
-    "van-tabs": "@vant/weapp/tabs/index",
-    "van-tab": "@vant/weapp/tab/index",
-    "van-toast": "@vant/weapp/toast/index",
+    "t-button": "/miniprogram_npm/tdesign-miniprogram/button/button",
+    "t-tag": "/miniprogram_npm/tdesign-miniprogram/tag/tag",
+    "t-empty": "/miniprogram_npm/tdesign-miniprogram/empty/empty",
+    "t-tabs": "/miniprogram_npm/tdesign-miniprogram/tabs/tabs",
+    "t-tab-panel": "/miniprogram_npm/tdesign-miniprogram/tab-panel/tab-panel",
+    "t-toast": "/miniprogram_npm/tdesign-miniprogram/toast/toast",
     "trend-chart": "/components/trend-chart/trend-chart"
   },
   "componentPlaceholder": {
-    "van-button": "view",
-    "van-tag": "view",
-    "van-empty": "view",
-    "van-tabs": "view",
-    "van-tab": "view",
-    "van-toast": "view",
+    "t-button": "view",
+    "t-tag": "view",
+    "t-empty": "view",
+    "t-tabs": "view",
+    "t-tab-panel": "view",
+    "t-toast": "view",
     "trend-chart": "view"
   }
 }

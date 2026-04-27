@@ -12,13 +12,13 @@
 
 .info-label {
   font-size: 28rpx;
-  color: #666;
+  color: #a0a0b0;
 }
 
 .info-value {
   font-size: 32rpx;
   font-weight: 600;
-  color: #1a1a2e;
+  color: #eaeaea;
 }
 
 .bonus {
@@ -35,7 +35,7 @@
 
 .preview-label {
   font-size: 26rpx;
-  color: #999;
+  color: #a0a0b0;
 }
 
 .preview-value {

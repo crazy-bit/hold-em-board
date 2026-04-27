@@ -7,16 +7,16 @@
         <text class="match-title">{{match.title || '赛程详情'}}</text>
         <text class="match-date">{{match.createdAtStr}}</text>
       </view>
-      <van-tag type="success" round wx:if="{{match.status === 'active'}}">进行中</van-tag>
-      <van-tag type="primary" round wx:elif="{{match.status === 'finished'}}">已结束</van-tag>
-      <van-tag color="#fafafa" text-color="#999" round wx:else>已作废</van-tag>
+      <t-tag theme="success" shape="round" variant="light" wx:if="{{match.status === 'active'}}">进行中</t-tag>
+      <t-tag theme="primary" shape="round" variant="light" wx:elif="{{match.status === 'finished'}}">已结束</t-tag>
+      <t-tag theme="default" shape="round" variant="light" wx:else>已作废</t-tag>
     </view>
   </view>
 
   <!-- 管理员操作区（仅进行中赛程） -->
   <view wx:if="{{isAdmin && match.status === 'active'}}" class="admin-actions">
-    <van-button type="danger" block round bindtap="finishMatch">结束赛程</van-button>
-    <van-button plain block round color="#ff4d4f" custom-style="margin-top:16rpx;" bindtap="cancelMatch">销毁赛程（作废）</van-button>
+    <t-button theme="danger" block shape="round" bindtap="finishMatch">结束赛程</t-button>
+    <t-button variant="outline" block shape="round" style="margin-top:16rpx;--td-button-default-border-color:#ff4d4f;--td-button-default-color:#ff4d4f;" bindtap="cancelMatch">销毁赛程（作废）</t-button>
   </view>
 
   <!-- 分数列表 -->
@@ -62,13 +62,12 @@
 </view>
 
 <!-- 结束赛程确认弹窗 -->
-<van-dialog
-  use-slot
+<t-dialog
   title="确认结束赛程？"
-  show="{{showFinishModal}}"
-  show-confirm-button="{{false}}"
-  show-cancel-button="{{false}}"
-  close-on-click-overlay
+  visible="{{showFinishModal}}"
+  confirm-btn="{{null}}"
+  cancel-btn="{{null}}"
+  close-on-overlay-click
   bind:close="closeFinishModal"
 >
   <view style="padding: 24rpx 32rpx;">
@@ -77,10 +76,10 @@
       <text wx:for="{{unfilledMembers}}" wx:key="*this" class="unfilled-name">{{item}}</text>
     </view>
     <view style="margin-top:32rpx;display:flex;gap:16rpx;">
-      <van-button plain round custom-style="flex:1;width:100%;min-width:0;" bindtap="closeFinishModal">取消</van-button>
-      <van-button type="danger" round custom-style="flex:1;width:100%;min-width:0;" bindtap="confirmFinish" loading="{{finishing}}" disabled="{{finishing}}">确认结束</van-button>
+      <t-button variant="outline" shape="round" style="flex:1;width:100%;min-width:0;" bindtap="closeFinishModal">取消</t-button>
+      <t-button theme="danger" shape="round" style="flex:1;width:100%;min-width:0;" bindtap="confirmFinish" loading="{{finishing}}" disabled="{{finishing}}">确认结束</t-button>
     </view>
   </view>
-</van-dialog>
+</t-dialog>
 
-<van-toast id="van-toast" />
+<t-toast id="t-toast" />

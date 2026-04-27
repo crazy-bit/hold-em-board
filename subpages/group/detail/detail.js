@@ -1,8 +1,15 @@
 // pages/group/detail/detail.js
 const app = getApp();
 const { formatDate, calcPoints } = require('../../utils/util');
-const _Toast = require('@vant/weapp/toast/toast');
-const Toast = _Toast.default || _Toast;
+let Toast;
+try { Toast = require('tdesign-miniprogram/toast/index'); } catch(e) { Toast = null; }
+function showToast(opts) {
+  if (typeof Toast === 'function') {
+    Toast(opts);
+  } else {
+    wx.showToast({ title: opts.message || '', icon: opts.theme === 'success' ? 'success' : 'none', duration: 2000 });
+  }
+}
 
 Page({
   data: {
@@ -73,7 +80,7 @@ Page({
 
         if (!group) {
           this.setData({ loading: false });
-          Toast.fail('加载失败');
+      showToast({ context: this, selector: '#t-toast', message: '加载失败', theme: 'error' });
           return;
         }
 
@@ -250,9 +257,9 @@ Page({
   },
 
   onTabChange(e) {
-    const index = e.detail.index;
+    const index = typeof e.detail === 'object' ? e.detail.value : e.detail;
     const tabs = ['matches', 'leaderboard', 'trend'];
-    this.setData({ activeTab: tabs[index], activeTabIndex: index });
+    this.setData({ activeTab: tabs[index], activeTabIndex: Number(index) });
   },
 
   createMatch() {
@@ -277,7 +284,7 @@ Page({
     const { group } = this.data;
     wx.setClipboardData({
       data: group.inviteCode,
-      success: () => Toast.success('邀请码已复制'),
+      success: () => showToast({ context: this, selector: '#t-toast', message: '邀请码已复制', theme: 'success' }),
     });
   },
 

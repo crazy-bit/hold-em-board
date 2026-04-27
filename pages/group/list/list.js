@@ -1,7 +1,14 @@
 // pages/group/list/list.js
 const app = getApp();
-const _Toast = require('@vant/weapp/toast/toast');
-const Toast = _Toast.default || _Toast;
+let Toast;
+try { Toast = require('tdesign-miniprogram/toast/index'); } catch(e) { Toast = null; }
+function showToast(opts) {
+  if (typeof Toast === 'function') {
+    Toast(opts);
+  } else {
+    wx.showToast({ title: opts.message || '', icon: opts.theme === 'success' ? 'success' : 'none', duration: 2000 });
+  }
+}
 
 Page({
   data: {
@@ -72,7 +79,7 @@ Page({
       } else {
         console.error('loadGroups error:', res.result.msg);
         this.setData({ loading: false });
-        Toast.fail('加载失败');
+        showToast({ context: this, selector: '#t-toast', message: '加载失败', theme: 'error' });
       }
     } catch (err) {
       console.error('loadGroups error:', err);
@@ -102,7 +109,7 @@ Page({
   async confirmJoin() {
     const { inviteCode } = this.data;
     if (!inviteCode || inviteCode.length !== 6) {
-      Toast('请输入6位邀请码');
+      showToast({ context: this, selector: '#t-toast', message: '请输入6位邀请码', theme: 'warning' });
       return;
     }
 
@@ -120,13 +127,13 @@ Page({
 
       if (res.result.code === 0) {
         this.setData({ showJoinModal: false, inviteCode: '' });
-        Toast.success(res.result.alreadyJoined ? '已在组内' : '加入成功');
+        showToast({ context: this, selector: '#t-toast', message: res.result.alreadyJoined ? '已在组内' : '加入成功', theme: 'success' });
         wx.navigateTo({ url: `/pages/group/detail/detail?id=${res.result.groupId}` });
       } else {
-        Toast.fail(res.result.msg || '加入失败');
+        showToast({ context: this, selector: '#t-toast', message: res.result.msg || '加入失败', theme: 'error' });
       }
     } catch (err) {
-      Toast.fail('加入失败，请重试');
+      showToast({ context: this, selector: '#t-toast', message: '加入失败，请重试', theme: 'error' });
     } finally {
       this.setData({ joining: false });
     }

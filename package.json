@@ -35,6 +35,6 @@
     "testTimeout": 60000
   },
   "dependencies": {
-    "@vant/weapp": "^1.11.7"
+    "tdesign-miniprogram": "^1.14.0"
   }
 }

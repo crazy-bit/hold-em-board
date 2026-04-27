@@ -3,7 +3,7 @@
   <text class="page-title">创建赛事</text>
 
   <view class="card">
-    <van-field
+    <t-input
       label="赛事名称"
       placeholder="例如：周五德州局"
       value="{{groupName}}"
@@ -15,18 +15,17 @@
   </view>
 
   <view style="margin-top:48rpx;">
-    <van-button
-      type="danger"
+    <t-button
+      theme="danger"
       block
-      round
+      shape="round"
       bindtap="createGroup"
       disabled="{{creating || !groupName}}"
       loading="{{creating}}"
-      loading-text="创建中..."
     >
       创建赛事
-    </van-button>
+    </t-button>
   </view>
 </view>
 
-<van-toast id="van-toast" />
+<t-toast id="t-toast" />

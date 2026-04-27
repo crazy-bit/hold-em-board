@@ -80,9 +80,9 @@ Component({
       const toY = (v) => padding.top + (maxY - v) * yScale;
 
       // 绘制网格线和 Y 轴标签
-      ctx.strokeStyle = '#f0f0f0';
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
       ctx.lineWidth = 0.5;
-      ctx.fillStyle = '#999';
+      ctx.fillStyle = '#a0a0b0';
       ctx.font = '10px sans-serif';
       ctx.textAlign = 'right';
       ctx.textBaseline = 'middle';
@@ -101,7 +101,7 @@ Component({
       // 绘制零线（如果在范围内）
       if (minY < 0 && maxY > 0) {
         const zeroY = toY(0);
-        ctx.strokeStyle = '#ddd';
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
         ctx.lineWidth = 1;
         ctx.setLineDash([4, 4]);
         ctx.beginPath();
@@ -112,7 +112,7 @@ Component({
       }
 
       // 绘制 X 轴标签
-      ctx.fillStyle = '#999';
+      ctx.fillStyle = '#a0a0b0';
       ctx.font = '10px sans-serif';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'top';
@@ -143,7 +143,7 @@ Component({
         s.data.forEach((v, i) => {
           const x = toX(i);
           const y = toY(v);
-          ctx.fillStyle = '#fff';
+          ctx.fillStyle = '#1a1a2e';
           ctx.beginPath();
           ctx.arc(x, y, 3, 0, Math.PI * 2);
           ctx.fill();

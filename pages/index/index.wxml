@@ -1,7 +1,7 @@
 <!-- pages/index/index.wxml -->
 <view class="container">
   <!-- 加载中 -->
-  <van-skeleton title row="3" loading="{{loading}}" wx:if="{{loading}}" />
+  <t-skeleton theme="paragraph" loading="{{loading}}" wx:if="{{loading}}" />
 
   <!-- 有赛事 -->
   <view wx:elif="{{hasGroup}}">
@@ -43,7 +43,7 @@
 
     <!-- 快捷入口 -->
     <view class="quick-actions">
-      <van-button plain round size="small" custom-style="flex:1;" bindtap="goGroupList">全部赛事</van-button>
+      <t-button variant="outline" shape="round" size="small" style="flex:1;" bindtap="goGroupList">全部赛事</t-button>
     </view>
   </view>
 
@@ -53,10 +53,10 @@
     <text class="empty-title">德州记分板</text>
     <text class="empty-desc">轻松记录每一局的胜负</text>
     <view class="empty-actions">
-      <van-button type="danger" round block bindtap="goCreateGroup" custom-style="margin-bottom:16rpx;">创建赛事</van-button>
-      <van-button plain round block bindtap="goGroupList">加入已有赛事</van-button>
+      <t-button theme="danger" shape="round" block bindtap="goCreateGroup" style="margin-bottom:16rpx;">创建赛事</t-button>
+      <t-button variant="outline" shape="round" block bindtap="goGroupList">加入已有赛事</t-button>
     </view>
   </view>
 </view>
 
-<van-toast id="van-toast" />
+<t-toast id="t-toast" />

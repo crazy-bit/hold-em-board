@@ -1,6 +1,13 @@
 // pages/score/input/input.js
-const _Toast = require('@vant/weapp/toast/toast');
-const Toast = _Toast.default || _Toast;
+let Toast;
+try { Toast = require('tdesign-miniprogram/toast/index'); } catch(e) { Toast = null; }
+function showToast(opts) {
+  if (typeof Toast === 'function') {
+    Toast(opts);
+  } else {
+    wx.showToast({ title: opts.message || '', icon: opts.theme === 'success' ? 'success' : 'none', duration: 2000 });
+  }
+}
 Page({
   data: {
     scoreId: '',
@@ -45,7 +52,7 @@ Page({
         this.calcPreview(score.finalChips);
       }
     } catch (err) {
-      Toast.fail('加载失败');
+      showToast({ context: this, selector: '#t-toast', message: '加载失败', theme: 'error' });
     }
   },
 
@@ -76,13 +83,13 @@ Page({
       });
 
       if (res.result.code === 0) {
-        Toast.success('保存成功');
+        showToast({ context: this, selector: '#t-toast', message: '保存成功', theme: 'success' });
         setTimeout(() => wx.navigateBack(), 800);
       } else {
-        Toast.fail(res.result.msg || '保存失败');
+        showToast({ context: this, selector: '#t-toast', message: res.result.msg || '保存失败', theme: 'error' });
       }
     } catch (err) {
-      Toast.fail('保存失败，请重试');
+      showToast({ context: this, selector: '#t-toast', message: '保存失败，请重试', theme: 'error' });
     } finally {
       this.setData({ saving: false });
     }

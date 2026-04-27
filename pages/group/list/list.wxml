@@ -14,14 +14,14 @@
   </view>
 
   <!-- 加载中 - 骨架屏 -->
-  <van-skeleton title row="3" loading="{{loading}}" wx:if="{{loading}}" />
+  <t-skeleton theme="paragraph" loading="{{loading}}" wx:if="{{loading}}" />
 
   <!-- 空状态 -->
-  <van-empty description="还没有加入任何赛事" wx:elif="{{groups.length === 0}}">
-    <van-button slot="bottom" round type="danger" size="small" bindtap="goJoinGroup" custom-style="margin-top: 20rpx;">
+  <t-empty description="还没有加入任何赛事" wx:elif="{{groups.length === 0}}">
+    <t-button slot="operation" theme="danger" shape="round" size="small" bindtap="goJoinGroup" style="margin-top: 20rpx;">
       加入赛事
-    </van-button>
-  </van-empty>
+    </t-button>
+  </t-empty>
 
   <!-- 赛事列表 -->
   <view wx:else>
@@ -42,7 +42,7 @@
           </view>
         </view>
         <view class="flex-row" style="gap:12rpx;">
-          <van-tag type="warning" round wx:if="{{item.isAdmin}}">管理员</van-tag>
+          <t-tag theme="warning" shape="round" variant="light" wx:if="{{item.isAdmin}}">管理员</t-tag>
           <text class="arrow">›</text>
         </view>
       </view>
@@ -51,13 +51,12 @@
 </view>
 
 <!-- 加入组弹窗 -->
-<van-dialog
-  use-slot
+<t-dialog
   title="加入赛事"
-  show="{{showJoinModal}}"
-  show-confirm-button="{{false}}"
-  show-cancel-button="{{false}}"
-  close-on-click-overlay
+  visible="{{showJoinModal}}"
+  confirm-btn="{{null}}"
+  cancel-btn="{{null}}"
+  close-on-overlay-click
   bind:close="closeJoinModal"
 >
   <view class="join-modal-body">
@@ -69,10 +68,10 @@
       maxlength="6"
     />
     <view class="join-modal-btns">
-      <van-button plain round custom-style="width:100%;" bindtap="closeJoinModal">取消</van-button>
-      <van-button type="danger" round custom-style="width:100%;" bindtap="confirmJoin" loading="{{joining}}" disabled="{{joining}}">确认加入</van-button>
+      <t-button variant="outline" shape="round" style="width:100%;flex:1;min-width:0;" bindtap="closeJoinModal">取消</t-button>
+      <t-button theme="danger" shape="round" style="width:100%;flex:1;min-width:0;" bindtap="confirmJoin" loading="{{joining}}" disabled="{{joining}}">确认加入</t-button>
     </view>
   </view>
-</van-dialog>
+</t-dialog>
 
-<van-toast id="van-toast" />
+<t-toast id="t-toast" />

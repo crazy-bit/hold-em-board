@@ -1,8 +1,15 @@
 // pages/match/detail/detail.js
 const app = getApp();
 const { formatDate } = require('../../utils/util');
-const _Toast = require('@vant/weapp/toast/toast');
-const Toast = _Toast.default || _Toast;
+let Toast;
+try { Toast = require('tdesign-miniprogram/toast/index'); } catch(e) { Toast = null; }
+function showToast(opts) {
+  if (typeof Toast === 'function') {
+    Toast(opts);
+  } else {
+    wx.showToast({ title: opts.message || '', icon: opts.theme === 'success' ? 'success' : 'none', duration: 2000 });
+  }
+}
 
 Page({
   data: {
@@ -59,7 +66,7 @@ Page({
       this.setData({ match, scores, isAdmin, unfilledCount });
     } catch (err) {
       console.error('loadData error:', err);
-      Toast.fail('加载失败');
+      showToast({ context: this, selector: '#t-toast', message: '加载失败', theme: 'error' });
     } finally {
       this._loading = false;
     }
@@ -75,7 +82,7 @@ Page({
 
     // 只能填写自己的分数
     if (userId !== openId) {
-      Toast('只能填写自己的分数');
+      showToast({ context: this, selector: '#t-toast', message: '只能填写自己的分数', theme: 'warning' });
       return;
     }
 
@@ -108,13 +115,13 @@ Page({
 
       if (res.result.code === 0) {
         this.setData({ showFinishModal: false });
-        Toast.success('赛程已结束');
+        showToast({ context: this, selector: '#t-toast', message: '赛程已结束', theme: 'success' });
         this.loadData();
       } else {
-        Toast.fail(res.result.msg || '操作失败');
+        showToast({ context: this, selector: '#t-toast', message: res.result.msg || '操作失败', theme: 'error' });
       }
     } catch (err) {
-      Toast.fail('操作失败，请重试');
+      showToast({ context: this, selector: '#t-toast', message: '操作失败，请重试', theme: 'error' });
     } finally {
       this.setData({ finishing: false });
     }
@@ -134,13 +141,13 @@ Page({
               data: { matchId: this.data.matchId },
             });
             if (result.result.code === 0) {
-              Toast.success('赛程已作废');
+              showToast({ context: this, selector: '#t-toast', message: '赛程已作废', theme: 'success' });
               this.loadData();
             } else {
-              Toast.fail(result.result.msg || '操作失败');
+              showToast({ context: this, selector: '#t-toast', message: result.result.msg || '操作失败', theme: 'error' });
             }
           } catch (err) {
-            Toast.fail('操作失败，请重试');
+            showToast({ context: this, selector: '#t-toast', message: '操作失败，请重试', theme: 'error' });
           }
         }
       },

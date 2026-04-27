@@ -33,7 +33,7 @@ module.exports = async function globalSetup() {
     console.log('🔑 正在执行登录流程...');
 
     // 导航到登录页
-    await miniProgram.reLaunch('/pages/login/login');
+    await miniProgram.reLaunch('/subpages/login/login');
     await sleep(1500);
 
     const page = await miniProgram.currentPage();

@@ -3,7 +3,7 @@
   <text class="page-title">创建赛程</text>
 
   <view class="card">
-    <van-field
+    <t-input
       label="赛程标题"
       placeholder="例如：第12期，留空则自动编号"
       value="{{title}}"
@@ -19,18 +19,17 @@
   </view>
 
   <view style="margin-top:48rpx;">
-    <van-button
-      type="danger"
+    <t-button
+      theme="danger"
       block
-      round
+      shape="round"
       bindtap="createMatch"
       disabled="{{creating}}"
       loading="{{creating}}"
-      loading-text="创建中..."
     >
       创建赛程
-    </van-button>
+    </t-button>
   </view>
 </view>
 
-<van-toast id="van-toast" />
+<t-toast id="t-toast" />

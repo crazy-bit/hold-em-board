@@ -13,6 +13,22 @@ const { getConsoleLogs } = require('./setup');
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 /**
+ * 将 TDesign 穿透选择器降级为组件标签选择器
+ * miniprogram-automator 不支持 >>> 穿透语法，需要降级
+ * @param {string} selector 原始选择器
+ * @returns {string} 降级后的选择器
+ */
+function normalizeTDesignSelector(selector) {
+  // t-input >>> .t-input__input → t-input
+  if (selector.includes('t-input >>>')) return 't-input';
+  // t-button >>> button → t-button
+  if (selector.includes('t-button >>>')) return 't-button';
+  // .xxx t-button >>> button → .xxx t-button
+  if (selector.includes(' t-button >>>')) return selector.replace(/ t-button >>>.*$/, ' t-button');
+  return selector;
+}
+
+/**
  * 轮询等待元素出现
  * @param {Page} page 页面实例
  * @param {string} selector CSS 选择器
@@ -21,9 +37,10 @@ const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
  * @returns {Promise<Element>} 元素实例
  */
 async function waitForElement(page, selector, timeout = 5000, interval = 300) {
+  const normalizedSelector = normalizeTDesignSelector(selector);
   const start = Date.now();
   while (Date.now() - start < timeout) {
-    const el = await page.$(selector);
+    const el = await page.$(normalizedSelector);
     if (el) return el;
     await sleep(interval);
   }
@@ -43,7 +60,19 @@ async function safeTap(page, selector, timeout = 5000) {
 }
 
 /**
+ * 通过 setData 直接设置 TDesign t-input 的值（绕过 DOM 操作）
+ * @param {Page} page 页面实例
+ * @param {string} dataKey 页面 data 中对应的字段名
+ * @param {string} text 输入文本
+ */
+async function setTInputValue(page, dataKey, text) {
+  await page.setData({ [dataKey]: text });
+  await sleep(100);
+}
+
+/**
  * 安全输入文本（先等待元素存在再输入）
+ * 对 TDesign t-input 组件，降级为等待组件出现后用 element.input() 输入
  * @param {Page} page 页面实例
  * @param {string} selector CSS 选择器
  * @param {string} text 输入文本
@@ -59,7 +88,7 @@ async function safeInput(page, selector, text, timeout = 5000) {
  * 确保当前在指定页面，否则使用 reLaunch 导航
  * reLaunch 会关闭所有页面并打开目标页面，避免页面栈溢出
  * @param {MiniProgram} miniProgram 小程序实例
- * @param {string} pagePath 目标页面路径（如 '/pages/group/create/create'）
+ * @param {string} pagePath 目标页面路径（如 '/subpages/group/create/create'）
  * @param {number} waitMs 导航后等待时间（毫秒）
  * @returns {Promise<Page>} 当前页面实例
  */
@@ -320,6 +349,7 @@ module.exports = {
   waitForElement,
   safeTap,
   safeInput,
+  setTInputValue,
   ensureOnPage,
   waitForData,
   waitForNavigation,

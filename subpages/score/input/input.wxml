@@ -15,7 +15,7 @@
 
   <!-- 输入区 -->
   <view class="card" style="margin-top: 24rpx;">
-    <van-field
+    <t-input
       label="结算筹码"
       type="number"
       placeholder="输入你的结算筹码"
@@ -29,18 +29,17 @@
     </view>
   </view>
 
-  <van-button
-    type="danger"
+  <t-button
+    theme="danger"
     block
-    round
-    custom-style="margin-top:48rpx;"
+    shape="round"
+    style="margin-top:48rpx;"
     bindtap="saveScore"
     disabled="{{saving || finalChips === ''}}"
     loading="{{saving}}"
-    loading-text="保存中..."
   >
     保存
-  </van-button>
+  </t-button>
 </view>
 
-<van-toast id="van-toast" />
+<t-toast id="t-toast" />

@@ -23,16 +23,16 @@
 
   <!-- 管理员操作区 -->
   <view wx:if="{{isAdmin}}">
-    <van-button type="danger" block round bindtap="createMatch" custom-style="margin-bottom:24rpx;">
+    <t-button theme="danger" block shape="round" bindtap="createMatch" style="margin-bottom:24rpx;">
       + 创建新赛程
-    </van-button>
+    </t-button>
   </view>
 
   <!-- Tab 切换 -->
-  <van-tabs active="{{activeTabIndex}}" bind:change="onTabChange" color="#e94560" title-active-color="#e94560">
-    <van-tab title="赛程记录">
+  <t-tabs value="{{activeTabIndex}}" bind:change="onTabChange" style="--td-tab-item-active-color: #e94560; --td-tab-track-color: #e94560;">
+    <t-tab-panel label="赛程记录" value="0">
       <!-- 赛程列表 -->
-      <van-empty image="search" description="还没有赛程" wx:if="{{matches.length === 0}}" />
+      <t-empty icon="search" description="还没有赛程" wx:if="{{matches.length === 0}}" />
       <view wx:else style="padding-top: 16rpx;">
         <view
           class="match-card card"
@@ -47,19 +47,19 @@
               <text class="match-date">{{item.createdAtStr}}</text>
             </view>
             <view class="flex-row" style="gap:12rpx;">
-              <van-tag type="success" round wx:if="{{item.status === 'active'}}">进行中</van-tag>
-              <van-tag type="primary" round wx:elif="{{item.status === 'finished'}}">已结束</van-tag>
-              <van-tag color="#fafafa" text-color="#999" round wx:else>已作废</van-tag>
+              <t-tag theme="success" shape="round" variant="light" wx:if="{{item.status === 'active'}}">进行中</t-tag>
+              <t-tag theme="primary" shape="round" variant="light" wx:elif="{{item.status === 'finished'}}">已结束</t-tag>
+              <t-tag theme="default" shape="round" variant="light" wx:else>已作废</t-tag>
               <text class="arrow">›</text>
             </view>
           </view>
         </view>
       </view>
-    </van-tab>
+    </t-tab-panel>
 
-    <van-tab title="总积分榜">
+    <t-tab-panel label="总积分榜" value="1">
       <!-- 总积分榜 -->
-      <van-empty description="暂无积分数据" wx:if="{{leaderboard.length === 0}}" />
+      <t-empty description="暂无积分数据" wx:if="{{leaderboard.length === 0}}" />
       <view wx:else style="padding-top: 16rpx;">
         <view
           class="rank-card card"
@@ -75,7 +75,7 @@
               </view>
               <image class="rank-avatar" src="{{item.avatarUrl}}" wx:if="{{item.avatarUrl}}" />
               <view class="rank-avatar-placeholder" wx:else>
-                <text style="font-size:22rpx;color:#999;">{{item.nickName[0] || '?'}}</text>
+                <text style="font-size:22rpx;color:#666680;">{{item.nickName[0] || '?'}}</text>
               </view>
               <view style="flex:1;min-width:0;">
                 <text class="member-name">{{item.nickName}}</text>
@@ -88,15 +88,15 @@
           </view>
         </view>
       </view>
-    </van-tab>
+    </t-tab-panel>
 
-    <van-tab title="积分趋势">
+    <t-tab-panel label="积分趋势" value="2">
       <!-- 积分趋势曲线图 -->
       <view style="padding-top: 16rpx;">
         <trend-chart series="{{trendSeries}}" labels="{{trendLabels}}" />
       </view>
-    </van-tab>
-  </van-tabs>
+    </t-tab-panel>
+  </t-tabs>
 </view>
 
-<van-toast id="van-toast" />
+<t-toast id="t-toast" />
