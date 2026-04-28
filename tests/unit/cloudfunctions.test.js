@@ -149,6 +149,82 @@ describe('createMatch - getRuleByRank 逻辑', () => {
 });
 
 // ─────────────────────────────────────────────────────────────
+// createMatch 新规则逻辑：统一初始筹码 + 初始状态无名次
+// ─────────────────────────────────────────────────────────────
+describe('createMatch - 统一初始筹码与初始状态名次逻辑', () => {
+  function getRuleByRank(chipRules, rank) {
+    const matched = chipRules.find(r => r.rank === rank);
+    if (matched) return matched;
+    const defaultRule = chipRules.find(r => r.rank === 0);
+    return defaultRule || { initialChips: 1000, bonus: 0 };
+  }
+
+  const chipRules = [
+    { rank: 1, initialChips: 1000, bonus: 0 },
+    { rank: 2, initialChips: 1000, bonus: 500 },
+    { rank: 0, initialChips: 1000, bonus: 300 },
+  ];
+
+  // 模拟 createMatch 中的分配逻辑
+  function assignScores(members, chipRules, hasHistory) {
+    const defaultRule = getRuleByRank(chipRules, 0);
+    const unifiedInitialChips = defaultRule.initialChips;
+    return members.map((member, index) => {
+      const rank = hasHistory ? index + 1 : 0;
+      const bonusRule = getRuleByRank(chipRules, rank);
+      return {
+        userId: member.userId,
+        initialChips: unifiedInitialChips,
+        bonus: bonusRule.bonus,
+      };
+    });
+  }
+
+  it('无历史赛程时：所有成员使用 rank=0 的规则（初始筹码和额外加成均使用默认规则）', () => {
+    const members = [
+      { userId: 'u1' },
+      { userId: 'u2' },
+      { userId: 'u3' },
+    ];
+    const scores = assignScores(members, chipRules, false);
+
+    // 所有人初始筹码相同
+    scores.forEach(s => expect(s.initialChips).toBe(1000));
+    // 所有人 bonus 使用 rank=0 的默认值
+    scores.forEach(s => expect(s.bonus).toBe(300));
+  });
+
+  it('有历史赛程时：initialChips 对所有成员相同，bonus 按名次差异化', () => {
+    const members = [
+      { userId: 'u1' },  // 第1名
+      { userId: 'u2' },  // 第2名
+      { userId: 'u3' },  // 第3名（使用默认规则）
+    ];
+    const scores = assignScores(members, chipRules, true);
+
+    // 所有人初始筹码相同（统一）
+    scores.forEach(s => expect(s.initialChips).toBe(1000));
+
+    // bonus 按名次差异化
+    expect(scores[0].bonus).toBe(0);    // 第1名
+    expect(scores[1].bonus).toBe(500);  // 第2名
+    expect(scores[2].bonus).toBe(300);  // 第3名（默认规则）
+  });
+
+  it('统一初始筹码始终从 rank=0 读取，不受其他名次影响', () => {
+    const rulesWithDiffChips = [
+      { rank: 1, initialChips: 9999, bonus: 0 },  // 即使 rank=1 有不同值
+      { rank: 0, initialChips: 1000, bonus: 0 },
+    ];
+    const members = [{ userId: 'u1' }, { userId: 'u2' }];
+    const scores = assignScores(members, rulesWithDiffChips, true);
+
+    // 统一初始筹码应从 rank=0 读取，而非 rank=1
+    scores.forEach(s => expect(s.initialChips).toBe(1000));
+  });
+});
+
+// ─────────────────────────────────────────────────────────────
 // saveScore 权限校验逻辑测试
 // ─────────────────────────────────────────────────────────────
 describe('saveScore - 输入校验逻辑', () => {

@@ -11,7 +11,8 @@ function showToast(opts) {
 Page({
   data: {
     groupId: '',
-    chipRules: [],
+    initialChips: 1000,   // 统一初始筹码
+    chipRules: [],         // 仅含 bonus 按名次配置
     bonusCountsToTotal: false,
     saving: false,
   },
@@ -28,9 +29,14 @@ Page({
     try {
       const groupRes = await db.collection('groups').doc(groupId).get();
       const group = groupRes.data;
+      const chipRules = group.chipRules || [{ rank: 0, initialChips: 1000, bonus: 0 }];
+
+      // 从默认规则（rank=0）读取统一初始筹码
+      const defaultRule = chipRules.find(r => r.rank === 0) || { initialChips: 1000 };
 
       this.setData({
-        chipRules: group.chipRules || [{ rank: 0, initialChips: 1000, bonus: 0 }],
+        initialChips: defaultRule.initialChips,
+        chipRules,
         bonusCountsToTotal: group.bonusCountsToTotal || false,
       });
     } catch (err) {
@@ -40,6 +46,10 @@ Page({
 
   onBonusToggle(e) {
     this.setData({ bonusCountsToTotal: e.detail.value });
+  },
+
+  onInitialChipsInput(e) {
+    this.setData({ initialChips: Number(e.detail.value) || 0 });
   },
 
   onChipsInput(e) {
@@ -53,7 +63,7 @@ Page({
     const chipRules = [...this.data.chipRules];
     // 找到当前最大名次
     const maxRank = chipRules.reduce((max, r) => Math.max(max, r.rank), 0);
-    chipRules.push({ rank: maxRank + 1, initialChips: 1000, bonus: 0 });
+    chipRules.push({ rank: maxRank + 1, initialChips: this.data.initialChips, bonus: 0 });
     // 按名次排序（0排最后）
     chipRules.sort((a, b) => {
       if (a.rank === 0) return 1;
@@ -71,13 +81,13 @@ Page({
   },
 
   async saveRules() {
-    const { groupId, chipRules, bonusCountsToTotal } = this.data;
+    const { groupId, chipRules, bonusCountsToTotal, initialChips } = this.data;
     this.setData({ saving: true });
 
     try {
       const res = await wx.cloud.callFunction({
         name: 'saveRules',
-        data: { groupId, chipRules, bonusCountsToTotal },
+        data: { groupId, chipRules, bonusCountsToTotal, initialChips },
       });
 
       if (res.result.code === 0) {

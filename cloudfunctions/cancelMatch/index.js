@@ -41,6 +41,12 @@ exports.main = async (event, context) => {
       },
     });
 
+    // 删除该赛程的所有 scores 记录，防止残留数据影响后续赛程
+    const { data: scoresData } = await db.collection('scores').where({ matchId }).get();
+    if (scoresData.length > 0) {
+      await Promise.all(scoresData.map(s => db.collection('scores').doc(s._id).remove()));
+    }
+
     return { code: 0 };
   } catch (err) {
     console.error('cancelMatch error:', err);

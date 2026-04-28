@@ -33,10 +33,14 @@ exports.main = async (event, context) => {
       .get();
 
     // 计算当前总积分排名
-    const leaderboard = await calcCurrentLeaderboard(groupId, members);
+    const { leaderboard, hasHistory } = await calcCurrentLeaderboard(groupId, members);
 
     // 获取组规则
     const chipRules = group.chipRules || [{ rank: 0, initialChips: 1000, bonus: 0 }];
+
+    // 统一初始筹码：始终从默认规则（rank=0）读取
+    const defaultRule = getRuleByRank(chipRules, 0);
+    const unifiedInitialChips = defaultRule.initialChips;
 
     // 创建赛程
     const matchRes = await db.collection('matches').add({
@@ -51,17 +55,18 @@ exports.main = async (event, context) => {
     const matchId = matchRes._id;
 
     // 为每个成员创建初始分数记录（含初始筹码和额外加成）
+    // initialChips 统一相同；bonus 按名次分配（无历史时所有人 rank=0）
     const scorePromises = leaderboard.map((member, index) => {
-      const rank = index + 1;
-      const rule = getRuleByRank(chipRules, rank);
+      const rank = hasHistory ? index + 1 : 0;
+      const bonusRule = getRuleByRank(chipRules, rank);
       return db.collection('scores').add({
         data: {
           matchId,
           groupId,
           userId: member.userId,
           nickName: member.nickName,
-          initialChips: rule.initialChips,
-          bonus: rule.bonus,
+          initialChips: unifiedInitialChips,
+          bonus: bonusRule.bonus,
           finalChips: null,
           points: null,
           updatedAt: db.serverDate(),
@@ -80,6 +85,8 @@ exports.main = async (event, context) => {
 
 /**
  * 计算当前总积分排名
+ * @returns {{ leaderboard: Array, hasHistory: boolean }}
+ *   hasHistory=false 表示无历史赛程，所有成员视为无名次
  */
 async function calcCurrentLeaderboard(groupId, members) {
   const { data: finishedMatches } = await db.collection('matches')
@@ -87,7 +94,11 @@ async function calcCurrentLeaderboard(groupId, members) {
     .get();
 
   if (finishedMatches.length === 0) {
-    return members.map(m => ({ userId: m.userId, nickName: m.nickName, totalPoints: 0 }));
+    // 无历史赛程：所有成员视为无名次，不产生排名差异
+    return {
+      leaderboard: members.map(m => ({ userId: m.userId, nickName: m.nickName, totalPoints: 0 })),
+      hasHistory: false,
+    };
   }
 
   const matchIds = finishedMatches.map(m => m._id);
@@ -100,9 +111,12 @@ async function calcCurrentLeaderboard(groupId, members) {
     pointsMap[s.userId] = (pointsMap[s.userId] || 0) + (s.points || 0);
   });
 
-  return members
-    .map(m => ({ userId: m.userId, nickName: m.nickName, totalPoints: pointsMap[m.userId] || 0 }))
-    .sort((a, b) => b.totalPoints - a.totalPoints);
+  return {
+    leaderboard: members
+      .map(m => ({ userId: m.userId, nickName: m.nickName, totalPoints: pointsMap[m.userId] || 0 }))
+      .sort((a, b) => b.totalPoints - a.totalPoints),
+    hasHistory: true,
+  };
 }
 
 /**

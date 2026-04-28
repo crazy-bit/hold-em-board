@@ -12,7 +12,7 @@ const db = cloud.database();
 exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext();
   const adminId = wxContext.OPENID;
-  const { groupId, chipRules, bonusCountsToTotal } = event;
+  const { groupId, chipRules, bonusCountsToTotal, initialChips } = event;
 
   if (!groupId) {
     return { code: -1, msg: 'groupId 不能为空' };
@@ -36,10 +36,20 @@ exports.main = async (event, context) => {
       return { code: -1, msg: '必须包含默认规则（名次=0）' };
     }
 
+    // 统一初始筹码：将所有名次的 initialChips 设为相同值（从 rank=0 或前端传入的 initialChips 获取）
+    const unifiedInitialChips = initialChips !== undefined
+      ? Number(initialChips) || 0
+      : (chipRules.find(r => r.rank === 0) || {}).initialChips || 1000;
+
+    const normalizedRules = chipRules.map(r => ({
+      ...r,
+      initialChips: unifiedInitialChips,
+    }));
+
     // 保存规则
     await db.collection('groups').doc(groupId).update({
       data: {
-        chipRules,
+        chipRules: normalizedRules,
         bonusCountsToTotal: !!bonusCountsToTotal,
         updatedAt: db.serverDate(),
       },
