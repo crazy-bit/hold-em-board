@@ -24,6 +24,10 @@ Page({
     activeTab: 'matches',
     activeTabIndex: 0,
     loading: true,
+    // 二维码分享弹窗
+    showQRCode: false,
+    qrCodeBase64: '',
+    qrCodeLoading: false,
   },
 
   onLoad(options) {
@@ -294,5 +298,58 @@ Page({
       title: `加入「${group.name}」德州赛事`,
       path: `/pages/group/list/list?inviteCode=${group.inviteCode}`,
     };
+  },
+
+  /** 显示二维码分享弹窗，并生成小程序码 */
+  async showShareQRCode() {
+    const { group, qrCodeBase64 } = this.data;
+    this.setData({ showQRCode: true });
+
+    // 已经生成过，直接展示
+    if (qrCodeBase64) return;
+
+    this.setData({ qrCodeLoading: true });
+    try {
+      // envVersion: 'develop'=开发版, 'trial'=体验版, 'release'=正式版
+      // 上线前改为 'release'
+      const res = await wx.cloud.callFunction({
+        name: 'getQRCode',
+        data: {
+          scene: `inviteCode=${group.inviteCode}`,
+          page: 'pages/group/list/list',
+          envVersion: 'develop',
+        },
+      });
+      if (res.result && res.result.code === 0) {
+        this.setData({ qrCodeBase64: res.result.base64 });
+      } else {
+        const msg = (res.result && res.result.message) || '生成失败';
+        const errCode = res.result && res.result.errCode;
+        console.error('getQRCode failed, errCode:', errCode, 'msg:', msg);
+        // 根据常见错误码给出友好提示
+        let tip = '二维码生成失败';
+        if (errCode === -1000 || (msg && msg.includes('permission'))) {
+          tip = '权限未配置，请重新上传云函数';
+        } else if (msg && msg.includes('not found')) {
+          tip = '云函数未部署，请先上传';
+        }
+        wx.showModal({
+          title: '生成失败',
+          content: `错误：${msg}${errCode ? `（${errCode}）` : ''}`,
+          showCancel: false,
+          confirmText: '知道了',
+        });
+      }
+    } catch (err) {
+      console.error('getQRCode error:', err);
+      showToast({ context: this, selector: '#t-toast', message: '网络异常，请重试', theme: 'error' });
+    } finally {
+      this.setData({ qrCodeLoading: false });
+    }
+  },
+
+  /** 关闭二维码弹窗 */
+  hideShareQRCode() {
+    this.setData({ showQRCode: false });
   },
 });

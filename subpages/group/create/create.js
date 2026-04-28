@@ -16,7 +16,7 @@ Page({
   },
 
   onNameInput(e) {
-    this.setData({ groupName: e.detail });
+    this.setData({ groupName: e.detail.value });
   },
 
   async createGroup() {

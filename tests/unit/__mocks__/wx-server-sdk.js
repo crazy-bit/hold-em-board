@@ -33,12 +33,24 @@ function createMockCollection(db, name) {
   };
 }
 
+// 模拟 openapi.wxacode.getUnlimited，返回一个假的 PNG buffer
+const mockGetUnlimited = jest.fn().mockResolvedValue({
+  // 最小合法 PNG 文件的二进制内容（8字节PNG签名）
+  buffer: Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]),
+});
+
 const mockCloud = {
   init: jest.fn(),
   DYNAMIC_CURRENT_ENV: 'mock-env',
   getWXContext: jest.fn(() => ({ OPENID: 'mock_openid_admin' })),
   database: jest.fn(() => createMockDb()),
   _createMockDb: createMockDb, // 暴露给测试用例使用
+  openapi: {
+    wxacode: {
+      getUnlimited: mockGetUnlimited,
+    },
+  },
+  _mockGetUnlimited: mockGetUnlimited, // 暴露给测试用例使用
 };
 
 module.exports = mockCloud;

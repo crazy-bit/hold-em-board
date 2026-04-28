@@ -20,7 +20,7 @@ Page({
   },
 
   onTitleInput(e) {
-    this.setData({ title: e.detail });
+    this.setData({ title: e.detail.value });
   },
 
   async createMatch() {

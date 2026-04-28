@@ -45,7 +45,7 @@ Page({
   onChipsInput(e) {
     const { index, field } = e.currentTarget.dataset;
     const chipRules = [...this.data.chipRules];
-    chipRules[index] = { ...chipRules[index], [field]: Number(e.detail) || 0 };
+    chipRules[index] = { ...chipRules[index], [field]: Number(e.detail.value) || 0 };
     this.setData({ chipRules });
   },
 

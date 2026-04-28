@@ -8,10 +8,7 @@
         <text class="invite-code" bindtap="copyInviteCode">邀请码：{{group.inviteCode}}</text>
       </view>
       <view class="flex-row action-btns" wx:if="{{isAdmin}}">
-        <view class="action-btn share-btn-wrap">
-          <text>分享</text>
-          <button class="share-btn-hidden" open-type="share"></button>
-        </view>
+        <view class="action-btn" bindtap="showShareQRCode">分享</view>
         <view class="action-btn action-btn-primary" bindtap="goRules">规则</view>
       </view>
     </view>
@@ -100,3 +97,32 @@
 </view>
 
 <t-toast id="t-toast" />
+
+<!-- 二维码分享弹窗 -->
+<view class="qrcode-mask" wx:if="{{showQRCode}}" bindtap="hideShareQRCode">
+  <view class="qrcode-panel" catchtap="">
+    <text class="qrcode-title">扫码加入「{{group.name}}」</text>
+    <view class="qrcode-img-wrap">
+      <image
+        wx:if="{{qrCodeBase64}}"
+        class="qrcode-img"
+        src="{{qrCodeBase64}}"
+        mode="aspectFit"
+        show-menu-by-longpress
+      />
+      <view wx:elif="{{qrCodeLoading}}" class="qrcode-loading">
+        <text class="qrcode-loading-text">生成中...</text>
+      </view>
+      <view wx:else class="qrcode-loading">
+        <text class="qrcode-loading-text">生成失败，请重试</text>
+      </view>
+    </view>
+    <text class="qrcode-hint">长按图片保存或转发给好友</text>
+    <view class="qrcode-invite-row">
+      <text class="qrcode-invite-label">邀请码：</text>
+      <text class="qrcode-invite-code">{{group.inviteCode}}</text>
+      <text class="qrcode-copy-btn" bindtap="copyInviteCode">复制</text>
+    </view>
+    <view class="qrcode-close" bindtap="hideShareQRCode">关闭</view>
+  </view>
+</view>

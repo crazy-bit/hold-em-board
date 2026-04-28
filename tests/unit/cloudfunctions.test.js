@@ -185,3 +185,97 @@ describe('saveScore - 输入校验逻辑', () => {
     expect(validateSaveScore({ scoreId: 'sid', finalChips: '1200' }).valid).toBe(true);
   });
 });
+
+// ─────────────────────────────────────────────────────────────
+// getQRCode 云函数测试
+// ─────────────────────────────────────────────────────────────
+describe('getQRCode 云函数', () => {
+  let handler;
+  let mockGetUnlimited;
+
+  beforeEach(() => {
+    jest.resetModules();
+    jest.mock('wx-server-sdk');
+    const cloud = require('wx-server-sdk');
+    mockGetUnlimited = cloud._mockGetUnlimited;
+    // 重置为默认成功行为
+    mockGetUnlimited.mockResolvedValue({
+      buffer: Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]),
+    });
+    handler = require('../../cloudfunctions/getQRCode/index').main;
+  });
+
+  it('正常生成：返回 code=0 和 base64 字符串', async () => {
+    const result = await handler({
+      scene: 'inviteCode=ABC123',
+      page: 'pages/group/list/list',
+    });
+
+    expect(result.code).toBe(0);
+    expect(typeof result.base64).toBe('string');
+    expect(result.base64.startsWith('data:image/png;base64,')).toBe(true);
+  });
+
+  it('base64 内容与 buffer 一致', async () => {
+    const fakeBuffer = Buffer.from('fake-png-content');
+    mockGetUnlimited.mockResolvedValue({ buffer: fakeBuffer });
+
+    const result = await handler({ scene: 'inviteCode=XYZ', page: 'pages/group/list/list' });
+
+    expect(result.code).toBe(0);
+    const expectedBase64 = 'data:image/png;base64,' + fakeBuffer.toString('base64');
+    expect(result.base64).toBe(expectedBase64);
+  });
+
+  it('传入正确的 scene 和 page 参数给 getUnlimited', async () => {
+    await handler({
+      scene: 'inviteCode=TEST01',
+      page: 'pages/group/list/list',
+    });
+
+    expect(mockGetUnlimited).toHaveBeenCalledWith(
+      expect.objectContaining({
+        scene: 'inviteCode=TEST01',
+        page: 'pages/group/list/list',
+      })
+    );
+  });
+
+  it('page 未传时使用默认落地页', async () => {
+    await handler({ scene: 'inviteCode=TEST02' });
+
+    expect(mockGetUnlimited).toHaveBeenCalledWith(
+      expect.objectContaining({
+        page: 'pages/group/list/list',
+      })
+    );
+  });
+
+  it('不传 envVersion 参数（避免版本限制）', async () => {
+    await handler({ scene: 'inviteCode=TEST03', page: 'pages/group/list/list' });
+
+    const callArg = mockGetUnlimited.mock.calls[0][0];
+    expect(callArg.envVersion).toBeUndefined();
+  });
+
+  it('getUnlimited 抛出异常时返回 code=-1', async () => {
+    mockGetUnlimited.mockRejectedValue(new Error('openapi 调用失败'));
+
+    const result = await handler({
+      scene: 'inviteCode=FAIL',
+      page: 'pages/group/list/list',
+    });
+
+    expect(result.code).toBe(-1);
+    expect(result.message).toContain('openapi 调用失败');
+  });
+
+  it('getUnlimited 返回权限错误时返回 code=-1', async () => {
+    mockGetUnlimited.mockRejectedValue(new Error('permission denied: wxacode.getUnlimited'));
+
+    const result = await handler({ scene: 'inviteCode=PERM', page: 'pages/group/list/list' });
+
+    expect(result.code).toBe(-1);
+    expect(result.message).toContain('permission denied');
+  });
+});
