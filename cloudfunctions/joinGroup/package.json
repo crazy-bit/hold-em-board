@@ -1,7 +1,7 @@
 {
   "name": "joinGroup",
   "version": "1.0.0",
-  "description": "加入赛事",
+  "description": "加入组团",
   "main": "index.js",
   "dependencies": {
     "wx-server-sdk": "latest"

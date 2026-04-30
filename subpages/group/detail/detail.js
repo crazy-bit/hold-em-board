@@ -204,7 +204,7 @@ Page({
       '#00bcd4', '#795548', '#607d8b', '#f44336', '#3f51b5',
     ];
 
-    // 所有赛程按时间升序，建立真实序号映射
+    // 所有对局按时间升序，建立真实序号映射
     const allSorted = [...allMatches].sort((a, b) => {
       const ta = a.createdAt ? new Date(a.createdAt) : 0;
       const tb = b.createdAt ? new Date(b.createdAt) : 0;
@@ -213,7 +213,7 @@ Page({
     const matchIndexMap = {};
     allSorted.forEach((m, i) => { matchIndexMap[m._id] = i + 1; });
 
-    // 已结束赛程按时间升序
+    // 已结束对局按时间升序
     const sorted = [...finishedMatches].sort((a, b) => {
       const ta = a.createdAt ? new Date(a.createdAt) : 0;
       const tb = b.createdAt ? new Date(b.createdAt) : 0;
@@ -295,7 +295,7 @@ Page({
   onShareAppMessage() {
     const { group } = this.data;
     return {
-      title: `加入「${group.name}」德州赛事`,
+          title: `加入「${group.name}」德州组团`,
       path: `/pages/group/list/list?inviteCode=${group.inviteCode}`,
     };
   },

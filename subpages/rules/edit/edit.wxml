@@ -17,11 +17,10 @@
     </view>
   </view>
 
-  <!-- 统一初始筹码 -->
+  <!-- 统一初始积分 -->
   <view class="card">
-    <text class="section-title">初始筹码（所有人统一）</text>
-    <text class="rule-desc" style="margin-bottom:16rpx;">所有成员在每次赛程中获得相同的初始筹码</text>
-    <view class="input-group">
+    <text class="section-title">初始积分（所有人统一）</text>
+    <text class="rule-desc" style="margin-bottom:16rpx;">所有成员在每次对局中获得相同的初始积分</text>    <view class="input-group">
       <t-input
         type="number"
         value="{{initialChips}}"
@@ -79,7 +78,7 @@
     保存规则
   </t-button>
 
-  <text class="save-tip">规则变更将对所有赛程生效</text>
+  <text class="save-tip">规则变更将对所有对局生效</text>
 </view>
 
 <t-toast id="t-toast" />

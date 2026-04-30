@@ -11,7 +11,7 @@ function showToast(opts) {
 Page({
   data: {
     groupId: '',
-    initialChips: 1000,   // 统一初始筹码
+    initialChips: 1000,   // 统一初始积分
     chipRules: [],         // 仅含 bonus 按名次配置
     bonusCountsToTotal: false,
     saving: false,
@@ -31,7 +31,7 @@ Page({
       const group = groupRes.data;
       const chipRules = group.chipRules || [{ rank: 0, initialChips: 1000, bonus: 0 }];
 
-      // 从默认规则（rank=0）读取统一初始筹码
+    // 从默认规则（rank=0）读取统一初始积分
       const defaultRule = chipRules.find(r => r.rank === 0) || { initialChips: 1000 };
 
       this.setData({

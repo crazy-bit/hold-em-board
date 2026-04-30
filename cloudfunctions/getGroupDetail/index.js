@@ -6,8 +6,7 @@ cloud.init({ env: 'cloud1-d1goy6u8nf336912a' });
 const db = cloud.database();
 
 /**
- * 获取赛事详情云函数
- * 使用管理员权限查询，绕过前端安全规则限制
+ * 获取组团详情云函数
  */
 exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext();
@@ -19,7 +18,7 @@ exports.main = async (event, context) => {
   }
 
   try {
-    // 并行查询组信息、成员、赛程
+    // 并行查询组信息、成员、对局
     const [groupRes, membersRes, matchesRes] = await Promise.all([
       db.collection('groups').doc(groupId).get(),
       db.collection('group_members').where({ groupId }).orderBy('joinedAt', 'asc').get(),

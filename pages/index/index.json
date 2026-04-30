@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "我的赛事",
+  "navigationBarTitleText": "我的组团",
   "usingComponents": {
     "t-button": "/miniprogram_npm/tdesign-miniprogram/button/button",
     "t-skeleton": "/miniprogram_npm/tdesign-miniprogram/skeleton/skeleton",

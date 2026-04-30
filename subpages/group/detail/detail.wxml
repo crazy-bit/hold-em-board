@@ -14,22 +14,22 @@
     </view>
     <view class="flex-row" style="margin-top:20rpx;gap:32rpx;">
       <text class="meta-text">{{members.length}} 位成员</text>
-      <text class="meta-text">{{matches.length}} 期赛程</text>
+<text class="meta-text">{{matches.length}} 期对局</text>
     </view>
   </view>
 
   <!-- 管理员操作区 -->
   <view wx:if="{{isAdmin}}">
     <t-button theme="danger" block shape="round" bindtap="createMatch" style="margin-bottom:24rpx;">
-      + 创建新赛程
+      + 创建新对局
     </t-button>
   </view>
 
   <!-- Tab 切换 -->
   <t-tabs value="{{activeTabIndex}}" bind:change="onTabChange" style="--td-tab-item-active-color: #e94560; --td-tab-track-color: #e94560;">
-    <t-tab-panel label="赛程记录" value="0">
-      <!-- 赛程列表 -->
-      <t-empty icon="search" description="还没有赛程" wx:if="{{matches.length === 0}}" />
+    <t-tab-panel label="对局记录" value="0">
+      <!-- 对局列表 -->
+      <t-empty icon="search" description="还没有对局" wx:if="{{matches.length === 0}}" />
       <view wx:else style="padding-top: 16rpx;">
         <view
           class="match-card card"

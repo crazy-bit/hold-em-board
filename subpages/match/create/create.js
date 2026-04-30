@@ -34,7 +34,7 @@ Page({
       });
 
       if (res.result.code === 0) {
-      showToast({ context: this, selector: '#t-toast', message: '赛程已创建', theme: 'success' });
+        showToast({ context: this, selector: '#t-toast', message: '对局已创建', theme: 'success' });
         setTimeout(() => {
           wx.redirectTo({
             url: `/subpages/match/detail/detail?id=${res.result.matchId}&groupId=${groupId}`,

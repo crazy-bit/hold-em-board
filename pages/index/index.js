@@ -1,6 +1,16 @@
 // pages/index/index.js
 const app = getApp();
 
+// 带超时的云函数调用封装
+function callCloudWithTimeout(name, data = {}, timeout = 10000) {
+  return new Promise((resolve, reject) => {
+    const timer = setTimeout(() => reject(new Error(`云函数 ${name} 调用超时`)), timeout);
+    wx.cloud.callFunction({ name, data })
+      .then(res => { clearTimeout(timer); resolve(res); })
+      .catch(err => { clearTimeout(timer); reject(err); });
+  });
+}
+
 Page({
   data: {
     loading: true,
@@ -13,22 +23,32 @@ Page({
     matchCount: 0,
   },
 
+  onLoad() {
+    this.loadHomeSummary();
+  },
+
   onShow() {
-    if (!this._loading) {
+    // onLoad 已处理首次加载；后续 onShow（如从子页面返回）才刷新
+    if (this._hasLoaded && !this._loading) {
       this.loadHomeSummary();
     }
   },
 
   async loadHomeSummary() {
     this._loading = true;
+    const t0 = Date.now();
+    console.log('[首页] loadHomeSummary 开始', t0);
 
     // 登录检查：未登录不强制跳转，改为展示游客态
     if (!app.globalData.openId) {
       try {
-        const res = await wx.cloud.callFunction({ name: 'login', data: {} });
+        console.log('[首页] 开始调用 login 云函数', Date.now());
+        const res = await callCloudWithTimeout('login', {}, 15000);
+        console.log('[首页] login 云函数返回', Date.now(), '耗时', Date.now() - t0, 'ms');
         if (res.result.code === 0) {
           if (!res.result.nickName || res.result.nickName === '德州玩家') {
             // 未完成注册 → 展示游客态，不强制跳转
+            console.log('[首页] 未注册用户，展示游客态');
             this.setData({ loading: false, isLoggedIn: false });
             this._loading = false;
             return;
@@ -41,12 +61,14 @@ Page({
           };
         } else {
           // 登录失败 → 展示游客态，不强制跳转
+          console.log('[首页] login 返回失败', res.result);
           this.setData({ loading: false, isLoggedIn: false });
           this._loading = false;
           return;
         }
       } catch (e) {
         // 异常 → 展示游客态，不强制跳转
+        console.error('[首页] login 异常', e.message, '耗时', Date.now() - t0, 'ms');
         this.setData({ loading: false, isLoggedIn: false });
         this._loading = false;
         return;
@@ -56,10 +78,9 @@ Page({
     // 已登录，加载数据
     this.setData({ isLoggedIn: true });
     try {
-      const res = await wx.cloud.callFunction({
-        name: 'getHomeSummary',
-        data: {},
-      });
+      console.log('[首页] 开始调用 getHomeSummary 云函数', Date.now());
+      const res = await callCloudWithTimeout('getHomeSummary', {}, 15000);
+      console.log('[首页] getHomeSummary 返回', Date.now(), '耗时', Date.now() - t0, 'ms');
 
       if (res.result.code === 0) {
         if (res.result.group) {
@@ -83,6 +104,7 @@ Page({
       this.setData({ loading: false, hasGroup: false });
     } finally {
       this._loading = false;
+      this._hasLoaded = true;
     }
   },
 

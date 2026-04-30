@@ -1,4 +1,10 @@
 /* pages/index/index.wxss */
+.home-banner {
+  width: 100%;
+  border-radius: 16rpx;
+  margin-bottom: 32rpx;
+}
+
 .page-title-home {
   font-size: 40rpx;
   font-weight: 700;

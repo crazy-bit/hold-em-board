@@ -5,7 +5,7 @@
     <view class="flex-between">
       <view>
         <text class="member-name">{{memberInfo.nickName}}</text>
-        <text class="meta-text">参与 {{scores.length}} 期赛程</text>
+        <text class="meta-text">参与 {{scores.length}} 期对局</text>
       </view>
       <view class="total-wrap">
         <text class="total-label">总积分</text>
@@ -16,10 +16,10 @@
     </view>
   </view>
 
-  <!-- 历史赛程积分 -->
-  <text class="section-title">历史赛程记录</text>
+  <!-- 历史对局积分 -->
+  <text class="section-title">历史对局记录</text>
 
-  <t-empty description="暂无赛程记录" wx:if="{{scores.length === 0}}" />
+  <t-empty description="暂无对局记录" wx:if="{{scores.length === 0}}" />
 
   <view
     class="score-card card"
@@ -28,7 +28,7 @@
   >
     <view class="flex-between">
       <view>
-        <text class="match-title">{{item.matchTitle || '赛程'}}</text>
+        <text class="match-title">{{item.matchTitle || '对局'}}</text>
         <text class="match-date">{{item.matchDateStr}}</text>
       </view>
       <view style="text-align:right;">

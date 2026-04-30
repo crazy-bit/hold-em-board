@@ -9,5 +9,5 @@
   </view>
 </view>
 <view class="chart-empty" wx:else>
-  <text class="chart-empty-text">需要至少 2 期已结束赛程才能显示趋势</text>
+<text class="chart-empty-text">需要至少 2 期已结束对局才能显示趋势</text>
 </view>

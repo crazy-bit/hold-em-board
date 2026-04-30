@@ -1,10 +1,10 @@
 <!-- pages/match/detail/detail.wxml -->
 <view class="container">
-  <!-- 赛程头部信息 -->
+  <!-- 对局头部信息 -->
   <view class="match-header card">
     <view class="flex-between">
       <view>
-        <text class="match-title">{{match.title || '赛程详情'}}</text>
+        <text class="match-title">{{match.title || '对局详情'}}</text>
         <text class="match-date">{{match.createdAtStr}}</text>
       </view>
       <t-tag theme="success" shape="round" variant="light" wx:if="{{match.status === 'active'}}">进行中</t-tag>
@@ -13,10 +13,10 @@
     </view>
   </view>
 
-  <!-- 管理员操作区（仅进行中赛程） -->
+  <!-- 管理员操作区（仅进行中对局） -->
   <view wx:if="{{isAdmin && match.status === 'active'}}" class="admin-actions">
-    <t-button theme="danger" block shape="round" bindtap="finishMatch">结束赛程</t-button>
-    <t-button variant="outline" block shape="round" style="margin-top:16rpx;--td-button-default-border-color:#ff4d4f;--td-button-default-color:#ff4d4f;" bindtap="cancelMatch">销毁赛程（作废）</t-button>
+    <t-button theme="danger" block shape="round" bindtap="finishMatch">结束对局</t-button>
+    <t-button variant="outline" block shape="round" style="margin-top:16rpx;--td-button-default-border-color:#ff4d4f;--td-button-default-color:#ff4d4f;" bindtap="cancelMatch">销毁对局（作废）</t-button>
   </view>
 
   <!-- 分数列表 -->
@@ -26,10 +26,9 @@
     <!-- 表头 -->
     <view class="score-grid score-header">
       <text class="col-name">成员</text>
-      <text class="col-header">初始筹码</text>
+      <text class="col-header">初始积分</text>
       <text class="col-header">额外加成</text>
-      <text class="col-header">结算筹码</text>
-      <text class="col-header col-last">本期积分</text>
+      <text class="col-header">结算积分</text>      <text class="col-header col-last">本期积分</text>
     </view>
 
     <!-- 分数行 -->
@@ -57,22 +56,22 @@
 
   <!-- 未填写提示 -->
   <view class="unfilled-tip" wx:if="{{unfilledCount > 0 && match.status === 'active'}}">
-    <text>还有 {{unfilledCount}} 人未填写结算筹码</text>
+    <text>还有 {{unfilledCount}} 人未填写结算积分</text>
   </view>
 </view>
 
-<!-- 结束赛程确认弹窗 -->
+<!-- 结束对局确认弹窗 -->
 <t-dialog
-  title="确认结束赛程？"
+  title="确认结束对局？"
   visible="{{showFinishModal}}"
   confirm-btn="{{null}}"
   cancel-btn="{{null}}"
   close-on-overlay-click
   bind:close="closeFinishModal"
 >
-  <view style="padding: 24rpx 32rpx;">
+  <view slot="content" style="padding: 24rpx 32rpx;">
     <view wx:if="{{unfilledMembers.length > 0}}" class="unfilled-warning">
-      <text>以下成员未填写结算筹码，将以 0 计算：</text>
+      <text>以下成员未填写结算积分，将以 0 计算：</text>
       <text wx:for="{{unfilledMembers}}" wx:key="*this" class="unfilled-name">{{item}}</text>
     </view>
     <view style="margin-top:32rpx;display:flex;gap:16rpx;">

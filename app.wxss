@@ -149,12 +149,4 @@ page {
   font-size: 26rpx;
 }
 
-/* 覆盖 TDesign 图标字体，使用 CDN 地址（需在开发者工具本地设置中关闭域名校验） */
-/* 或在正式发布前将字体文件下载到本地 */
-@font-face {
-  font-family: "t";
-  src: url("https://tdesign.gtimg.com/icon/0.4.2/fonts/t.woff2") format("woff2"),
-       url("https://tdesign.gtimg.com/icon/0.4.2/fonts/t.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
-}
+/* TDesign 图标字体通过 app.js 中 wx.loadFontFace 加载 */

@@ -19,12 +19,12 @@ exports.main = async (event, context) => {
   }
 
   if (finalChips === null || finalChips === undefined || isNaN(Number(finalChips))) {
-    return { code: -1, msg: '结算筹码不能为空' };
+    return { code: -1, msg: '结算积分不能为空' };
   }
 
   const chips = Number(finalChips);
   if (chips < 0) {
-    return { code: -1, msg: '结算筹码不能为负数' };
+    return { code: -1, msg: '结算积分不能为负数' };
   }
 
   try {
@@ -37,10 +37,10 @@ exports.main = async (event, context) => {
       return { code: -1, msg: '只能修改自己的分数记录' };
     }
 
-    // 验证赛程是否仍在进行中
+    // 验证对局是否仍在进行中
     const matchRes = await db.collection('matches').doc(score.matchId).get();
     if (matchRes.data.status !== 'active') {
-      return { code: -1, msg: '赛程已结束，无法修改分数' };
+      return { code: -1, msg: '对局已结束，无法修改分数' };
     }
 
     // 更新分数

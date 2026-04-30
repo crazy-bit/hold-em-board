@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "填写结算筹码",
+  "navigationBarTitleText": "填写结算积分",
   "usingComponents": {
     "t-button": "/miniprogram_npm/tdesign-miniprogram/button/button",
     "t-input": "/miniprogram_npm/tdesign-miniprogram/input/input",

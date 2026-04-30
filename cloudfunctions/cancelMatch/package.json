@@ -1,7 +1,7 @@
 {
   "name": "cancelMatch",
   "version": "1.0.0",
-  "description": "销毁赛程",
+  "description": "销毁对局",
   "main": "index.js",
   "dependencies": {
     "wx-server-sdk": "latest"

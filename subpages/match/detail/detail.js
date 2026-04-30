@@ -115,7 +115,7 @@ Page({
 
       if (res.result.code === 0) {
         this.setData({ showFinishModal: false });
-        showToast({ context: this, selector: '#t-toast', message: '赛程已结束', theme: 'success' });
+        showToast({ context: this, selector: '#t-toast', message: '对局已结束', theme: 'success' });
         this.loadData();
       } else {
         showToast({ context: this, selector: '#t-toast', message: res.result.msg || '操作失败', theme: 'error' });
@@ -129,8 +129,8 @@ Page({
 
   cancelMatch() {
     wx.showModal({
-      title: '确认销毁赛程？',
-      content: '销毁后赛程将作废，分数不计入总积分，此操作不可撤销',
+      title: '确认销毁对局？',
+      content: '销毁后对局将作废，分数不计入总积分，此操作不可撤销',
       confirmColor: '#ff4d4f',
       confirmText: '确认销毁',
       success: async (res) => {
@@ -141,7 +141,7 @@ Page({
               data: { matchId: this.data.matchId },
             });
             if (result.result.code === 0) {
-              showToast({ context: this, selector: '#t-toast', message: '赛程已作废', theme: 'success' });
+              showToast({ context: this, selector: '#t-toast', message: '对局已作废', theme: 'success' });
               this.loadData();
             } else {
               showToast({ context: this, selector: '#t-toast', message: result.result.msg || '操作失败', theme: 'error' });

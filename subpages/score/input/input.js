@@ -30,7 +30,7 @@ Page({
     const db = wx.cloud.database();
 
     try {
-      // 并行查询分数记录和赛事规则
+      // 并行查询分数记录和组团规则
       const queries = [db.collection('scores').doc(scoreId).get()];
       if (groupId) {
         queries.push(db.collection('groups').doc(groupId).get());

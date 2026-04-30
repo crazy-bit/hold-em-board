@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "创建赛事",
+  "navigationBarTitleText": "创建组团",
   "usingComponents": {
     "t-button": "/miniprogram_npm/tdesign-miniprogram/button/button",
     "t-input": "/miniprogram_npm/tdesign-miniprogram/input/input",

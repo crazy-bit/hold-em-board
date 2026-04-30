@@ -7,8 +7,8 @@ const db = cloud.database();
 const $ = db.command.aggregate;
 
 /**
- * 获取当前用户的赛事列表云函数
- * 使用聚合查询一次性获取所有组的成员数和赛程数，避免 N×2 次串行查询
+ * 获取当前用户的组团列表云函数
+ * 使用聚合查询一次性获取所有组的成员数和对局数，避免 N×2 次串行查询
  */
 exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext();
@@ -29,7 +29,7 @@ exports.main = async (event, context) => {
     const memberMap = {};
     members.forEach(m => { memberMap[m.groupId] = m; });
 
-    // 2. 批量查询赛事信息
+    // 2. 批量查询组团信息
     const { data: groupsData } = await db.collection('groups')
       .where({ _id: db.command.in(groupIds) })
       .get();
@@ -46,7 +46,7 @@ exports.main = async (event, context) => {
       memberCountMap[item._id] = item.count;
     });
 
-    // 4. 聚合查询：一次性统计所有组的赛程数
+    // 4. 聚合查询：一次性统计所有组的对局数
     const matchCountRes = await db.collection('matches')
       .aggregate()
       .match({ groupId: db.command.in(groupIds) })

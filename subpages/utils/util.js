@@ -65,8 +65,8 @@ function hideLoading() {
 
 /**
  * 计算本期积分
- * @param {number} finalChips 结算筹码
- * @param {number} initialChips 初始筹码
+ * @param {number} finalChips 结算积分
+ * @param {number} initialChips 初始积分
  * @param {number} bonus 额外加成
  * @param {boolean} bonusCountsToTotal 额外加成是否计入总积分
  * @returns {number} 本期积分

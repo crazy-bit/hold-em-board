@@ -33,7 +33,7 @@ Page({
         .orderBy('updatedAt', 'desc')
         .get();
 
-      // 获取对应赛程信息
+      // 获取对应对局信息
       const matchIds = [...new Set(scoresRes.data.map(s => s.matchId))];
       let matchMap = {};
 
@@ -44,7 +44,7 @@ Page({
         matchesRes.data.forEach(m => { matchMap[m._id] = m; });
       }
 
-      // 只统计已完成赛程的积分
+      // 只统计已完成对局的积分
       let totalPoints = 0;
       const scores = scoresRes.data
         .filter(s => {
@@ -58,7 +58,7 @@ Page({
           }
           return {
             ...s,
-            matchTitle: match.title || '赛程',
+            matchTitle: match.title || '对局',
             matchDateStr: formatDate(match.createdAt),
             matchStatus: match.status,
           };

@@ -6,8 +6,8 @@ cloud.init({ env: 'cloud1-d1goy6u8nf336912a' });
 const db = cloud.database();
 
 /**
- * 创建赛程云函数
- * 同时根据当前总积分排名，为每个成员分配初始筹码和额外加成
+ * 创建对局云函数
+ * 同时根据当前总积分排名，为每个成员分配初始积分和额外加成
  */
 exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext();
@@ -24,7 +24,7 @@ exports.main = async (event, context) => {
     const group = groupRes.data;
 
     if (group.adminId !== adminId) {
-      return { code: -1, msg: '只有管理员才能创建赛程' };
+      return { code: -1, msg: '只有管理员才能创建对局' };
     }
 
     // 获取组成员
@@ -38,11 +38,11 @@ exports.main = async (event, context) => {
     // 获取组规则
     const chipRules = group.chipRules || [{ rank: 0, initialChips: 1000, bonus: 0 }];
 
-    // 统一初始筹码：始终从默认规则（rank=0）读取
+    // 统一初始积分：始终从默认规则（rank=0）读取
     const defaultRule = getRuleByRank(chipRules, 0);
     const unifiedInitialChips = defaultRule.initialChips;
 
-    // 创建赛程
+    // 创建对局
     const matchRes = await db.collection('matches').add({
       data: {
         groupId,
@@ -54,7 +54,7 @@ exports.main = async (event, context) => {
 
     const matchId = matchRes._id;
 
-    // 为每个成员创建初始分数记录（含初始筹码和额外加成）
+    // 为每个成员创建初始分数记录（含初始积分和额外加成）
     // initialChips 统一相同；bonus 按名次分配（无历史时所有人 rank=0）
     const scorePromises = leaderboard.map((member, index) => {
       const rank = hasHistory ? index + 1 : 0;
@@ -86,7 +86,7 @@ exports.main = async (event, context) => {
 /**
  * 计算当前总积分排名
  * @returns {{ leaderboard: Array, hasHistory: boolean }}
- *   hasHistory=false 表示无历史赛程，所有成员视为无名次
+ *   hasHistory=false 表示无历史对局，所有成员视为无名次
  */
 async function calcCurrentLeaderboard(groupId, members) {
   const { data: finishedMatches } = await db.collection('matches')
@@ -94,7 +94,7 @@ async function calcCurrentLeaderboard(groupId, members) {
     .get();
 
   if (finishedMatches.length === 0) {
-    // 无历史赛程：所有成员视为无名次，不产生排名差异
+    // 无历史对局：所有成员视为无名次，不产生排名差异
     return {
       leaderboard: members.map(m => ({ userId: m.userId, nickName: m.nickName, totalPoints: 0 })),
       hasHistory: false,

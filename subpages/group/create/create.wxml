@@ -1,10 +1,10 @@
 <!-- pages/group/create/create.wxml -->
 <view class="container">
-  <text class="page-title">创建赛事</text>
+  <text class="page-title">创建组团</text>
 
   <view class="card">
     <t-input
-      label="赛事名称"
+      label="组团名称"
       placeholder="例如：周五德州局"
       value="{{groupName}}"
       bind:change="onNameInput"
@@ -23,7 +23,7 @@
       disabled="{{creating || !groupName}}"
       loading="{{creating}}"
     >
-      创建赛事
+      创建组团
     </t-button>
   </view>
 </view>

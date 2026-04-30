@@ -10,6 +10,8 @@ const db = cloud.database();
  * 获取用户 openId，首次登录自动注册
  */
 exports.main = async (event, context) => {
+  const t0 = Date.now();
+  console.log('[login] 开始执行');
   const wxContext = cloud.getWXContext();
   const openId = wxContext.OPENID;
 
@@ -25,6 +27,7 @@ exports.main = async (event, context) => {
     try {
       const { data: users } = await usersCol.where({ _id: openId }).get();
       existingUser = users && users.length > 0 ? users[0] : null;
+      console.log('[login] 查询用户完成', Date.now() - t0, 'ms, 存在:', !!existingUser);
     } catch (queryErr) {
       // 集合不存在或查询失败，视为新用户
       console.warn('query users failed, treat as new user:', queryErr.message);
@@ -60,24 +63,9 @@ exports.main = async (event, context) => {
       }
     }
 
-    // 同步更新 group_members 中的昵称和头像
-    const finalNickName = event.nickName || (existingUser && existingUser.nickName) || '德州玩家';
-    const finalAvatarUrl = event.avatarUrl || (existingUser && existingUser.avatarUrl) || '';
-    if (finalNickName !== '德州玩家') {
-      try {
-        const { data: memberRecords } = await db.collection('group_members')
-          .where({ userId: openId })
-          .get();
-        const updatePromises = memberRecords
-          .filter(m => m.nickName !== finalNickName || m.avatarUrl !== finalAvatarUrl)
-          .map(m => db.collection('group_members').doc(m._id).update({
-            data: { nickName: finalNickName, avatarUrl: finalAvatarUrl },
-          }));
-        if (updatePromises.length > 0) await Promise.all(updatePromises);
-      } catch (syncErr) {
-        console.warn('sync group_members nickName failed:', syncErr.message);
-      }
-    }
+    // 注意：group_members 昵称同步已移至登录页提交时异步处理，不在此阻塞登录流程
+
+    console.log('[login] 完成，总耗时', Date.now() - t0, 'ms');
 
     return {
       code: 0,

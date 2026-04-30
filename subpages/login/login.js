@@ -82,6 +82,15 @@ Page({
           avatarUrl: res.result.avatarUrl,
         };
 
+        // 异步同步 group_members 昵称，不阻塞页面跳转
+        wx.cloud.callFunction({
+          name: 'syncMemberInfo',
+          data: {
+            nickName: res.result.nickName,
+            avatarUrl: res.result.avatarUrl,
+          },
+        }).catch(err => console.warn('syncMemberInfo failed:', err));
+
         wx.switchTab({ url: '/pages/group/list/list' });
       } else {
         const msg = (res.result && res.result.msg) || '登录失败，请重试';

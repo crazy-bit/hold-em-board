@@ -6,7 +6,7 @@ cloud.init({ env: 'cloud1-d1goy6u8nf336912a' });
 const db = cloud.database();
 
 /**
- * 加入赛事云函数
+ * 加入组团云函数
  */
 exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext();
@@ -18,7 +18,7 @@ exports.main = async (event, context) => {
   }
 
   try {
-    // 查找赛事
+    // 查找组团
     const { data: groups } = await db.collection('groups')
       .where({ inviteCode: inviteCode.toUpperCase() })
       .get();

@@ -1,5 +1,8 @@
 <!-- pages/index/index.wxml -->
 <view class="container">
+  <!-- Banner 图片 -->
+<image class="home-banner" src="/asserts/banner_德州扑克记分小助手.png" mode="widthFix" />
+
   <!-- 加载中 -->
   <t-skeleton theme="paragraph" loading="{{loading}}" wx:if="{{loading}}" />
 
@@ -13,9 +16,9 @@
     </view>
   </view>
 
-  <!-- 有赛事 -->
+  <!-- 有组团 -->
   <view wx:elif="{{hasGroup}}">
-    <!-- 赛事摘要卡片 -->
+    <!-- 组团摘要卡片 -->
     <view class="summary-card card" bindtap="goGroupDetail">
       <text class="group-name">{{group.name}}</text>
 
@@ -36,9 +39,9 @@
           </view>
         </view>
 
-        <!-- 赛程数 -->
+        <!-- 对局数 -->
         <view class="stat-item">
-          <text class="stat-label">赛程</text>
+          <text class="stat-label">对局</text>
           <view class="stat-circle">
             <text>{{matchCount}}期</text>
           </view>
@@ -53,18 +56,18 @@
 
     <!-- 快捷入口 -->
     <view class="quick-actions">
-      <t-button variant="outline" shape="round" size="small" style="flex:1;" bindtap="goGroupList">全部赛事</t-button>
+      <t-button variant="outline" shape="round" size="small" style="flex:1;" bindtap="goGroupList">全部组团</t-button>
     </view>
   </view>
 
-  <!-- 无赛事（已登录但没有赛事） -->
+  <!-- 无组团（已登录但没有组团） -->
   <view wx:else class="empty-state">
     <view class="empty-icon">♠</view>
     <text class="empty-title">德州记分板</text>
     <text class="empty-desc">轻松记录每一局的胜负</text>
     <view class="empty-actions">
-      <t-button theme="danger" shape="round" block bindtap="goCreateGroup" style="margin-bottom:16rpx;">创建赛事</t-button>
-      <t-button variant="outline" shape="round" block bindtap="goGroupList">加入已有赛事</t-button>
+      <t-button theme="danger" shape="round" block bindtap="goCreateGroup" style="margin-bottom:16rpx;">创建组团</t-button>
+      <t-button variant="outline" shape="round" block bindtap="goGroupList">加入已有组团</t-button>
     </view>
   </view>
 </view>

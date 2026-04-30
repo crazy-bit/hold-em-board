@@ -21,9 +21,10 @@ Page({
   },
 
   onLoad(options) {
-    // 处理通过二维码/分享链接进入的情况
+    // 处理通过二维码/分享链接进入的情况，记录邀请码，等登录完成后自动加入
     if (options.inviteCode) {
-      this.setData({ inviteCode: options.inviteCode, showJoinModal: true });
+      this._pendingInviteCode = options.inviteCode;
+      this.setData({ inviteCode: options.inviteCode });
     }
   },
 
@@ -44,6 +45,10 @@ Page({
           if (!res.result.nickName || res.result.nickName === '德州玩家') {
             this.setData({ loading: false, isLoggedIn: false });
             this._loading = false;
+            // 未完成登录时，弹出弹窗让用户先去登录
+            if (this._pendingInviteCode) {
+              this.setData({ showJoinModal: true });
+            }
             return;
           }
           app.globalData.openId = res.result.openId;
@@ -53,21 +58,32 @@ Page({
             avatarUrl: res.result.avatarUrl,
           };
         } else {
-          // 登录失败 → 展示游客态，不强制跳转
+          // 登录失败 → 展示游客态
           this.setData({ loading: false, isLoggedIn: false });
           this._loading = false;
+          if (this._pendingInviteCode) {
+            this.setData({ showJoinModal: true });
+          }
           return;
         }
       } catch (e) {
-        // 异常 → 展示游客态，不强制跳转
+        // 异常 → 展示游客态
         this.setData({ loading: false, isLoggedIn: false });
         this._loading = false;
+        if (this._pendingInviteCode) {
+          this.setData({ showJoinModal: true });
+        }
         return;
       }
     }
     this.setData({ isLoggedIn: true });
     await this.loadGroups();
     this._loading = false;
+    // 登录完成后，若有待处理的扫码邀请码，自动触发加入
+    if (this._pendingInviteCode) {
+      this._pendingInviteCode = null;
+      await this.confirmJoin();
+    }
   },
 
   async loadGroups() {
@@ -146,7 +162,9 @@ Page({
       if (res.result.code === 0) {
         this.setData({ showJoinModal: false, inviteCode: '' });
         showToast({ context: this, selector: '#t-toast', message: res.result.alreadyJoined ? '已在组内' : '加入成功', theme: 'success' });
-        wx.navigateTo({ url: `/subpages/group/detail/detail?id=${res.result.groupId}` });
+        setTimeout(() => {
+          wx.navigateTo({ url: `/subpages/group/detail/detail?id=${res.result.groupId}` });
+        }, 800);
       } else {
         showToast({ context: this, selector: '#t-toast', message: res.result.msg || '加入失败', theme: 'error' });
       }

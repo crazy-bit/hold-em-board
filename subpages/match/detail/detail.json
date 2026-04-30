@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "赛程详情",
+  "navigationBarTitleText": "对局详情",
   "usingComponents": {
     "t-dialog": "/miniprogram_npm/tdesign-miniprogram/dialog/dialog",
     "t-button": "/miniprogram_npm/tdesign-miniprogram/button/button",
@@ -7,7 +7,6 @@
     "t-toast": "/miniprogram_npm/tdesign-miniprogram/toast/toast"
   },
   "componentPlaceholder": {
-    "t-dialog": "view",
     "t-button": "view",
     "t-tag": "view",
     "t-toast": "view"

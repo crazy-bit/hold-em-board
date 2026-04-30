@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "创建赛程",
+  "navigationBarTitleText": "创建对局",
   "usingComponents": {
     "t-button": "/miniprogram_npm/tdesign-miniprogram/button/button",
     "t-input": "/miniprogram_npm/tdesign-miniprogram/input/input",

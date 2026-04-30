@@ -6,7 +6,7 @@ cloud.init({ env: 'cloud1-d1goy6u8nf336912a' });
 const db = cloud.database();
 
 /**
- * 创建赛事云函数
+ * 创建组团云函数
  */
 exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext();
@@ -14,19 +14,19 @@ exports.main = async (event, context) => {
   const { name, nickName, avatarUrl } = event;
 
   if (!name || !name.trim()) {
-    return { code: -1, msg: '赛事名称不能为空' };
+    return { code: -1, msg: '组团名称不能为空' };
   }
 
   try {
     // 生成唯一邀请码
     const inviteCode = await generateUniqueInviteCode();
 
-    // 默认规则：所有人初始筹码 1000，无额外加成
+    // 默认规则：所有人初始积分 1000，无额外加成
     const defaultChipRules = [
       { rank: 0, initialChips: 1000, bonus: 0 },
     ];
 
-    // 创建赛事
+    // 创建组团
     const groupRes = await db.collection('groups').add({
       data: {
         name: name.trim(),

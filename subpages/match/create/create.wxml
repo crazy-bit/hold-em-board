@@ -1,10 +1,10 @@
 <!-- pages/match/create/create.wxml -->
 <view class="container">
-  <text class="page-title">创建赛程</text>
+  <text class="page-title">创建对局</text>
 
   <view class="card">
     <t-input
-      label="赛程标题"
+      label="对局标题"
       placeholder="例如：第12期，留空则自动编号"
       value="{{title}}"
       bind:change="onTitleInput"
@@ -14,9 +14,8 @@
   </view>
 
   <view class="card info-card">
-    <text class="section-title">初始筹码分配预览</text>
-    <text class="info-tip">将根据当前总积分排名自动分配初始筹码和额外加成</text>
-  </view>
+    <text class="section-title">初始积分分配预览</text>
+    <text class="info-tip">将根据当前总积分排名自动分配初始积分和额外加成</text>  </view>
 
   <view style="margin-top:48rpx;">
     <t-button
@@ -27,7 +26,7 @@
       disabled="{{creating}}"
       loading="{{creating}}"
     >
-      创建赛程
+      创建对局
     </t-button>
   </view>
 </view>

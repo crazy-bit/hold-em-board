@@ -159,7 +159,7 @@
   color: #a0a0b0;
 }
 
-/* 赛程卡片 */
+/* 对局卡片 */
 .match-card {
   cursor: pointer;
 }

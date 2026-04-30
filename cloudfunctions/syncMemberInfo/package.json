@@ -1,7 +1,7 @@
 {
-  "name": "createMatch",
+  "name": "syncMemberInfo",
   "version": "1.0.0",
-  "description": "创建对局",
+  "description": "异步同步 group_members 昵称和头像",
   "main": "index.js",
   "dependencies": {
     "wx-server-sdk": "latest"

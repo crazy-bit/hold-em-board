@@ -36,7 +36,7 @@ exports.main = async (event, context) => {
       return { code: -1, msg: '必须包含默认规则（名次=0）' };
     }
 
-    // 统一初始筹码：将所有名次的 initialChips 设为相同值（从 rank=0 或前端传入的 initialChips 获取）
+    // 统一初始积分：将所有名次的 initialChips 设为相同值（从 rank=0 或前端传入的 initialChips 获取）
     const unifiedInitialChips = initialChips !== undefined
       ? Number(initialChips) || 0
       : (chipRules.find(r => r.rank === 0) || {}).initialChips || 1000;
