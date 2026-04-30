@@ -1,0 +1,9 @@
+{
+  "name": "specialFuncs",
+  "version": "1.0.0",
+  "description": "特殊操作云函数 - 一次性数据维护任务",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "latest"
+  }
+}

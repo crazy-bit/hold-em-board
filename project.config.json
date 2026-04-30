@@ -97,6 +97,18 @@
       {
         "type": "file",
         "value": "nul"
+      },
+      {
+        "type": "file",
+        "value": "fix-selectors.js"
+      },
+      {
+        "type": "regexp",
+        "value": "e2e-.*\\.log$"
+      },
+      {
+        "type": "regexp",
+        "value": "\\.d\\.ts$"
       }
     ],
     "include": []

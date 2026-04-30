@@ -25,10 +25,11 @@
 
     <!-- 表头 -->
     <view class="score-grid score-header">
+      <text class="col-rank col-header">#</text>
       <text class="col-name">成员</text>
       <text class="col-header">初始积分</text>
-      <text class="col-header">额外加成</text>
-      <text class="col-header">结算积分</text>      <text class="col-header col-last">本期积分</text>
+      <text class="col-header">结算积分</text>
+      <text class="col-header col-last">本期积分</text>
     </view>
 
     <!-- 分数行 -->
@@ -41,12 +42,16 @@
       data-scoreid="{{item._id}}"
     >
       <view class="score-grid">
+        <!-- 排名 -->
+        <view class="col-rank">
+          <text wx:if="{{item.rank !== null}}" class="rank-badge {{item.rank === 1 ? 'rank-gold' : item.rank === 2 ? 'rank-silver' : item.rank === 3 ? 'rank-bronze' : 'rank-normal'}}">{{item.rank}}</text>
+          <text wx:else class="rank-badge rank-empty">-</text>
+        </view>
         <view class="col-name-wrap">
           <text class="member-name">{{item.nickName}}</text>
           <text class="self-tag" wx:if="{{item.isSelf}}">我</text>
         </view>
         <text class="col-val">{{item.initialChips}}</text>
-        <text class="col-val bonus">+{{item.bonus || 0}}</text>
         <text class="col-val {{item.finalChips !== null ? '' : 'unfilled'}}">{{item.finalChips !== null ? item.finalChips : '待填写'}}</text>
         <text class="col-val col-last {{item.points >= 0 ? 'positive' : 'negative'}}" wx:if="{{item.points !== null}}">{{item.points >= 0 ? '+' : ''}}{{item.points}}</text>
         <text class="col-val col-last unfilled" wx:else>-</text>

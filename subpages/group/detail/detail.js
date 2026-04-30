@@ -58,13 +58,17 @@ Page({
           name: 'getGroupDetail',
           data: { groupId },
         });
-        if (res.result && res.result.code === 0) {
+      if (res.result && res.result.code === 0) {
           const result = res.result;
           group = result.group;
           members = result.members || [];
           matches = result.matches || [];
           isAdmin = result.isAdmin || false;
           usedCloudFn = true;
+          // 云函数已计算好 leaderboard（含最新头像），直接使用
+          if (result.leaderboard) {
+            this._cloudLeaderboard = result.leaderboard;
+          }
         }
       } catch (cfErr) {
         console.warn('loadData: 云函数不可用，降级到直接查询');
@@ -125,7 +129,15 @@ Page({
       }));
 
       this.setData({ group, members, matches: fmtMatches, isAdmin, loading: false });
-      this.calcLeaderboard(members, fmtMatches, group);
+      // 若云函数已返回 leaderboard，直接用；否则前端计算
+      if (this._cloudLeaderboard) {
+        const lb = this._cloudLeaderboard;
+        this._cloudLeaderboard = null;
+        // 仍需计算趋势图
+        this.calcLeaderboard(members, fmtMatches, group, lb);
+      } else {
+        this.calcLeaderboard(members, fmtMatches, group, null);
+      }
     } catch (err) {
       console.error('loadData error:', err.message || err);
       this.setData({ loading: false });
@@ -150,12 +162,12 @@ Page({
     return allScores;
   },
 
-  async calcLeaderboard(members, matches, group) {
+  async calcLeaderboard(members, matches, group, prebuiltLeaderboard) {
     const db = wx.cloud.database();
     const finishedMatches = matches.filter(m => m.status === 'finished');
 
     if (finishedMatches.length === 0) {
-      const leaderboard = members.map(m => ({
+      const leaderboard = prebuiltLeaderboard || members.map(m => ({
         userId: m.userId,
         nickName: m.nickName,
         avatarUrl: m.avatarUrl || '',
@@ -181,7 +193,8 @@ Page({
         countMap[s.userId]++;
       });
 
-      const leaderboard = members.map(m => ({
+      // 优先使用云函数预构建的 leaderboard（含最新头像），否则前端构建
+      const leaderboard = prebuiltLeaderboard || members.map(m => ({
         userId: m.userId,
         nickName: m.nickName,
         avatarUrl: m.avatarUrl || '',
@@ -264,6 +277,13 @@ Page({
     const index = typeof e.detail === 'object' ? e.detail.value : e.detail;
     const tabs = ['matches', 'leaderboard', 'trend'];
     this.setData({ activeTab: tabs[index], activeTabIndex: Number(index) });
+    // 切换到积分趋势 tab 时，主动触发绘制（真机懒渲染下组件可能刚挂载）
+    if (Number(index) === 2) {
+      setTimeout(() => {
+        const chart = this.selectComponent('#trendChart');
+        if (chart) chart.drawChart();
+      }, 300);
+    }
   },
 
   createMatch() {

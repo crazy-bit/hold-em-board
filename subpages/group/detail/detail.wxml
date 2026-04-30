@@ -90,7 +90,7 @@
     <t-tab-panel label="积分趋势" value="2">
       <!-- 积分趋势曲线图 -->
       <view style="padding-top: 16rpx;">
-        <trend-chart series="{{trendSeries}}" labels="{{trendLabels}}" />
+        <trend-chart id="trendChart" series="{{trendSeries}}" labels="{{trendLabels}}" />
       </view>
     </t-tab-panel>
   </t-tabs>

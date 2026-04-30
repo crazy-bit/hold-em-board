@@ -19,8 +19,17 @@ Page({
       const res = await wx.cloud.callFunction({ name: 'login', data: {} });
       if (res.result && res.result.code === 0) {
         const { nickName, avatarUrl, openId } = res.result;
-        // 有真实昵称（非默认值）说明已注册，直接跳过登录页
+        // 有真实昵称（非默认值）说明已注册
         if (nickName && nickName !== '德州玩家') {
+          // 若头像是旧的临时路径（wxfile://），说明之前没有正确上传
+          // 临时路径跨会话失效，无法再上传，需要让用户重新选头像
+          if (avatarUrl && avatarUrl.startsWith('wxfile://')) {
+            // 预填昵称，清空头像，停留在登录页让用户重新选头像
+            app.globalData.openId = openId; // 先存 openId，上传头像时需要
+            this.setData({ nickName, avatarUrl: '' });
+            setTimeout(() => { this.setData({ autoFocusNickName: false }); }, 100);
+            return;
+          }
           app.globalData.openId = openId;
           app.globalData.userInfo = { openId, nickName, avatarUrl };
           this.redirectAfterLogin(options);
@@ -55,6 +64,32 @@ Page({
     }
   },
 
+  /**
+   * 将临时头像文件上传到云存储，返回永久 cloud:// fileID
+   * 微信 <image> 组件原生支持 cloud:// fileID 直接显示
+   * 若上传失败则返回原始临时路径（降级）
+   */
+  async _uploadAvatar(tempUrl) {
+    if (!tempUrl || !tempUrl.startsWith('wxfile://')) {
+      // 已经是 cloud:// 或 https:// 永久地址，直接返回
+      return tempUrl;
+    }
+    try {
+      const openId = app.globalData.openId || `tmp_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
+      const ext = tempUrl.includes('.png') ? 'png' : 'jpg';
+      const cloudPath = `avatars/${openId}_${Date.now()}.${ext}`;
+      const res = await wx.cloud.uploadFile({
+        cloudPath,
+        filePath: tempUrl,
+      });
+      // 直接返回 cloud:// fileID，<image> 组件原生支持，永久有效
+      return res.fileID;
+    } catch (err) {
+      console.warn('头像上传失败，使用临时路径:', err.message);
+      return tempUrl; // 降级
+    }
+  },
+
   async onLoginTap() {
     const { nickName, avatarUrl } = this.data;
 
@@ -66,11 +101,14 @@ Page({
     this.setData({ loading: true });
 
     try {
+      // 若头像是临时路径，先上传到云存储获取永久 URL
+      const finalAvatarUrl = await this._uploadAvatar(avatarUrl);
+
       const res = await wx.cloud.callFunction({
         name: 'login',
         data: {
           nickName: nickName.trim(),
-          avatarUrl: avatarUrl || '',
+          avatarUrl: finalAvatarUrl || '',
         },
       });
 

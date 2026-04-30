@@ -28,12 +28,53 @@
 /* 表格网格 */
 .score-grid {
   display: grid;
-  grid-template-columns: 2fr 1.2fr 1.2fr 1.2fr 1.2fr;
+  grid-template-columns: 56rpx 2fr 1.2fr 1.2fr 1.2fr;
   align-items: center;
   gap: 0 8rpx;
 }
 
-/* 表头 */
+.col-rank {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rank-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+  font-size: 22rpx;
+  font-weight: 700;
+}
+
+.rank-gold {
+  background: #f5c518;
+  color: #1a1a2e;
+}
+
+.rank-silver {
+  background: #b0b8c1;
+  color: #1a1a2e;
+}
+
+.rank-bronze {
+  background: #cd7f32;
+  color: #fff;
+}
+
+.rank-normal {
+  background: #2a2a4a;
+  color: #a0a0b0;
+}
+
+.rank-empty {
+  background: transparent;
+  color: #444460;
+}
+
 .score-header {
   padding: 16rpx 32rpx;
   background: #16213e;

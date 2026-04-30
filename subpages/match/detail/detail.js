@@ -39,6 +39,24 @@ Page({
     if (this._loading) return;
     this._loading = true;
     const { matchId, groupId } = this.data;
+
+    // 若 openId 尚未就绪（如直接从分享链接进入），先完成登录
+    if (!app.globalData.openId) {
+      try {
+        const res = await wx.cloud.callFunction({ name: 'login', data: {} });
+        if (res.result && res.result.code === 0 && res.result.nickName && res.result.nickName !== '德州玩家') {
+          app.globalData.openId = res.result.openId;
+          app.globalData.userInfo = {
+            openId: res.result.openId,
+            nickName: res.result.nickName,
+            avatarUrl: res.result.avatarUrl,
+          };
+        }
+      } catch (e) {
+        console.warn('[match/detail] 登录获取 openId 失败:', e);
+      }
+    }
+
     const openId = app.globalData.openId;
     const db = wx.cloud.database();
 
@@ -56,12 +74,30 @@ Page({
 
       const isAdmin = groupRes.data.adminId === openId;
 
-      const scores = scoresRes.data.map(s => ({
+      const rawScores = scoresRes.data.map(s => ({
         ...s,
         isSelf: s.userId === openId,
       }));
 
-      const unfilledCount = scores.filter(s => s.finalChips === null || s.finalChips === undefined).length;
+      // 按积分降序排序：已有积分的排前面，未填写的排后面
+      const filled = rawScores.filter(s => s.points !== null && s.points !== undefined)
+        .sort((a, b) => b.points - a.points);
+      const unfilled = rawScores.filter(s => s.points === null || s.points === undefined);
+
+      // 加上排名序号（只给已填写积分的成员）
+      let rank = 1;
+      filled.forEach((s, i) => {
+        if (i > 0 && s.points === filled[i - 1].points) {
+          s.rank = filled[i - 1].rank; // 同分同名次
+        } else {
+          s.rank = rank;
+        }
+        rank++;
+      });
+      unfilled.forEach(s => { s.rank = null; });
+
+      const scores = [...filled, ...unfilled];
+      const unfilledCount = unfilled.length;
 
       this.setData({ match, scores, isAdmin, unfilledCount });
     } catch (err) {

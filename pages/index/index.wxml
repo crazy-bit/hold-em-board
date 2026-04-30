@@ -1,7 +1,7 @@
 <!-- pages/index/index.wxml -->
 <view class="container">
   <!-- Banner 图片 -->
-<image class="home-banner" src="/asserts/banner_德州扑克记分小助手.png" mode="widthFix" />
+  <image class="home-banner" src="/asserts/banner_德州扑克记分小助手.png" mode="widthFix" />
 
   <!-- 加载中 -->
   <t-skeleton theme="paragraph" loading="{{loading}}" wx:if="{{loading}}" />

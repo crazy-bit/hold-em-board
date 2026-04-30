@@ -22,33 +22,55 @@ Component({
       const canvasHeight = Math.round(canvasWidth * 0.6);
       this.setData({ canvasWidth, canvasHeight });
     },
+    ready() {
+      // tab 切换后组件才 attached/ready，此时数据可能已经传入
+      // 在 ready 里补一次绘制
+      if (this.data.series.length > 0 && this.data.labels.length > 1) {
+        this._tryDrawChart(0);
+      }
+    },
   },
 
   observers: {
     'series, labels'() {
       if (this.data.series.length > 0 && this.data.labels.length > 1) {
-        setTimeout(() => this.drawChart(), 100);
+        this._tryDrawChart(0);
       }
     },
   },
 
   methods: {
+    /** 带重试的绘制入口，最多重试 8 次，每次间隔 150ms */
+    _tryDrawChart(retryCount) {
+      const MAX_RETRY = 8;
+      const INTERVAL = 150;
+      setTimeout(() => {
+        const query = this.createSelectorQuery();
+        query.select('#trendCanvas').fields({ node: true, size: true }).exec((res) => {
+          if (res && res[0] && res[0].node) {
+            this._doDrawChart(res[0]);
+          } else if (retryCount < MAX_RETRY) {
+            this._tryDrawChart(retryCount + 1);
+          }
+        });
+      }, INTERVAL);
+    },
+
     drawChart() {
-      const query = this.createSelectorQuery();
-      query.select('#trendCanvas').fields({ node: true, size: true }).exec((res) => {
-        if (!res || !res[0] || !res[0].node) return;
+      this._tryDrawChart(0);
+    },
 
-        const canvas = res[0].node;
-        const ctx = canvas.getContext('2d');
-        const dpr = wx.getSystemInfoSync().pixelRatio;
-        const { canvasWidth, canvasHeight } = this.data;
+    _doDrawChart(canvasRes) {
+      const canvas = canvasRes.node;
+      const ctx = canvas.getContext('2d');
+      const dpr = wx.getSystemInfoSync().pixelRatio;
+      const { canvasWidth, canvasHeight } = this.data;
 
-        canvas.width = canvasWidth * dpr;
-        canvas.height = canvasHeight * dpr;
-        ctx.scale(dpr, dpr);
+      canvas.width = canvasWidth * dpr;
+      canvas.height = canvasHeight * dpr;
+      ctx.scale(dpr, dpr);
 
-        this._draw(ctx, canvasWidth, canvasHeight);
-      });
+      this._draw(ctx, canvasWidth, canvasHeight);
     },
 
     _draw(ctx, w, h) {
