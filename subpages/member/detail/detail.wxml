@@ -32,9 +32,9 @@
         <text class="match-date">{{item.matchDateStr}}</text>
       </view>
       <view style="text-align:right;">
-        <view class="points-row" wx:if="{{item.roundPoints !== null && item.roundPoints !== undefined}}">
+        <view wx:if="{{item.roundPoints !== null && item.roundPoints !== undefined}}">
           <text class="score-points {{item.roundPoints >= 0 ? 'positive' : 'negative'}}">{{item.roundPoints >= 0 ? '+' : ''}}{{item.roundPoints}}</text>
-          <text class="bonus-inline" wx:if="{{item.bonus > 0}}"> +{{item.bonus}}bonus</text>
+          <text class="bonus-inline" wx:if="{{item.bonus > 0}}">(bonus:+{{item.bonus}})</text>
         </view>
         <text class="score-points unfilled" wx:else>未结算</text>
         <view class="chips-detail">
