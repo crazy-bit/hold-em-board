@@ -16,11 +16,20 @@ Page({
     loading: true,
     isLoggedIn: false,
     hasGroup: false,
+    showDemo: false,  // 是否展示功能体验 demo
     group: null,
     myRank: 0,
     myPoints: 0,
     totalMembers: 0,
     matchCount: 0,
+    // demo 假数据
+    demoGroup: {
+      name: '周五德州局 🃏',
+      myRank: 2,
+      myPoints: 1250,
+      totalMembers: 6,
+      matchCount: 8,
+    },
   },
 
   onLoad() {
@@ -106,6 +115,20 @@ Page({
       this._loading = false;
       this._hasLoaded = true;
     }
+  },
+
+  // 展示功能体验 demo
+  showDemoPreview() {
+    this.setData({ showDemo: true });
+  },
+
+  // demo 界面中的操作，提示需要登录
+  onDemoAction() {
+    wx.showToast({
+      title: '请登录后开始使用',
+      icon: 'none',
+      duration: 2000,
+    });
   },
 
   goGroupDetail() {

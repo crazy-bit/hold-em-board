@@ -74,6 +74,18 @@ Page({
 
       const isAdmin = groupRes.data.adminId === openId;
 
+      // 查询该 group 下所有已完成对局的积分，用于计算每人总积分
+      const { data: allFinishedScores } = await db.collection('scores')
+        .where({ groupId, points: db.command.neq(null) })
+        .limit(1000)
+        .get();
+
+      // 按 userId 累加总积分
+      const totalPointsMap = {};
+      allFinishedScores.forEach(s => {
+        totalPointsMap[s.userId] = (totalPointsMap[s.userId] || 0) + (s.points || 0);
+      });
+
       const rawScores = scoresRes.data.map(s => ({
         ...s,
         isSelf: s.userId === openId,
@@ -81,6 +93,8 @@ Page({
         roundPoints: (s.roundPoints !== null && s.roundPoints !== undefined)
           ? s.roundPoints
           : (s.finalChips !== null && s.finalChips !== undefined ? s.finalChips - (s.initialChips || 0) : null),
+        // 历史总积分（含本局已结算的 points）
+        totalPoints: totalPointsMap[s.userId] !== undefined ? totalPointsMap[s.userId] : null,
       }));
 
       // 按积分降序排序：已有积分的排前面，未填写的排后面

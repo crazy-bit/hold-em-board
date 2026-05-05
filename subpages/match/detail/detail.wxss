@@ -25,12 +25,12 @@
   margin-top: 8rpx;
 }
 
-/* 表格网格 */
+/* 表格网格：# | 成员 | 初始 | 结算 | 本期 | 总积分 */
 .score-grid {
   display: grid;
-  grid-template-columns: 56rpx 2fr 1.2fr 1.2fr 1.2fr;
+  grid-template-columns: 48rpx 1.6fr 1fr 1fr 1fr 1fr;
   align-items: center;
-  gap: 0 8rpx;
+  gap: 0 4rpx;
 }
 
 .col-rank {
@@ -111,7 +111,7 @@
 }
 
 .member-name {
-  font-size: 28rpx;
+  font-size: 26rpx;
   font-weight: 600;
   color: #eaeaea;
 }
@@ -126,7 +126,7 @@
 }
 
 .col-val {
-  font-size: 28rpx;
+  font-size: 26rpx;
   color: #eaeaea;
   text-align: center;
 }
@@ -181,9 +181,17 @@
   margin-top: 8rpx;
 }
 
+/* 本期积分列：上下两行 */
+.col-points {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2rpx;
+}
+
 .bonus-tag {
-  font-size: 22rpx;
+  font-size: 20rpx;
   color: #ff9800;
   font-weight: 400;
-  margin-left: 4rpx;
+  line-height: 1.2;
 }

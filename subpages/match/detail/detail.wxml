@@ -27,9 +27,10 @@
     <view class="score-grid score-header">
       <text class="col-rank col-header">#</text>
       <text class="col-name">成员</text>
-      <text class="col-header">初始积分</text>
-      <text class="col-header">结算积分</text>
-      <text class="col-header col-last">本期积分</text>
+      <text class="col-header">初始</text>
+      <text class="col-header">结算</text>
+      <text class="col-header col-last">本期</text>
+      <text class="col-header col-last">总积分</text>
     </view>
 
     <!-- 分数行 -->
@@ -52,10 +53,16 @@
           <text class="self-tag" wx:if="{{item.isSelf}}">我</text>
         </view>
         <text class="col-val">{{item.initialChips}}</text>
-        <text class="col-val {{item.finalChips !== null ? '' : 'unfilled'}}">{{item.finalChips !== null ? item.finalChips : '待填写'}}</text>
-        <view class="col-val col-last" wx:if="{{item.roundPoints !== null && item.roundPoints !== undefined}}">
+        <text class="col-val {{item.finalChips !== null ? '' : 'unfilled'}}">{{item.finalChips !== null ? item.finalChips : '-'}}</text>
+        <!-- 本期积分 -->
+        <view class="col-val col-points" wx:if="{{item.roundPoints !== null && item.roundPoints !== undefined}}">
           <text class="{{item.roundPoints >= 0 ? 'positive' : 'negative'}}">{{item.roundPoints >= 0 ? '+' : ''}}{{item.roundPoints}}</text>
-          <text class="bonus-tag" wx:if="{{item.bonus > 0}}">(bonus:{{item.bonus}})</text>
+        </view>
+        <text class="col-val unfilled" wx:else>-</text>
+        <!-- 总积分 -->
+        <view class="col-val col-last col-points" wx:if="{{item.totalPoints !== null && item.totalPoints !== undefined}}">
+          <text class="{{item.totalPoints >= 0 ? 'positive' : 'negative'}}">{{item.totalPoints >= 0 ? '+' : ''}}{{item.totalPoints}}</text>
+          <text class="bonus-tag" wx:if="{{item.points !== null && item.points !== undefined}}">({{item.points >= 0 ? '+' : ''}}{{item.points}})</text>
         </view>
         <text class="col-val col-last unfilled" wx:else>-</text>
       </view>

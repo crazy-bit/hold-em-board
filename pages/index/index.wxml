@@ -7,12 +7,65 @@
   <t-skeleton theme="paragraph" loading="{{loading}}" wx:if="{{loading}}" />
 
   <!-- 游客态：未登录时展示 -->
-  <view wx:elif="{{!isLoggedIn}}" class="empty-state">
-    <view class="empty-icon">♠</view>
-    <text class="empty-title">德州记分板</text>
-    <text class="empty-desc">轻松记录每一局的胜负与积分</text>
-    <view class="empty-actions">
-      <t-button theme="danger" shape="round" block bindtap="goLogin" style="margin-bottom:16rpx;">登录开始使用</t-button>
+  <view wx:elif="{{!isLoggedIn}}">
+    <!-- 未展示 demo 时：显示欢迎界面 -->
+    <view wx:if="{{!showDemo}}" class="empty-state">
+      <view class="empty-icon">♠</view>
+      <text class="empty-title">德州记分板</text>
+      <text class="empty-desc">轻松记录每一局的胜负与积分</text>
+      <view class="empty-actions">
+        <t-button theme="danger" shape="round" block bindtap="goLogin" style="margin-bottom:16rpx;">登录开始使用</t-button>
+        <t-button variant="outline" shape="round" block bindtap="showDemoPreview">功能体验</t-button>
+      </view>
+    </view>
+
+    <!-- 展示 demo 组团界面 -->
+    <view wx:else>
+      <!-- demo 提示条 -->
+      <view class="demo-banner">
+        <text class="demo-banner-text">👀 体验模式 · 示例数据</text>
+        <t-button size="extra-small" theme="danger" shape="round" bindtap="goLogin">登录使用</t-button>
+      </view>
+
+      <!-- demo 组团摘要卡片 -->
+      <view class="summary-card card" bindtap="onDemoAction">
+        <text class="group-name">{{demoGroup.name}}</text>
+        <view class="stats-row">
+          <view class="stat-item">
+            <text class="stat-label">排名</text>
+            <view class="stat-circle rank-silver">
+              <text>{{demoGroup.myRank}}</text>
+            </view>
+          </view>
+          <view class="stat-item">
+            <text class="stat-label">总积分</text>
+            <view class="stat-circle points-positive">
+              <text>+{{demoGroup.myPoints}}</text>
+            </view>
+          </view>
+          <view class="stat-item">
+            <text class="stat-label">对局</text>
+            <view class="stat-circle">
+              <text>{{demoGroup.matchCount}}期</text>
+            </view>
+          </view>
+        </view>
+        <view class="card-footer">
+          <text class="meta-text">{{demoGroup.totalMembers}} 位成员</text>
+          <text class="go-detail">查看详情 ›</text>
+        </view>
+      </view>
+
+      <!-- demo 快捷入口 -->
+      <view class="quick-actions" style="margin-bottom:24rpx;">
+        <t-button variant="outline" shape="round" size="small" style="flex:1;" bindtap="onDemoAction">全部组团</t-button>
+      </view>
+
+      <!-- demo 登录引导 -->
+      <view class="demo-login-tip">
+        <text class="demo-tip-text">登录后即可创建或加入真实组团，开始记录每一局的胜负</text>
+        <t-button theme="danger" shape="round" block bindtap="goLogin" style="margin-top:24rpx;">立即登录开始使用</t-button>
+      </view>
     </view>
   </view>
 
