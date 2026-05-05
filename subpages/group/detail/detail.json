@@ -1,12 +1,12 @@
 {
   "navigationBarTitleText": "组团详情",
   "usingComponents": {
-    "t-button": "/miniprogram_npm/tdesign-miniprogram/button/button",
-    "t-tag": "/miniprogram_npm/tdesign-miniprogram/tag/tag",
-    "t-empty": "/miniprogram_npm/tdesign-miniprogram/empty/empty",
-    "t-tabs": "/miniprogram_npm/tdesign-miniprogram/tabs/tabs",
-    "t-tab-panel": "/miniprogram_npm/tdesign-miniprogram/tab-panel/tab-panel",
-    "t-toast": "/miniprogram_npm/tdesign-miniprogram/toast/toast",
+    "t-button": "../../miniprogram_npm/tdesign-miniprogram/button/button",
+    "t-tag": "../../miniprogram_npm/tdesign-miniprogram/tag/tag",
+    "t-empty": "../../miniprogram_npm/tdesign-miniprogram/empty/empty",
+    "t-tabs": "../../miniprogram_npm/tdesign-miniprogram/tabs/tabs",
+    "t-tab-panel": "../../miniprogram_npm/tdesign-miniprogram/tab-panel/tab-panel",
+    "t-toast": "../../miniprogram_npm/tdesign-miniprogram/toast/toast",
     "trend-chart": "/components/trend-chart/trend-chart"
   },
   "componentPlaceholder": {

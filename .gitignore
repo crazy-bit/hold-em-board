@@ -20,8 +20,8 @@ nul
 *.log
 tests/e2e/.e2e-state.json
 
-# 微信小程序 npm 构建产物
-miniprogram_npm/
+# 微信小程序 npm 构建产物（只忽略根目录，分包内的 miniprogram_npm 需要提交）
+/miniprogram_npm/
 
 # GitHub 仓库分析临时目录
 .github-analyze/
