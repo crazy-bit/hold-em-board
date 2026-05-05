@@ -64,16 +64,28 @@ function hideLoading() {
 }
 
 /**
- * 计算本期积分
- * @param {number} finalChips 结算积分
+ * 计算本期积分（用于对局详情展示，含 bonus）
+ * @param {number} finalChips 结算积分（已包含 bonus）
+ * @param {number} initialChips 初始积分
+ * @returns {number} 本期积分
+ */
+function calcRoundPoints(finalChips, initialChips) {
+  return (finalChips || 0) - (initialChips || 0);
+}
+
+/**
+ * 计算计入总积分的值（受 bonusCountsToTotal 控制）
+ * @param {number} finalChips 结算积分（已包含 bonus）
  * @param {number} initialChips 初始积分
  * @param {number} bonus 额外加成
  * @param {boolean} bonusCountsToTotal 额外加成是否计入总积分
- * @returns {number} 本期积分
+ * @returns {number} 计入总积分的本期值
  */
 function calcPoints(finalChips, initialChips, bonus, bonusCountsToTotal) {
-  const base = (finalChips || 0) - (initialChips || 0);
-  return bonusCountsToTotal ? base + (bonus || 0) : base;
+  const round = calcRoundPoints(finalChips, initialChips);
+  // 勾选时：bonus 也计入总积分，直接用本期积分
+  // 不勾选时：剔除 bonus，只计实际输赢
+  return round - (bonusCountsToTotal ? 0 : (bonus || 0));
 }
 
 /**
@@ -102,5 +114,6 @@ module.exports = {
   showLoading,
   hideLoading,
   calcPoints,
+  calcRoundPoints,
   getRuleByRank,
 };

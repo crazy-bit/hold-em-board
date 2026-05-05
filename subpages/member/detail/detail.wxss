@@ -76,3 +76,11 @@
   color: #666680;
   text-align: right;
 }
+
+.bonus-tag {
+  font-size: 22rpx;
+  color: #ff9800;
+  font-weight: 400;
+  display: block;
+  text-align: right;
+}

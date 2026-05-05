@@ -57,7 +57,7 @@ Page({
   },
 
   onChipsInput(e) {
-    const val = e.detail;
+    const val = e.detail.value;
     this.setData({ finalChips: val });
     if (val !== '') {
       this.calcPreview(Number(val));
@@ -65,9 +65,9 @@ Page({
   },
 
   calcPreview(finalChips) {
-    const { score, bonusCountsToTotal } = this.data;
-    const base = finalChips - (score.initialChips || 0);
-    const points = bonusCountsToTotal ? base + (score.bonus || 0) : base;
+    const { score } = this.data;
+    // 本期积分预览 = finalChips - initialChips（含 bonus，与对局详情展示一致）
+    const points = finalChips - (score.initialChips || 0);
     this.setData({ previewPoints: points });
   },
 

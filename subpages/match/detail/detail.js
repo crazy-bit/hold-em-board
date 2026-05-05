@@ -77,6 +77,10 @@ Page({
       const rawScores = scoresRes.data.map(s => ({
         ...s,
         isSelf: s.userId === openId,
+        // 兼容存量数据：若无 roundPoints 字段，用 finalChips - initialChips 兜底
+        roundPoints: (s.roundPoints !== null && s.roundPoints !== undefined)
+          ? s.roundPoints
+          : (s.finalChips !== null && s.finalChips !== undefined ? s.finalChips - (s.initialChips || 0) : null),
       }));
 
       // 按积分降序排序：已有积分的排前面，未填写的排后面

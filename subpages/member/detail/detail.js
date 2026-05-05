@@ -44,7 +44,7 @@ Page({
         matchesRes.data.forEach(m => { matchMap[m._id] = m; });
       }
 
-      // 只统计已完成对局的积分
+      // 只统计已完成对局的积分，按对局时间倒排
       let totalPoints = 0;
       const scores = scoresRes.data
         .filter(s => {
@@ -61,8 +61,14 @@ Page({
             matchTitle: match.title || '对局',
             matchDateStr: formatDate(match.createdAt),
             matchStatus: match.status,
+            matchCreatedAt: match.createdAt ? new Date(match.createdAt).getTime() : 0,
+            // 兼容存量数据：若无 roundPoints 字段，用 finalChips - initialChips 兜底
+            roundPoints: (s.roundPoints !== null && s.roundPoints !== undefined)
+              ? s.roundPoints
+              : (s.finalChips !== null && s.finalChips !== undefined ? s.finalChips - (s.initialChips || 0) : null),
           };
-        });
+        })
+        .sort((a, b) => b.matchCreatedAt - a.matchCreatedAt);
 
       this.setData({ memberInfo, scores, totalPoints });
     } catch (err) {

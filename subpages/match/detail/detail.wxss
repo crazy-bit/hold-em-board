@@ -180,3 +180,10 @@
   font-weight: 600;
   margin-top: 8rpx;
 }
+
+.bonus-tag {
+  font-size: 22rpx;
+  color: #ff9800;
+  font-weight: 400;
+  margin-left: 4rpx;
+}

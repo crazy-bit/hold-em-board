@@ -53,9 +53,14 @@ exports.main = async (event, context) => {
     const bonusCountsToTotal = group.bonusCountsToTotal || false;
     const updatePromises = scores.map(s => {
       const finalChips = s.finalChips || 0;
-      const points = finalChips - s.initialChips + (bonusCountsToTotal ? (s.bonus || 0) : 0);
+      // roundPoints：本期积分（含 bonus），用于对局详情展示
+      const roundPoints = finalChips - s.initialChips;
+      // points：计入总积分的值，受 bonusCountsToTotal 控制
+      // 勾选时：bonus 也计入总积分，points = finalChips - initialChips
+      // 不勾选时：剔除 bonus，points = finalChips - initialChips - bonus
+      const points = roundPoints - (bonusCountsToTotal ? 0 : (s.bonus || 0));
       return db.collection('scores').doc(s._id).update({
-        data: { points, updatedAt: db.serverDate() },
+        data: { points, roundPoints, updatedAt: db.serverDate() },
       });
     });
 

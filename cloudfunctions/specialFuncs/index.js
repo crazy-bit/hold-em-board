@@ -129,6 +129,42 @@ async function insertGroupMembers() {
 }
 
 /**
+ * 修正存量 scores 数据：为缺少 roundPoints 字段的记录补写
+ * roundPoints = finalChips - initialChips
+ * 幂等：已有 roundPoints 的记录跳过
+ */
+async function fixRoundPoints() {
+  const scoreCol = db.collection('scores')
+  // 查询所有已结算（finalChips 不为 null）但缺少 roundPoints 的记录
+  const { data: scores } = await scoreCol
+    .where({ finalChips: db.command.neq(null) })
+    .limit(1000)
+    .get()
+
+  const results = []
+
+  for (const s of scores) {
+    // 已有 roundPoints 则跳过
+    if (s.roundPoints !== null && s.roundPoints !== undefined) {
+      results.push({ _id: s._id, nickName: s.nickName, status: 'skipped' })
+      continue
+    }
+
+    const roundPoints = (s.finalChips || 0) - (s.initialChips || 0)
+    try {
+      await scoreCol.doc(s._id).update({ data: { roundPoints, updatedAt: db.serverDate() } })
+      results.push({ _id: s._id, nickName: s.nickName, roundPoints, status: 'updated' })
+      console.log(`✅ 补写 roundPoints=${roundPoints}: ${s.nickName}@${s.matchId}`)
+    } catch (err) {
+      results.push({ _id: s._id, nickName: s.nickName, status: 'error', error: err.message })
+      console.error(`❌ 补写失败: ${s.nickName}@${s.matchId}`, err.message)
+    }
+  }
+
+  return results
+}
+
+/**
  * 云函数入口
  * @param {object} event
  * @param {string} event.action - 操作类型：
@@ -159,6 +195,18 @@ exports.main = async (event, context) => {
       return {
         code: 0,
         message: `scores 初始化完成：共 ${matchCount} 场对局，插入 ${inserted} 条，跳过 ${skipped} 条，失败 ${errors} 条`,
+        results,
+      }
+    }
+
+    if (action === 'fixRoundPoints') {
+      const results = await fixRoundPoints()
+      const updated = results.filter((r) => r.status === 'updated').length
+      const skipped = results.filter((r) => r.status === 'skipped').length
+      const errors = results.filter((r) => r.status === 'error').length
+      return {
+        code: 0,
+        message: `roundPoints 修正完成：更新 ${updated} 条，跳过 ${skipped} 条，失败 ${errors} 条`,
         results,
       }
     }
