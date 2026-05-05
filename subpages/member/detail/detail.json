@@ -1,7 +1,7 @@
 {
   "navigationBarTitleText": "成员详情",
   "usingComponents": {
-    "t-empty": "../../miniprogram_npm/tdesign-miniprogram/empty/empty"
+    "t-empty": "/miniprogram_npm/tdesign-miniprogram/empty/empty"
   },
   "componentPlaceholder": {
     "t-empty": "view"

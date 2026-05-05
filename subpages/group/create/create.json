@@ -1,9 +1,9 @@
 {
   "navigationBarTitleText": "创建组团",
   "usingComponents": {
-    "t-button": "../../miniprogram_npm/tdesign-miniprogram/button/button",
-    "t-input": "../../miniprogram_npm/tdesign-miniprogram/input/input",
-    "t-toast": "../../miniprogram_npm/tdesign-miniprogram/toast/toast"
+    "t-button": "/miniprogram_npm/tdesign-miniprogram/button/button",
+    "t-input": "/miniprogram_npm/tdesign-miniprogram/input/input",
+    "t-toast": "/miniprogram_npm/tdesign-miniprogram/toast/toast"
   },
   "componentPlaceholder": {
     "t-button": "view",
