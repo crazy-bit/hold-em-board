@@ -132,10 +132,6 @@
       },
       {
         "type": "folder",
-        "value": "miniprogram_npm/tdesign-miniprogram/badge"
-      },
-      {
-        "type": "folder",
         "value": "miniprogram_npm/tdesign-miniprogram/calendar"
       },
       {
@@ -381,10 +377,6 @@
       {
         "type": "folder",
         "value": "miniprogram_npm/tdesign-miniprogram/steps"
-      },
-      {
-        "type": "folder",
-        "value": "miniprogram_npm/tdesign-miniprogram/sticky"
       },
       {
         "type": "folder",

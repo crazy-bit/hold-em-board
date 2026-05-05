@@ -49,7 +49,7 @@ const MAIN_PACKAGE_PATHS = [
 
 // packOptions.ignore 中排除的 tdesign 组件目录名（不打包进小程序）
 const IGNORED_TDESIGN_COMPONENTS = [
-  'action-sheet', 'attachments', 'avatar', 'avatar-group', 'back-top', 'badge',
+  'action-sheet', 'attachments', 'avatar', 'avatar-group', 'back-top',
   'calendar', 'cascader', 'cell', 'cell-group', 'chat-actionbar', 'chat-content',
   'chat-list', 'chat-loading', 'chat-markdown', 'chat-message', 'chat-sender',
   'chat-thinking', 'checkbox', 'checkbox-group', 'check-tag', 'col', 'collapse',
@@ -59,7 +59,7 @@ const IGNORED_TDESIGN_COMPONENTS = [
   'link', 'message', 'message-item', 'navbar', 'notice-bar', 'picker', 'picker-item',
   'popover', 'progress', 'pull-down-refresh', 'qrcode', 'radio', 'radio-group',
   'rate', 'result', 'row', 'scroll-view', 'search', 'segmented', 'side-bar',
-  'side-bar-item', 'slider', 'step-item', 'stepper', 'steps', 'sticky', 'swipe-cell',
+  'side-bar-item', 'slider', 'step-item', 'stepper', 'steps', 'swipe-cell',
   'swiper', 'swiper-nav', 'switch', 'tab-bar', 'tab-bar-item', 'table', 'textarea',
   'tree-select', 'upload', 'watermark',
 ];
