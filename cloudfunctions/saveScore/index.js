@@ -23,9 +23,6 @@ exports.main = async (event, context) => {
   }
 
   const chips = Number(finalChips);
-  if (chips < 0) {
-    return { code: -1, msg: '结算积分不能为负数' };
-  }
 
   try {
     // 获取分数记录

@@ -75,6 +75,30 @@
   </view>
 </view>
 
+<!-- 差额错误弹窗 -->
+<t-dialog
+  title="结算积分不平衡"
+  visible="{{showBalanceErrorModal}}"
+  confirm-btn="{{null}}"
+  cancel-btn="{{null}}"
+  close-on-overlay-click
+  bind:close="closeBalanceErrorModal"
+>
+  <view slot="content" style="padding: 24rpx 32rpx;">
+    <view class="balance-error-body">
+      <text class="balance-error-desc">结算积分之和 ≠ 初始积分之和 + 额外加成之和，请检查各玩家结算积分。</text>
+      <view class="balance-diff-row">
+        <text class="balance-diff-label">当前差额</text>
+        <text class="balance-diff-value {{balanceDiff > 0 ? 'positive' : 'negative'}}">{{balanceDiff > 0 ? '+' : ''}}{{balanceDiff}}</text>
+      </view>
+    </view>
+    <view style="margin-top:32rpx;display:flex;gap:16rpx;">
+      <t-button variant="outline" shape="round" style="flex:1;width:100%;min-width:0;" bindtap="closeBalanceErrorModal">返回</t-button>
+      <t-button theme="danger" shape="round" style="flex:1;width:100%;min-width:0;" bindtap="forceFinishMatch">强行结束</t-button>
+    </view>
+  </view>
+</t-dialog>
+
 <!-- 结束对局确认弹窗 -->
 <t-dialog
   title="确认结束对局？"

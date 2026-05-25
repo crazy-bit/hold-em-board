@@ -56,10 +56,23 @@ Page({
     }
   },
 
+  toggleSign() {
+    let val = this.data.finalChips;
+    if (val === '' || val === '0') return;
+    if (val.startsWith('-')) {
+      val = val.slice(1);
+    } else {
+      val = '-' + val;
+    }
+    this.setData({ finalChips: val });
+    this.calcPreview(Number(val));
+  },
+
   onChipsInput(e) {
     const val = e.detail.value;
     this.setData({ finalChips: val });
-    if (val !== '') {
+    // 允许中间输入状态："-" 或 "-." 等，不立即 preview
+    if (val !== '' && val !== '-' && val !== '.' && val !== '-.') {
       this.calcPreview(Number(val));
     }
   },
@@ -73,7 +86,7 @@ Page({
 
   async saveScore() {
     const { scoreId, finalChips } = this.data;
-    if (finalChips === '') return;
+    if (finalChips === '' || isNaN(Number(finalChips))) return;
 
     this.setData({ saving: true });
     try {

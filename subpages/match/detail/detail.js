@@ -22,6 +22,8 @@ Page({
     showFinishModal: false,
     unfilledMembers: [],
     finishing: false,
+    showBalanceErrorModal: false,
+    balanceDiff: 0,
   },
 
   onLoad(options) {
@@ -147,9 +149,37 @@ Page({
 
   async finishMatch() {
     const { matchId, scores } = this.data;
+
+    // 差额校验：sum(finalChips) - sum(initialChips) - sum(bonus) = 0
+    const filledScores = scores.filter(s => s.finalChips !== null && s.finalChips !== undefined);
+    if (filledScores.length > 0) {
+      const sumFinal   = filledScores.reduce((acc, s) => acc + (s.finalChips   || 0), 0);
+      const sumInitial = filledScores.reduce((acc, s) => acc + (s.initialChips || 0), 0);
+      const sumBonus   = filledScores.reduce((acc, s) => acc + (s.bonus        || 0), 0);
+      const diff = sumFinal - sumInitial - sumBonus;
+      if (Math.abs(diff) >= 0.01) {
+        this.setData({ showBalanceErrorModal: true, balanceDiff: diff });
+        return;
+      }
+    }
+
     const unfilled = scores.filter(s => s.finalChips === null || s.finalChips === undefined);
 
     this.setData({
+      showFinishModal: true,
+      unfilledMembers: unfilled.map(s => s.nickName),
+    });
+  },
+
+  closeBalanceErrorModal() {
+    this.setData({ showBalanceErrorModal: false });
+  },
+
+  forceFinishMatch() {
+    const { scores } = this.data;
+    const unfilled = scores.filter(s => s.finalChips === null || s.finalChips === undefined);
+    this.setData({
+      showBalanceErrorModal: false,
       showFinishModal: true,
       unfilledMembers: unfilled.map(s => s.nickName),
     });

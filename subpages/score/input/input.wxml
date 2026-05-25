@@ -17,12 +17,16 @@
   <view class="card" style="margin-top: 24rpx;">
     <t-input
       label="结算积分"
-      type="number"
+      type="digit"
       placeholder="输入你的结算积分"
       value="{{finalChips}}"
       bind:change="onChipsInput"
       clearable
-    />
+    >
+      <view slot="suffix" class="sign-toggle" bindtap="toggleSign">
+        <text class="sign-toggle-text">+/-</text>
+      </view>
+    </t-input>
     <view class="preview-points" wx:if="{{finalChips !== ''}}">
       <text class="preview-label">预计本期积分：</text>
       <text class="preview-value {{previewPoints >= 0 ? 'positive' : 'negative'}}">{{previewPoints >= 0 ? '+' : ''}}{{previewPoints}}</text>
@@ -35,7 +39,7 @@
     shape="round"
     style="margin-top:48rpx;"
     bindtap="saveScore"
-    disabled="{{saving || finalChips === ''}}"
+    disabled="{{saving || finalChips === '' || finalChips === '-'}}"
     loading="{{saving}}"
   >
     保存

@@ -165,7 +165,99 @@ async function fixRoundPoints() {
 }
 
 /**
- * 云函数入口
+ * 创建测试数据：新团 + 新对局 + 4个成员的 scores（finalChips 已填写，便于测试差额校验）
+ * 4个人：yoyo/边帅/Anan/Tod，initialChips=1000，bonus=0
+ *
+ * 差额公式：sum(finalChips) - sum(bonus) = 0 才能结束
+ * bonus 全为 0 时，要求 sum(finalChips) = 0：
+ *   - 平衡示例（可结束）：event.finalChips = [200, -300, 400, -300]，和=0
+ *   - 默认（不平衡，触发弹窗）：[1200, 800, 1100, 900]，和=4000
+ *
+ * 通过 event.finalChips 传入自定义数组（长度 4）覆盖默认值
+ */
+async function seedTestData(adminId, customFinalChips) {
+  const finalChipsArr = customFinalChips && customFinalChips.length === 4
+    ? customFinalChips
+    : [1200, 800, 1100, 900];
+
+  const SEED_MEMBERS = [
+    { userId: 'opWZz3Rq8m-XtAqj9j_IDLw7cUO8', nickName: 'yoyo' },
+    { userId: 'opWZz3btoig2rdPWsiJpaF_EzaIA',  nickName: '边帅' },
+    { userId: 'opWZz3aeFdE_mlL_QcPS4jZnL6i8',  nickName: 'Anan' },
+    { userId: 'opWZz3Xsmfxs-zNRa5BtyfbYNTFw',  nickName: 'Tod'  },
+  ];
+
+  // 1. 创建团
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  let inviteCode = '';
+  for (let i = 0; i < 6; i++) inviteCode += chars[Math.floor(Math.random() * chars.length)];
+
+  const groupRes = await db.collection('groups').add({
+    data: {
+      name: `测试团_${Date.now()}`,
+      adminId,
+      inviteCode,
+      chipRules: [{ rank: 0, initialChips: 1000, bonus: 0 }],
+      bonusCountsToTotal: false,
+      createdAt: db.serverDate(),
+    },
+  });
+  const groupId = groupRes._id;
+
+  // 2. 插入全部 4 个成员到 group_members（第一个用调用者真实 openId，其余用固定测试 userId）
+  for (let i = 0; i < SEED_MEMBERS.length; i++) {
+    const member = SEED_MEMBERS[i];
+    // 第一个成员（yoyo）绑定真实 openId，方便以管理员身份操作
+    const userId = i === 0 ? adminId : member.userId;
+    await db.collection('group_members').add({
+      data: {
+        groupId,
+        userId,
+        nickName: member.nickName,
+        avatarUrl: '',
+        isAdmin: i === 0,
+        joinedAt: db.serverDate(),
+      },
+    });
+  }
+
+  // 3. 创建对局
+  const matchRes = await db.collection('matches').add({
+    data: {
+      groupId,
+      title: '测试对局',
+      status: 'active',
+      createdAt: db.serverDate(),
+    },
+  });
+  const matchId = matchRes._id;
+
+  // 4. 插入 4 条 scores（含 finalChips，第一条用真实 openId）
+  const scoreResults = [];
+  for (let i = 0; i < SEED_MEMBERS.length; i++) {
+    const member = SEED_MEMBERS[i];
+    const userId = i === 0 ? adminId : member.userId;
+    const finalChips = finalChipsArr[i];
+    const res = await db.collection('scores').add({
+      data: {
+        matchId,
+        groupId,
+        userId,
+        nickName: member.nickName,
+        initialChips: 1000,
+        bonus: 0,
+        finalChips,
+        points: null,
+        updatedAt: db.serverDate(),
+      },
+    });
+    scoreResults.push({ scoreId: res._id, nickName: member.nickName, finalChips });
+  }
+
+  return { groupId, inviteCode, matchId, scores: scoreResults };
+}
+
+/**
  * @param {object} event
  * @param {string} event.action - 操作类型：
  *   - 'insertGroupMembers'：插入指定的 group_members 数据
@@ -208,6 +300,17 @@ exports.main = async (event, context) => {
         code: 0,
         message: `roundPoints 修正完成：更新 ${updated} 条，跳过 ${skipped} 条，失败 ${errors} 条`,
         results,
+      }
+    }
+
+    if (action === 'seedTestData') {
+      const wxContext = cloud.getWXContext()
+      const adminId = wxContext.OPENID
+      const result = await seedTestData(adminId, event.finalChips)
+      return {
+        code: 0,
+        message: `测试数据创建成功！groupId: ${result.groupId}，matchId: ${result.matchId}`,
+        ...result,
       }
     }
 
