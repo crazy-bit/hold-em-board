@@ -77,15 +77,22 @@ Page({
       const isAdmin = groupRes.data.adminId === openId;
 
       // 查询该 group 下所有已完成对局的积分，用于计算每人总积分
+      // 排除当前对局的 scores，单独用 scoresRes 的最新数据来保证一致性
       const { data: allFinishedScores } = await db.collection('scores')
-        .where({ groupId, points: db.command.neq(null) })
+        .where({ groupId, matchId: db.command.neq(matchId), points: db.command.neq(null) })
         .limit(1000)
         .get();
 
-      // 按 userId 累加总积分
+      // 按 userId 累加总积分（先累加历史对局）
       const totalPointsMap = {};
       allFinishedScores.forEach(s => {
         totalPointsMap[s.userId] = (totalPointsMap[s.userId] || 0) + (s.points || 0);
+      });
+      // 再加上本局的 points（从 scoresRes 取，保证数据是最新的）
+      scoresRes.data.forEach(s => {
+        if (s.points !== null && s.points !== undefined) {
+          totalPointsMap[s.userId] = (totalPointsMap[s.userId] || 0) + (s.points || 0);
+        }
       });
 
       const rawScores = scoresRes.data.map(s => ({
