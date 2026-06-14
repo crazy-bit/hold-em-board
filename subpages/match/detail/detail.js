@@ -78,10 +78,21 @@ Page({
 
       // 查询该 group 下所有已完成对局的积分，用于计算每人总积分
       // 排除当前对局的 scores，单独用 scoresRes 的最新数据来保证一致性
-      const { data: allFinishedScores } = await db.collection('scores')
-        .where({ groupId, matchId: db.command.neq(matchId), points: db.command.neq(null) })
-        .limit(1000)
-        .get();
+      // 注意：小程序端单次 get 上限 20 条，.limit(1000) 在客户端无效，必须分页取全
+      const allFinishedScores = [];
+      const PAGE_SIZE = 20;
+      let offset = 0;
+      // eslint-disable-next-line no-constant-condition
+      while (true) {
+        const { data } = await db.collection('scores')
+          .where({ groupId, matchId: db.command.neq(matchId), points: db.command.neq(null) })
+          .skip(offset)
+          .limit(PAGE_SIZE)
+          .get();
+        allFinishedScores.push(...data);
+        if (data.length < PAGE_SIZE) break;
+        offset += data.length;
+      }
 
       // 按 userId 累加总积分（先累加历史对局）
       const totalPointsMap = {};
