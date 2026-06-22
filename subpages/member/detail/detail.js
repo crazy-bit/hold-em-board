@@ -27,14 +27,25 @@ Page({
 
       const memberInfo = memberRes.data[0] || { nickName: '未知成员' };
 
-      // 获取该成员在该组的所有分数记录
-      const scoresRes = await db.collection('scores')
-        .where({ groupId, userId })
-        .orderBy('updatedAt', 'desc')
-        .get();
+      // 获取该成员在该组的所有分数记录（分页取全，突破客户端 20 条限制）
+      const PAGE_SIZE = 20;
+      const allScores = [];
+      let offset = 0;
+      // eslint-disable-next-line no-constant-condition
+      while (true) {
+        const { data } = await db.collection('scores')
+          .where({ groupId, userId })
+          .orderBy('updatedAt', 'desc')
+          .skip(offset)
+          .limit(PAGE_SIZE)
+          .get();
+        allScores.push(...data);
+        if (data.length < PAGE_SIZE) break;
+        offset += data.length;
+      }
 
       // 获取对应对局信息
-      const matchIds = [...new Set(scoresRes.data.map(s => s.matchId))];
+      const matchIds = [...new Set(allScores.map(s => s.matchId))];
       let matchMap = {};
 
       if (matchIds.length > 0) {
@@ -46,7 +57,7 @@ Page({
 
       // 只统计已完成对局的积分，按对局时间倒排
       let totalPoints = 0;
-      const scores = scoresRes.data
+      const scores = allScores
         .filter(s => {
           const match = matchMap[s.matchId];
           return match && match.status !== 'cancelled';

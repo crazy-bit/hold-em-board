@@ -147,17 +147,30 @@ Page({
     }
   },
 
-  /** 分批获取所有 scores（突破 20 条限制） */
+  /** 分页获取所有 scores（突破客户端 20 条限制）
+   *  小程序端单次 get() 上限 20 条，.limit(N>20) 无效，
+   *  必须用 .skip(offset).limit(20) 循环取全。
+   *  matchIds 超过 30 个时同样分批 in 查询，避免 in 条件过长。
+   */
   async _getAllScores(db, matchIds) {
-    const batchSize = 20;
+    const IN_BATCH = 30;   // in 条件每批最多 30 个 matchId
+    const PAGE_SIZE = 20;  // 客户端单次最多 20 条
     let allScores = [];
-    for (let i = 0; i < matchIds.length; i += batchSize) {
-      const batch = matchIds.slice(i, i + batchSize);
-      const { data } = await db.collection('scores')
-        .where({ matchId: db.command.in(batch) })
-        .limit(100)
-        .get();
-      allScores = allScores.concat(data);
+
+    for (let i = 0; i < matchIds.length; i += IN_BATCH) {
+      const batch = matchIds.slice(i, i + IN_BATCH);
+      let offset = 0;
+      // eslint-disable-next-line no-constant-condition
+      while (true) {
+        const { data } = await db.collection('scores')
+          .where({ matchId: db.command.in(batch) })
+          .skip(offset)
+          .limit(PAGE_SIZE)
+          .get();
+        allScores = allScores.concat(data);
+        if (data.length < PAGE_SIZE) break;
+        offset += data.length;
+      }
     }
     return allScores;
   },
