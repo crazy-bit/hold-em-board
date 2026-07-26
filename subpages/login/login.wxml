@@ -41,4 +41,9 @@
       {{loading ? '登录中...' : '开始使用'}}
     </button>
   </view>
+
+  <!-- 游客浏览入口：不登录也可浏览主体功能 -->
+  <view class="guest-entry" bindtap="onGuestBrowse">
+    <text class="guest-entry-text">先逛逛（游客浏览）›</text>
+  </view>
 </view>

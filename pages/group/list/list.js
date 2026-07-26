@@ -36,6 +36,12 @@ Page({
 
   async checkLoginAndLoad() {
     this._loading = true;
+    // 游客浏览模式：用户主动选择"先逛逛"，强制展示游客态，不静默登录识别身份
+    if (app.globalData.isGuest && !app.globalData.openId) {
+      this.setData({ loading: false, isLoggedIn: false });
+      this._loading = false;
+      return;
+    }
     if (!app.globalData.openId) {
       // 未登录，先尝试静默登录
       try {

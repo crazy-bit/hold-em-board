@@ -3,6 +3,7 @@ App({
   globalData: {
     userInfo: null,
     openId: null,
+    isGuest: false, // 游客浏览模式：未登录时可浏览，但禁止创建/加入/分享
   },
 
   onLaunch() {

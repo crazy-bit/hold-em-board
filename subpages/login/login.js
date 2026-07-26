@@ -114,6 +114,7 @@ Page({
 
       if (res.result && res.result.code === 0) {
         app.globalData.openId = res.result.openId;
+        app.globalData.isGuest = false; // 登录成功，退出游客模式
         app.globalData.userInfo = {
           openId: res.result.openId,
           nickName: res.result.nickName,
@@ -149,5 +150,11 @@ Page({
     } else {
       wx.switchTab({ url: '/pages/group/list/list' });
     }
+  },
+
+  // 游客浏览：不登录进入首页，可浏览主体功能，但禁止创建/加入/分享
+  onGuestBrowse() {
+    app.globalData.isGuest = true;
+    wx.switchTab({ url: '/pages/index/index' });
   },
 });

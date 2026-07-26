@@ -48,6 +48,15 @@ Page({
     const t0 = Date.now();
     console.log('[首页] loadHomeSummary 开始', t0);
 
+    // 游客浏览模式：用户主动选择"先逛逛"，强制展示游客态，不静默登录识别身份
+    if (app.globalData.isGuest && !app.globalData.openId) {
+      console.log('[首页] 游客浏览模式，展示游客态');
+      this.setData({ loading: false, isLoggedIn: false });
+      this._loading = false;
+      this._hasLoaded = true;
+      return;
+    }
+
     // 登录检查：未登录不强制跳转，改为展示游客态
     if (!app.globalData.openId) {
       try {

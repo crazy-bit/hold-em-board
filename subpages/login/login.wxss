@@ -131,3 +131,15 @@
 .btn-login::after {
   border: none;
 }
+
+.guest-entry {
+  margin-top: 40rpx;
+  padding: 16rpx;
+  text-align: center;
+}
+
+.guest-entry-text {
+  font-size: 28rpx;
+  color: rgba(255, 255, 255, 0.7);
+}
+
