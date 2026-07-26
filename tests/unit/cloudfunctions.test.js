@@ -225,40 +225,86 @@ describe('createMatch - 统一初始筹码与初始状态名次逻辑', () => {
 });
 
 // ─────────────────────────────────────────────────────────────
-// saveScore 权限校验逻辑测试
+// saveScore 真实云函数权限与状态校验
 // ─────────────────────────────────────────────────────────────
-describe('saveScore - 输入校验逻辑', () => {
-  function validateSaveScore({ scoreId, finalChips }) {
-    if (!scoreId) return { valid: false, msg: 'scoreId 不能为空' };
-    if (finalChips === null || finalChips === undefined || isNaN(Number(finalChips))) {
-      return { valid: false, msg: '结算筹码不能为空' };
-    }
-    if (Number(finalChips) < 0) {
-      return { valid: false, msg: '结算筹码不能为负数' };
-    }
-    return { valid: true };
+describe('saveScore 云函数', () => {
+  function setup({ openId, scoreUserId = 'member', adminId = 'admin', matchStatus = 'active' }) {
+    jest.resetModules();
+    const mockCloud = require('wx-server-sdk');
+    const scoreUpdate = jest.fn().mockResolvedValue({ stats: { updated: 1 } });
+    const records = {
+      scores: { score1: { _id: 'score1', userId: scoreUserId, groupId: 'group1', matchId: 'match1' } },
+      groups: { group1: { _id: 'group1', adminId } },
+      matches: { match1: { _id: 'match1', status: matchStatus } },
+    };
+    const db = {
+      serverDate: jest.fn(() => 'server-date'),
+      collection: jest.fn((name) => ({
+        doc: jest.fn((id) => ({
+          get: jest.fn().mockResolvedValue({ data: records[name][id] }),
+          update: name === 'scores' ? scoreUpdate : jest.fn(),
+        })),
+      })),
+    };
+
+    mockCloud.getWXContext.mockReturnValue({ OPENID: openId });
+    mockCloud.database.mockReturnValue(db);
+    const handler = require('../../cloudfunctions/saveScore/index').main;
+    return { handler, db, scoreUpdate };
   }
 
-  it('scoreId 为空时校验失败', () => {
-    expect(validateSaveScore({ scoreId: '', finalChips: 1000 }).valid).toBe(false);
+  it('拒绝缺少 scoreId 或非法结算积分', async () => {
+    const { handler, scoreUpdate } = setup({ openId: 'member', scoreUserId: 'member' });
+
+    await expect(handler({ finalChips: 1000 })).resolves.toEqual({ code: -1, msg: 'scoreId 不能为空' });
+    await expect(handler({ scoreId: 'score1', finalChips: null })).resolves.toEqual({ code: -1, msg: '结算积分不能为空' });
+    await expect(handler({ scoreId: 'score1', finalChips: 'abc' })).resolves.toEqual({ code: -1, msg: '结算积分不能为空' });
+    expect(scoreUpdate).not.toHaveBeenCalled();
   });
 
-  it('finalChips 为 null 时校验失败', () => {
-    expect(validateSaveScore({ scoreId: 'sid', finalChips: null }).valid).toBe(false);
+  it('本人可以修改进行中对局的分数', async () => {
+    const { handler, db, scoreUpdate } = setup({ openId: 'member', scoreUserId: 'member' });
+
+    await expect(handler({ scoreId: 'score1', finalChips: '1200' })).resolves.toEqual({ code: 0 });
+    expect(scoreUpdate).toHaveBeenCalledWith({
+      data: { finalChips: 1200, updatedAt: 'server-date' },
+    });
+    expect(db.collection.mock.calls.map(([name]) => name)).not.toContain('groups');
   });
 
-  it('finalChips 为负数时校验失败', () => {
-    expect(validateSaveScore({ scoreId: 'sid', finalChips: -100 }).valid).toBe(false);
+  it('管理员可以代填同组其他成员的分数', async () => {
+    const { handler, scoreUpdate } = setup({ openId: 'admin', scoreUserId: 'member', adminId: 'admin' });
+
+    await expect(handler({ scoreId: 'score1', finalChips: -100 })).resolves.toEqual({ code: 0 });
+    expect(scoreUpdate).toHaveBeenCalledWith({
+      data: { finalChips: -100, updatedAt: 'server-date' },
+    });
   });
 
-  it('finalChips 为非数字字符串时校验失败', () => {
-    expect(validateSaveScore({ scoreId: 'sid', finalChips: 'abc' }).valid).toBe(false);
+  it('拒绝非本人且非管理员修改他人分数', async () => {
+    const { handler, scoreUpdate } = setup({ openId: 'outsider', scoreUserId: 'member', adminId: 'admin' });
+
+    await expect(handler({ scoreId: 'score1', finalChips: 800 })).resolves.toEqual({
+      code: -1,
+      msg: '只有本人或管理员可以修改分数',
+    });
+    expect(scoreUpdate).not.toHaveBeenCalled();
   });
 
-  it('合法输入通过校验', () => {
-    expect(validateSaveScore({ scoreId: 'sid', finalChips: 1200 }).valid).toBe(true);
-    expect(validateSaveScore({ scoreId: 'sid', finalChips: 0 }).valid).toBe(true);
-    expect(validateSaveScore({ scoreId: 'sid', finalChips: '1200' }).valid).toBe(true);
+  it('本人和管理员都不能修改已结束对局', async () => {
+    const owner = setup({ openId: 'member', scoreUserId: 'member', matchStatus: 'finished' });
+    await expect(owner.handler({ scoreId: 'score1', finalChips: 800 })).resolves.toEqual({
+      code: -1,
+      msg: '对局已结束，无法修改分数',
+    });
+    expect(owner.scoreUpdate).not.toHaveBeenCalled();
+
+    const admin = setup({ openId: 'admin', scoreUserId: 'member', adminId: 'admin', matchStatus: 'finished' });
+    await expect(admin.handler({ scoreId: 'score1', finalChips: 800 })).resolves.toEqual({
+      code: -1,
+      msg: '对局已结束，无法修改分数',
+    });
+    expect(admin.scoreUpdate).not.toHaveBeenCalled();
   });
 });
 

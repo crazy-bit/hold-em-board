@@ -1,5 +1,15 @@
 <!-- pages/score/input/input.wxml -->
 <view class="container">
+  <!-- 管理员代填提示 -->
+  <view class="card admin-fill-tip" wx:if="{{identityReady && isFillingForOther}}">
+    <text class="admin-fill-text">正在为 {{targetNickName}} 填写分数</text>
+  </view>
+
+  <!-- 无权限提示 -->
+  <view class="card permission-tip" wx:if="{{identityReady && !canEdit}}">
+    <text class="permission-tip-text">只有本人或管理员可以修改该分数</text>
+  </view>
+
   <!-- 当前信息 -->
   <view class="card info-card">
     <view class="info-row">
@@ -18,7 +28,7 @@
     <t-input
       label="结算积分"
       type="digit"
-      placeholder="输入你的结算积分"
+      placeholder="{{isFillingForOther ? '输入该成员的结算积分' : '输入你的结算积分'}}"
       value="{{finalChips}}"
       bind:change="onChipsInput"
       clearable
@@ -39,7 +49,7 @@
     shape="round"
     style="margin-top:48rpx;"
     bindtap="saveScore"
-    disabled="{{saving || finalChips === '' || finalChips === '-'}}"
+    disabled="{{!identityReady || !canEdit || saving || finalChips === '' || finalChips === '-'}}"
     loading="{{saving}}"
   >
     保存

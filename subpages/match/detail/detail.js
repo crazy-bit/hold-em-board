@@ -147,15 +147,15 @@ Page({
   },
 
   goInputScore(e) {
-    const { match } = this.data;
+    const { match, isAdmin } = this.data;
     if (match.status !== 'active') return;
 
     const openId = app.globalData.openId;
     const userId = e.currentTarget.dataset.userid;
     const scoreId = e.currentTarget.dataset.scoreid;
 
-    // 只能填写自己的分数
-    if (userId !== openId) {
+    // 本人或管理员可填写分数
+    if (userId !== openId && !isAdmin) {
       showToast({ context: this, selector: '#t-toast', message: '只能填写自己的分数', theme: 'warning' });
       return;
     }

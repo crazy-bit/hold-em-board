@@ -1,4 +1,5 @@
 // pages/score/input/input.js
+const app = getApp();
 let Toast;
 try { Toast = require('tdesign-miniprogram/toast/index'); } catch(e) { Toast = null; }
 function showToast(opts) {
@@ -18,6 +19,12 @@ Page({
     previewPoints: 0,
     saving: false,
     bonusCountsToTotal: false,
+    isSelf: false,
+    isAdmin: false,
+    canEdit: false,
+    identityReady: false,
+    isFillingForOther: false,
+    targetNickName: '',
   },
 
   onLoad(options) {
@@ -25,24 +32,50 @@ Page({
     this.loadScore();
   },
 
+  async ensureOpenId() {
+    if (app.globalData.openId) return app.globalData.openId;
+
+    const res = await wx.cloud.callFunction({ name: 'login', data: {} });
+    if (!res.result || res.result.code !== 0 || !res.result.openId) {
+      throw new Error((res.result && res.result.msg) || '获取登录身份失败');
+    }
+
+    const { openId, nickName, avatarUrl } = res.result;
+    app.globalData.openId = openId;
+    app.globalData.userInfo = { openId, nickName, avatarUrl };
+    return openId;
+  },
+
   async loadScore() {
-    const { scoreId, groupId } = this.data;
+    const { scoreId } = this.data;
     const db = wx.cloud.database();
 
     try {
-      // 并行查询分数记录和组团规则
-      const queries = [db.collection('scores').doc(scoreId).get()];
-      if (groupId) {
-        queries.push(db.collection('groups').doc(groupId).get());
-      }
-      const results = await Promise.all(queries);
+      const openId = await this.ensureOpenId();
+      const scoreRes = await db.collection('scores').doc(scoreId).get();
+      const score = scoreRes.data;
+      if (!score || !score.groupId) throw new Error('分数记录不存在');
 
-      const score = results[0].data;
-      const bonusCountsToTotal = results[1] ? (results[1].data.bonusCountsToTotal || false) : false;
+      // 权限关联以分数记录中的 groupId 为准，不信任页面参数。
+      const groupRes = await db.collection('groups').doc(score.groupId).get();
+      const group = groupRes.data;
+      if (!group) throw new Error('记分组不存在');
+
+      const isSelf = score.userId === openId;
+      const isAdmin = group.adminId === openId;
+      const canEdit = isSelf || isAdmin;
+      const isFillingForOther = isAdmin && !isSelf;
 
       this.setData({
+        groupId: score.groupId,
         score,
-        bonusCountsToTotal,
+        bonusCountsToTotal: group.bonusCountsToTotal || false,
+        isSelf,
+        isAdmin,
+        canEdit,
+        identityReady: true,
+        isFillingForOther,
+        targetNickName: isFillingForOther ? (score.nickName || '其他成员') : '',
         finalChips: score.finalChips !== null && score.finalChips !== undefined
           ? String(score.finalChips)
           : '',
@@ -52,7 +85,8 @@ Page({
         this.calcPreview(score.finalChips);
       }
     } catch (err) {
-      showToast({ context: this, selector: '#t-toast', message: '加载失败', theme: 'error' });
+      this.setData({ identityReady: false, canEdit: false, isFillingForOther: false });
+      showToast({ context: this, selector: '#t-toast', message: err.message || '加载失败', theme: 'error' });
     }
   },
 
@@ -85,7 +119,11 @@ Page({
   },
 
   async saveScore() {
-    const { scoreId, finalChips } = this.data;
+    const { scoreId, finalChips, canEdit } = this.data;
+    if (!canEdit) {
+      showToast({ context: this, selector: '#t-toast', message: '只有本人或管理员可以修改分数', theme: 'warning' });
+      return;
+    }
     if (finalChips === '' || isNaN(Number(finalChips))) return;
 
     this.setData({ saving: true });

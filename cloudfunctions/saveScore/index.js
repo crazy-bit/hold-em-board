@@ -7,7 +7,7 @@ const db = cloud.database();
 
 /**
  * 保存/更新分数记录云函数
- * 仅允许用户修改自己的分数记录
+ * 允许用户修改自己的分数记录，或由组团管理员（创建者）代填他人分数
  */
 exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext();
@@ -29,9 +29,13 @@ exports.main = async (event, context) => {
     const scoreRes = await db.collection('scores').doc(scoreId).get();
     const score = scoreRes.data;
 
-    // 验证是否为本人记录
+    // 验证权限：本人或组团管理员可修改
     if (score.userId !== userId) {
-      return { code: -1, msg: '只能修改自己的分数记录' };
+      // 非本人，检查是否为该组团的管理员
+      const groupRes = await db.collection('groups').doc(score.groupId).get();
+      if (groupRes.data.adminId !== userId) {
+        return { code: -1, msg: '只有本人或管理员可以修改分数' };
+      }
     }
 
     // 验证对局是否仍在进行中
